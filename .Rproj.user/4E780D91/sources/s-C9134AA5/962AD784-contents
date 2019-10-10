@@ -1,0 +1,156 @@
+rm(list=ls())
+
+#get adjacency matrix for 100 by 100 grid
+library(igraph)
+library(sf)
+library(raster)
+
+setwd("C:/Dropbox/CWD/cwd_covariates/")
+load("Data/coreNLCD.RData")
+load("Data/harvestIntensity_awm.RData")
+load("Data/soilPCA.RData")
+
+#subset data to match extent of harvest data
+harvestExists=which(!apply(harvest_df@data,1,anyNA))
+# 
+# nlcd_df=nlcd_df[harvestExists,]
+# harvest_df=harvest_df[harvestExists,]
+# soil_df=soil_df[harvestExists,]
+
+#make 50 by 50 raster overlaying study area
+coarseGrid=raster::raster(extent(nlcd_df),nrows=50,ncols=50)
+coarseGrid=raster::rasterToPolygons(coarseGrid)
+coarseGrid=SpatialPolygons(coarseGrid@polygons)
+crs(coarseGrid)=crs(nlcd_df)
+
+nlcd_agg=aggregate(nlcd_df,coarseGrid,FUN=sum)
+harvest_agg=aggregate(harvest_df[harvestExists,],coarseGrid,FUN=mean)
+soil_agg=aggregate(soil_df,coarseGrid,FUN=mean)
+
+#figure out which grid cells of coarseGrid contain part of the subset grid
+harvestPoints=SpatialPoints(coordinates(harvest_df[harvestExists,]),proj4string = crs(harvest_df))
+keep=unique(over(harvestPoints,coarseGrid))
+
+nlcd_agg=nlcd_agg[keep,]
+harvest_agg=harvest_agg[keep,]
+soil_agg=soil_agg[keep,]
+
+nlcd_df=nlcd_agg
+harvest_df=harvest_agg
+soil_df=soil_agg
+
+A=get.adjacency(make_lattice(c(50,50)))[keep,][,keep]
+
+
+#make plots
+# for (i in names(soil_df)){
+#   plot(as(soil_df[i],"sf"),border=NA,main=i)
+# }
+# for (i in names(harvest_df)){
+#   plot(as(harvest_df[i],"sf"),border=NA,main=i)
+# }
+# for (i in names(nlcd_df)){
+#   plot(as(nlcd_df[i],"sf"),border=NA,main=i)
+# }
+
+#convert nlcd data to proportions (from counts of 900m^2 grid cells)
+for (i in 1:dim(nlcd_df@data)[1]){
+  nlcd_df@data[i,]=nlcd_df@data[i,]/sum(nlcd_df@data[i,])
+}
+
+# for (i in names(nlcd_df)){
+#   plot(as(nlcd_df[i],"sf"),border=NA,main=i)
+# }
+
+################
+#number of years to run the diffusion
+nYear=20
+
+#number of steps per year
+nYearSteps=1
+
+harvestIntensity=NULL
+for (i in 1:nYear){
+  intensity=NULL
+  if (i>dim(harvest_df)[2]){
+    intensity=harvest_df@data[,dim(harvest_df)[2]]
+  }
+  if (i<=dim(harvest_df)[2]){
+    intensity=harvest_df@data[,i]
+  }
+  for (j in 1:nYearSteps){
+    harvestIntensity=c(harvestIntensity,intensity)    
+  }
+}
+
+#X landcover
+X_nlcd=NULL
+for (i in 1:nYear){
+  for (j in 1:nYearSteps){
+    X_nlcd=rbind(X_nlcd,cbind(nlcd_df[c("Hay.Pasture","Deciduous_Forest")]@data,soil_df["river"]@data))
+  }  
+}
+
+X=cbind(rep(1,dim(X_nlcd)[1]),X_nlcd,scale(harvestIntensity)[,1])
+colnames(X)<-c("Intercept",colnames(X_nlcd),"harvestIntensity_scaled")
+
+
+
+#################
+#identify deer with location and time
+library(lubridate)
+
+#original data in longlat: "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+cwd=read.csv("C:/Dropbox/CWD/Data/CWD_alldeer_2001_2015_section.csv")
+#y=as.numeric(cwd$Positive=="Y")
+cwd=cwd[!is.na(cwd$long),]
+dates=mdy(as.character(cwd$Kill.Date))
+haveDates=which(!is.na(dates))
+cwd=cwd[haveDates,]
+dates=dates[haveDates]
+dates=year(dates)-2000
+cwd=cbind(cwd,dates)
+cwd=cwd[cwd$dates>1,]
+
+df=SpatialPoints(cbind(cwd$long,cwd$lat),proj4string = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+df=spTransform(df,CRSobj=raster::crs(nlcd_df))
+
+harvest_SP=SpatialPolygons(harvest_df@polygons,proj4string = crs(harvest_df))
+inside=over(df,harvest_SP)
+
+cwd=cwd[which(!is.na(inside)),]
+df=df[which(!is.na(inside)),]
+inside=inside[which(!is.na(inside))]
+
+steps=nYear*nYearSteps
+
+y=rep(0,length(inside))
+slot=rep(0,length(inside))
+year=slot
+point=slot
+
+#start in 2002
+
+for (i in 1:length(inside)){
+  slot[i]=nYearSteps*(cwd$dates[i]-2)*length(harvest_SP)+inside[i]
+  y[i]=as.numeric(as.character(cwd$Positive[i])=="Y")
+  year[i]=cwd$dates[i]-1
+  point[i]=inside[i]
+}
+y_df=data.frame(y=y,year=year,point=point)
+yIndices=slot
+
+longLats=SpatialPoints(coordinates(nlcd_df),proj4string = crs(nlcd_df))
+longLats=spTransform(longLats,CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+X=as.matrix(X)
+
+#remove y on boundary
+keep=which((colSums(A)[y_df$point])==4)
+y=y[keep]
+yIndices=yIndices[keep]
+y_df=y_df[keep,]
+
+nlcd_red=nlcd_df
+harvest_red=harvest_df
+soil_red=soil_df
+save(harvest_red,nlcd_red,soil_red,longLats,A,X,y_df,yIndices,y,file="Data/analysisCovariates.RData")

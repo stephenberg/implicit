@@ -1,0 +1,170 @@
+---
+title: "Chapter 3"
+author: "Statistics 571"
+date: "Fall 2019"
+output: pdf_document
+---
+  
+# Simulating Data in R
+
+Computer simulations provide a powerful set of tools for studying statistical ideas. In particular, simulations can be used to study various statistical methods, especially when mathematical or theoretical approaches are not available. Frequently, the math gets so hard that simulations are the only way we can study a method of interest.
+
+Most simulations follow a similar format and the results of a few examples appear in Chapter 4. In general, we start by assuming that we know the population. We then take a random sample from that population, and calculate something for that sample, like the mean. Of course, the result of this is random, because it is based on a random sample. To study things in greater generality, we repeat the sampling many times.
+
+# Normal population $X\sim N(5,49)$
+
+Here is a small example. In this example, we will sample 3 observations from $N(5, 49)$ using the \texttt{rnorm()} function in R, and calculate the mean of these 3 observations. We will repeat this sampling, so at the end we will have 2 samples, each with 3 observations, and for each sample, we will have computed the sample mean.
+
+```{r,echo=FALSE}
+set.seed(33)
+```
+
+```{r,comment=NA}
+# we will store our 2 samples with n=3 in a matrix with 3 rows and 2 columns
+samples=matrix(0,3,2)
+samples
+
+#we set the first and second columns to be 3 random draws with mean 5 and variance 49
+for (i in 1:2){
+  samples[,i]=rnorm(n=3, mean=5, sd=sqrt(49))
+}
+
+samples
+```
+
+The sample means in the first and second samples: 
+```{r,comment=NA}
+#the first sample
+samples[,1]
+
+#mean
+mean(samples[,1])
+mean(samples[,2])
+```
+
+# Normal population $N(2.0, 0.25)$
+
+Here is a more complicated example that is featured in Chapter 4 of the course reference notes. Suppose we have a sample of 20 observations from the $N(2.0, 0.25)$ distribution, and we calculate the sample mean for these observations. Our theory says that the sample mean should follow a normal distribution with a mean of 2.0 and a variance of 0.25/20=0.0125. We will perform a simulation to check that idea. Starting as above, we fill a matrix with 5000 samples of size 20 from a $N(2.0, 0.25)$ distribution:
+
+```{r,comment=NA}
+# we will store our 5000 samples with n=20 in a matrix with 20 rows and 5000 columns
+samples=matrix(0,20,5000)
+
+#making each of the 5000 columns a sample of size 20 from N(2,0.25)
+for (i in 1:5000){
+  samples[,i]=rnorm(n=20, mean=2, sd=sqrt(0.25))
+}
+
+#computing the sample mean for each sample
+sampleMeans=apply(samples,2,mean)
+
+#checking to see that the apply() function worked properly 
+#comparing the mean computed using the mean function
+#to the mean computed using apply for the 15th sample
+mean(samples[,15])
+
+#the mean computed using apply()
+sampleMeans[15]
+```
+
+Why did we choose 5000 for the number of samples? Recall that our goal is to study the sample mean based on a sample of 20 observations. Each column in the data set is a new set of 20 observations, and the sample mean for the $i$th sample is contained in the $i$th entry of the vector \texttt{sampleMeans}. 
+
+Suppose we only did this 4 times, so we had 4 sample means (instead of 5000). Our particular purpose in this simulation is to see whether these 4 sample means look like they came from a normal distribution with mean 2.0 and variance 0.0125. I did this, and the sample means that I got were (rounded off to two decimals) 1.99, 2.12, 2.19, and 2.04. Do these seem like they are observations from $N(2.0, 0.0125)$? They could be, but on the other hand, with 4 values it is pretty difficult to draw much of a conclusion. As a result, we simulate many more times, hoping to get a better quality answer.
+
+We have just simulated a lot of data in the code above! Our interest is in the sample means stored in the \texttt{sampleMeans} vector. We can make a histogram of these sample means:
+
+```{r,echo=FALSE}
+#making a density histogram of the sample means
+hist(sampleMeans, xlab="Xbar", main="Histogram of sample means", freq=FALSE)
+```
+
+Our theory says this is supposed to look like a normal distribution with mean 2.0 and variance 0.0125 (and standard deviation 0.1118). The histogram seems to agree with this. We can also calculate some numerical summaries to check. Using RStudio we see that the average of the 5000 sample means is 1.998, and the standard deviation is 0.1113. This is quite close to what the theory says should happen. (If you duplicate this work, you might get slightly different results because of the randomness in a simulation.)
+
+
+Put more broadly, our theory says that if we sample some observations from a normal distribution and calculate the sample mean, then the sample mean will look like it comes from a normal distribution. That is: if we repeat this many times, and therefore get many random sample means, then a histogram of those many sample means will look normal. Normal data result in normal means.
+
+# Central limit theorem
+
+Our previous theory says that if we sample observations from a normal distribution and calculate the sample mean, then the sample mean will look like it comes from a normal distribution. Now, suppose the population that we are sampling from is not a normal population, but follows some other shape. What happens then to the distribution of the sample mean? It depends on the size of the sample. We will look at this in two examples.
+There are many different possible models for data; the normal distribution is just one of them. Another model that we will encounter in this class is the binomial distribution. 
+
+What is a binomial random variable? Imagine $n$ independent coin flips with two possible sides of the coin: Heads and Tails. Assume for each coin flip the probability of Heads is $p$ ($p=0.5$ for a fair, unbiased coin). Define the random variable $X$ to be the number of Heads in $n$ flips. For example, if we flip a fair, unbiased coin 10 times and record the number of Heads as $X$, then $X\sim B(10,0.5)$.
+
+We will sometimes refer to the outcome corresponding to $1$ (Heads, in our example) as a success and the outcome corresponding to $0$ as a failure. Hence, $p$ is the success probability or probability of success. 
+
+To sample from a binomial distribution in R, we use the \texttt{rbinom()} function. We will generate 1000 samples of a binomial R.V. with sample size 10 flips each, and probability of success $p=0.5$:
+
+```{r,comment=NA}
+#1000 samples of 10 coin flips with probability of success 0.5
+flips=rbinom(n=1000, size=10, prob = 0.5)
+
+#the first 6 samples
+head(flips)
+```
+
+```{r,echo=FALSE}
+hist(flips,xlab="Number of successes",main="Histogram of binomial samples with p=0.5",breaks=c(0,1,2,3,4,5,6,7,8,9,10))
+```
+
+The histogram above is an approximation of a binomial distribution with 10 trials and probability 0.5 of success. We will describe the exact mathematical form of a binomial distribution at a later time. Note, however, that the bell-shaped histogram resembles a normal distribution. What would you guess the mean and standard deviation to be?
+
+Now, we will repeat the procedure above, but this time set the success probability to be $p=0.1$.
+
+```{r,echo=FALSE}
+flips=rbinom(n=1000, size=10, prob=0.1)
+```
+
+```{r,echo=FALSE}
+hist(flips,xlab="Number of successes",main="Histogram of binomial samples with p=0.1",breaks=c(0,1,2,3,4,5,6,7,8,9,10))
+```
+
+As before, this histogram is an approximation of a binomial distribution with 10 trials and success probability 0.1. It seems reasonable to conclude that a binomial distribution with 10 trials and 0.1 success probability represents a population that is far from normal, and in fact is skewed (which way-right or left-is it skewed?).
+
+Suppose we take a sample of size 5 from this skewed binomial distribution, and calculate the sample mean. What does the distribution of the sample mean look like?
+
+\textbf{Note:} When we say a sample of 5, we mean our sample will contain 5 binomial random variables with $n=10$. The notation with binomial sample size can be a bit confusing. The $n$ used in the notation for a $Bin(n,p)$ R.V. is related to but not the same as the usual $n$ indicating the sample size. 
+
+```{r,echo=FALSE}
+# we will store 1000 samples each containing 5 Bin(10,0.1) R.V.'s in a matrix with 5 rows and 1000 columns
+samples=matrix(0,5,1000)
+
+# filling each column with 5 binomial random variable draws
+for (i in 1:1000){
+  samples[,i]=rbinom(n=5, size=10, prob=0.1)
+}
+
+```
+
+```{r,echo=FALSE}
+#computing the sample mean for each sample
+sampleMeans=apply(samples,2,mean)
+
+hist(sampleMeans,xlab="Xbar",main="Xbar for the Bin(10,0.1), with n=5")
+```
+
+This is clearly right-skewed, although perhaps not as much as you might expect.
+A mathematical theorem, known as the central limit theorem (CLT), says that if the sample size is large enough, then even if the original population is not normal, the sample mean will still be approximately normal.
+
+The work we did above says that a sample of size 5 is not large enough for the sample mean to be very close to normal. What happens if we increase the sample size to 100? Again, we will sample from a binomial distribution with 10 trials and 0.1 success probability. But this time we obtain 100 observations per sample, and do this for a total of 1000 samples.
+
+```{r,echo=FALSE}
+# we will store 1000 samples of 100 Bin(10,0.1) R.V.'s in a matrix with 100 rows and 1000 columns
+samples=matrix(0,100,1000)
+
+# filling each column with 100 binomial random variable draws
+for (i in 1:1000){
+  samples[,i]=rbinom(n=100, size=10, prob=0.1)
+}
+
+```
+
+```{r,echo=FALSE}
+#computing the sample mean for each sample
+sampleMeans=apply(samples,2,mean)
+
+hist(sampleMeans,xlab="Xbar",main="Xbar for the Bin(10,0.1), with n=100",breaks=15)
+```
+
+This looks closer to a normal distribution than the sample means taken over 5 observations.
+
+From the simulations thus far, we can draw three conclusions: (1) if the data are normal with mean 2.0 and variance 0.25, then the sample mean of 20 observations follows a normal distribution with mean 2.0 and variance 0.0125; (2) if the data are binomial with 10 trials and 0.1 success probability and we have a sample of size 5, then the sample mean does not seem to follow a normal distribution very well; (3) if the sample size is increased to 100, then the sample mean does look quite close to normal. The first conclusion can be predicted by mathematical statistical theory. But, no theory leads us directly to the second and third conclusions, as the CLT merely states that the distribution of the sample mean gets closer to a normal distribution as the sample size gets larger, but it does not tell us how large this sample size needs to be. Our simulations, therefore, have given us information that we could not derive any other way.

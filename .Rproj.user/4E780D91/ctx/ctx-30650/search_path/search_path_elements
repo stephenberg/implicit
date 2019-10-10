@@ -1,0 +1,15 @@
+.GlobalEnv
+package:viridis
+package:viridisLite
+package:spatial
+package:ggplot2
+package:sp
+tools:rstudio
+package:stats
+package:graphics
+package:grDevices
+package:utils
+package:datasets
+package:methods
+Autoloads
+package:base

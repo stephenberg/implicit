@@ -1,0 +1,98 @@
+---
+title: "Chapter 4"
+author: "Statistics 571"
+date: "Fall 2019"
+output: pdf_document
+---
+
+#T Distribution: Computing Probabilities and Quantiles
+
+We outline how to obtain probabilities and quantiles of a random variable that follows a T distribution with m degrees of freedom. We will repeat the computations for the T distribution in section 5.4.1 of the course reference. For the most part, it is straightforward to use R Commander to compute probabilities and quantiles. As a reminder, we strongly encourage students to continue to draw a probability density curve and shade the area under the curve that corresponds to probabilities, as described in the course reference.
+
+##Compute $P(T_9>1.833)$
+
+```{r plot2,fig.height=4,fig.width=4,echo=FALSE,message=FALSE}
+rm(list = ls())
+library(magrittr)
+library(ggplot2)
+library(dplyr)
+
+
+x=seq(-4,4,by=0.001)
+cutoff=1.833
+df =data.frame(x=x,y=dt(x,df=9),area=(x>cutoff))
+df$area[df$area==FALSE]="Not included"
+
+res <- ggplot(data = df, aes(x = x,ymin=0,ymax=y,fill=area)) +
+  geom_ribbon() +
+  geom_line(aes(y = y))+xlab("t")+ylab("Density")+
+  theme_classic(base_size = 20)+
+  guides(fill=FALSE)+scale_fill_manual(values=c("white","black"))
+  #geom_vline(xintercept = cutoff, color = 'red')
+res
+``` 
+
+We will use the \texttt{pt()} function:
+
+```{r,comment=NA}
+pt(1.833,df=9,lower.tail = FALSE)
+1-pt(1.833,df=9)
+```
+
+##Compute $a$ such that $P(T_9>a)= 0.05$
+
+To compute the 0.95 quantile of the $T$ distribution with 9 degrees of freedom, we use the \texttt{qt()} function in $R$
+
+```{r,comment=NA}
+a=qt(p=0.95,df=9)
+a
+
+#checking our answer using pt():
+pt(a,df=9)
+```
+
+#Hypothesis testing and confidence intervals with the T distribution
+
+Using the prairie dog example in Sections 6.1.2 and 6.2.1, we illustrate hypothesis testing and confidence intervals for the mean of a normal population with unknown variance. Recall the ``RChapter2.pdf" document. We import the 12 observations of bark distance of prairie dogs in the urban area from the data file ``dogbRural.txt" and name the data \texttt{pdogbr}
+
+```{r}
+pdogbr=read.table("C:Dropbox/Stat571/RStudioIntro/pdogbRural.txt",header=TRUE)
+```
+```{r,echo=FALSE}
+library(knitr)
+kable(head(pdogbr),caption="The first 6 entries of the pdogbr bark distance dataset")
+```
+
+We will use the \texttt{t.test()} function to perform a 2-sided hypothesis test of $H_0:\;\mu=45$ vs. $H_A:\;\mu\neq 45$, and simultaneously to generate a $100(1-\alpha)\%$ CI at $\alpha=0.05$:
+
+```{r,comment=NA}
+t.test(pdogbr,alternative = "two.sided",mu=45,conf.level = 0.95)
+```
+
+The observed test statistic is $t = 1.8497$ on $df = 11$. The p-value is $0.091$. In addition, the 95% confidence interval for $\mu$ is given as from $44.37$ to $52.30$. When reporting the results, we say that the observed test statistic $t$ is $1.85$ on $11$ df. The p-value is $0.091$. Thus, there is weak evidence against $H_0$. We do not reject $H_0$ at the $\alpha = 0.05$ level, but we would reject at $\alpha=0.1$. Note that the output from R does not indicate whether to reject $H_0$ or not. We also say that the 95% confidence interval is from $44.37$ to $52.30$. Note that the $95\%$ confidence interval contains the null hypothesis mean $\mu=45$. This is what we would expect, since $p=0.091>0.05$.
+
+To change the level of confidence, we simply change the \texttt{conf.level} argument in \texttt{t.test()} to $0.80$, or $0.90$, or $0.99$. For example, to construct a $99\%$ confidence interval, we use
+
+```{r,comment=NA}
+t.test(pdogbr,alternative = "two.sided",mu=45,conf.level = 0.99)
+```
+
+The $99\%$ confidence interval for $\mu$ is from $42.74$ m to $53.93$ m. Note that changing the level of confidence does not affect the testing results (ie, the $t$ test statistic and p-value the same as before).
+
+To change the alternative hypothesis to be one-sided, we adjust the \texttt{alternative} argument. To test $H_0:\;\mu=45$ vs. $H_0:\;\mu>45$, we do
+
+```{r,comment=NA}
+t.test(pdogbr,alternative = "greater",mu=45,conf.level = 0.95)
+```
+
+The observed $t$ test statistic and the df above are the same as before, but the p-value is half of the previous $0.091$. This should not be a surprise, because when we compute the p-value for a two-sided alternative, we double the outer-tail probability.
+
+How about testing $H_0:\mu = 45$ vs. $H_A: \mu > 45$ instead? We make the following change for the alternative hypothesis:
+
+```{r,comment=NA}
+t.test(pdogbr,alternative = "less",mu=45,conf.level = 0.95)
+```
+
+Note that the p-value is one minus the upper tail probability. Again, it is a good idea to draw a picture to help understand why the p-value is $0.9543$.
+
+In class, we focus on confidence intervals with both a lower and an upper bound (or limit). In the one-sided tests above, we see that the confidence interval can have only one bound. The lower bound for the population mean $\mu$ is 45.09701 and there is no upper bound (i.e., the upper bound is infinity Inf) . Conversely, the upper bound for the population mean $\mu$ is 51.56965 and there is no lower bound (i.e., the lower bound is negative infinity -Inf) . Again, we do not consider one-sided confidence bounds in this class, because in practice almost always a confidence interval rather than a confidence bound is used.
