@@ -39,8 +39,8 @@ Eigen::VectorXd solveBiCGSTAB(Eigen::SparseMatrix<double> &lhs,
   solver.setTolerance(tol);
   x=solver.solve(rhs);
   if (print){
-    std::cout << "#iterations:     " << solver.iterations() << std::endl;
-    std::cout << "estimated error: " << solver.error()      << std::endl;
+    Rcout << "#iterations:     " << solver.iterations() << std::endl;
+    Rcout << "estimated error: " << solver.error()      << std::endl;
   }
   return x;
 }
@@ -262,7 +262,7 @@ double adTest(double xIn){
   Rcout<<A_inv.derivatives()<<std::endl;
   //
   // for (int i = 0; i < A_.rows(); i++) {
-  //   std::cout<<A_(i,1).derivatives()<<std::endl;
+  //   Rcout<<A_(i,1).derivatives()<<std::endl;
   // }
   return 0;
 }
