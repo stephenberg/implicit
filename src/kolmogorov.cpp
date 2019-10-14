@@ -58,6 +58,7 @@ Eigen::VectorXd rowSums(Eigen::SparseMatrix<double>& L){
   return rowsums;
 }
 
+
 //[[Rcpp::export]]
 Eigen::VectorXd solveJacobi(Eigen::SparseMatrix<double>& L,
                             Eigen::VectorXd& rhs,
@@ -103,6 +104,7 @@ Eigen::VectorXd solveJacobi(Eigen::SparseMatrix<double>& L,
   return solution;
 }
 
+
 //[[Rcpp::export]]
 void makeLaplacian(Eigen::SparseMatrix<double>& L,
                                           Eigen::VectorXd mu){
@@ -126,6 +128,7 @@ void makeLaplacian(Eigen::SparseMatrix<double>& L,
     }
   }
 }
+
 
 //[[Rcpp::export]]
 void make_I_Laplacian(Eigen::SparseMatrix<double>& I_L,
@@ -246,6 +249,7 @@ std::vector<Eigen::SparseMatrix<double> > lapTest(Eigen::VectorXd params,
   return(val);
 }
 
+
 // [[Rcpp::export]]
 double adTest(double xIn){
   typedef Eigen::AutoDiffScalar<Eigen::VectorXd> adScalar;
@@ -266,6 +270,7 @@ double adTest(double xIn){
   // }
   return 0;
 }
+
 
 // [[Rcpp::export]]
 Eigen::MatrixXd computeDiffusion(Eigen::VectorXd params,

@@ -287,6 +287,7 @@ Eigen::MatrixXd getDiffusionFromAdmat(adMat U_ad){
   return U;
 }
 
+
 //[[Rcpp::export]]
 Rcpp::List logLikelihood_ad(Eigen::VectorXd params,
                      Eigen::MatrixXd X,

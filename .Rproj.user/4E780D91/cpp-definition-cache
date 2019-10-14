@@ -164,14 +164,14 @@
                 "column" : 12,
                 "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
                 "kind" : 6,
-                "line" : 291,
+                "line" : 292,
                 "name" : "logLikelihood_ad(Eigen::VectorXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::SparseMatrix<double>, int, double, Eigen::VectorXi, Eigen::VectorXi)",
                 "parent_name" : "",
                 "usr" : "c:@F@logLikelihood_ad#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#$@N@Eigen@S@SparseMatrix>#d#VI0#I#I#d#$@N@Eigen@S@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S3_#"
             }
         ],
         "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-        "file_last_write" : 1570746671.000000
+        "file_last_write" : 1571031566.000000
     },
     {
         "definitions" : [
@@ -197,7 +197,7 @@
                 "column" : 17,
                 "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
                 "kind" : 6,
-                "line" : 62,
+                "line" : 63,
                 "name" : "solveJacobi(Eigen::SparseMatrix<double> &, Eigen::VectorXd &, Eigen::VectorXd, double)",
                 "parent_name" : "",
                 "usr" : "c:@F@solveJacobi#&$@N@Eigen@S@SparseMatrix>#d#VI0#I#&$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S3_#d#"
@@ -206,7 +206,7 @@
                 "column" : 6,
                 "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
                 "kind" : 6,
-                "line" : 107,
+                "line" : 109,
                 "name" : "makeLaplacian(Eigen::SparseMatrix<double> &, Eigen::VectorXd)",
                 "parent_name" : "",
                 "usr" : "c:@F@makeLaplacian#&$@N@Eigen@S@SparseMatrix>#d#VI0#I#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#"
@@ -215,7 +215,7 @@
                 "column" : 6,
                 "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
                 "kind" : 6,
-                "line" : 131,
+                "line" : 134,
                 "name" : "make_I_Laplacian(Eigen::SparseMatrix<double> &, Eigen::VectorXd)",
                 "parent_name" : "",
                 "usr" : "c:@F@make_I_Laplacian#&$@N@Eigen@S@SparseMatrix>#d#VI0#I#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#"
@@ -224,7 +224,7 @@
                 "column" : 43,
                 "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
                 "kind" : 6,
-                "line" : 177,
+                "line" : 180,
                 "name" : "lapTest(Eigen::VectorXd, Eigen::MatrixXd, Eigen::VectorXd, Eigen::SparseMatrix<double>, int, int, bool, double, bool)",
                 "parent_name" : "",
                 "usr" : "c:@F@lapTest#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#$@N@Eigen@S@SparseMatrix>#d#VI0#I#I#I#b#d#b#"
@@ -233,7 +233,7 @@
                 "column" : 8,
                 "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
                 "kind" : 6,
-                "line" : 250,
+                "line" : 254,
                 "name" : "adTest(double)",
                 "parent_name" : "",
                 "usr" : "c:@F@adTest#d#"
@@ -242,13 +242,13 @@
                 "column" : 17,
                 "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
                 "kind" : 6,
-                "line" : 271,
+                "line" : 276,
                 "name" : "computeDiffusion(Eigen::VectorXd, Eigen::MatrixXd, Eigen::VectorXd, Eigen::SparseMatrix<double>, int, int, bool, double, bool)",
                 "parent_name" : "",
                 "usr" : "c:@F@computeDiffusion#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#$@N@Eigen@S@SparseMatrix>#d#VI0#I#I#I#b#d#b#"
             }
         ],
         "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
-        "file_last_write" : 1571028937.000000
+        "file_last_write" : 1571031531.000000
     }
 ]
