@@ -3,10 +3,10 @@ Type: Package
 Title: What the package does (short line)
 Version: 1.0
 Date: 2019-07-22
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Stephen Berg
+Maintainer: Stephen Berg <saberg2@wisc.edu>
+Description: Fits diffusion PDE model for binary response data.
+License: GPL-3
 Imports: Rcpp (>= 1.0.1), RcppEigen (>= 0.3.3.5.0)
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 6.1.1
