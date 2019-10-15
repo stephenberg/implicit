@@ -1,6 +1,6 @@
 Package: implicit
 Type: Package
-Title: What the package does (short line)
+Title: Estimate PDE coefficients
 Version: 1.0
 Date: 2019-07-22
 Author: Stephen Berg
