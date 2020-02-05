@@ -250,26 +250,26 @@ std::vector<Eigen::SparseMatrix<double> > lapTest(Eigen::VectorXd params,
 }
 
 
-// [[Rcpp::export]]
-double adTest(double xIn){
-  typedef Eigen::AutoDiffScalar<Eigen::VectorXd> adScalar;
-  typedef Eigen::Matrix<adScalar,Eigen::Dynamic,1> adVec;
-  adVec A_(5, 1);
-  for (int i = 0; i < 5; i++) A_(i).value() = i;
-  const int derivative_num = A_.size();
-  int derivative_idx = 0;
-  for (int i = 0; i < A_.size(); i++) {
-    A_(i).derivatives() = Eigen::VectorXd::Unit(derivative_num, derivative_idx);
-    derivative_idx++;
-  }
-  adScalar A_inv=A_.array().pow(2.0).array().sum();
-  Rcout<<A_inv.derivatives()<<std::endl;
-  //
-  // for (int i = 0; i < A_.rows(); i++) {
-  //   Rcout<<A_(i,1).derivatives()<<std::endl;
-  // }
-  return 0;
-}
+// // [[Rcpp::export]]
+// double adTest(double xIn){
+//   typedef Eigen::AutoDiffScalar<Eigen::VectorXd> adScalar;
+//   typedef Eigen::Matrix<adScalar,Eigen::Dynamic,1> adVec;
+//   adVec A_(5, 1);
+//   for (int i = 0; i < 5; i++) A_(i).value() = i;
+//   const int derivative_num = A_.size();
+//   int derivative_idx = 0;
+//   for (int i = 0; i < A_.size(); i++) {
+//     A_(i).derivatives() = Eigen::VectorXd::Unit(derivative_num, derivative_idx);
+//     derivative_idx++;
+//   }
+//   adScalar A_inv=A_.array().pow(2.0).array().sum();
+//   Rcout<<A_inv.derivatives()<<std::endl;
+//   //
+//   // for (int i = 0; i < A_.rows(); i++) {
+//   //   Rcout<<A_(i,1).derivatives()<<std::endl;
+//   // }
+//   return 0;
+// }
 
 
 // [[Rcpp::export]]
