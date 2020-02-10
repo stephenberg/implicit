@@ -6,24 +6,6 @@
 
 using namespace Rcpp;
 
-// logLikelihood_ad
-Rcpp::List logLikelihood_ad(Eigen::VectorXd params, Eigen::MatrixXd X, Eigen::MatrixXd initCov, Eigen::SparseMatrix<double> neighborMatrix, int timeSteps, double tol, Eigen::VectorXi y, Eigen::VectorXi yIndices);
-RcppExport SEXP _implicit_logLikelihood_ad(SEXP paramsSEXP, SEXP XSEXP, SEXP initCovSEXP, SEXP neighborMatrixSEXP, SEXP timeStepsSEXP, SEXP tolSEXP, SEXP ySEXP, SEXP yIndicesSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type params(paramsSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type initCov(initCovSEXP);
-    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double> >::type neighborMatrix(neighborMatrixSEXP);
-    Rcpp::traits::input_parameter< int >::type timeSteps(timeStepsSEXP);
-    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi >::type y(ySEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi >::type yIndices(yIndicesSEXP);
-    rcpp_result_gen = Rcpp::wrap(logLikelihood_ad(params, X, initCov, neighborMatrix, timeSteps, tol, y, yIndices));
-    return rcpp_result_gen;
-END_RCPP
-}
 // solveBiCGSTAB
 Eigen::VectorXd solveBiCGSTAB(Eigen::SparseMatrix<double>& lhs, Eigen::VectorXd& rhs, int maxit, double tol, bool print);
 RcppExport SEXP _implicit_solveBiCGSTAB(SEXP lhsSEXP, SEXP rhsSEXP, SEXP maxitSEXP, SEXP tolSEXP, SEXP printSEXP) {
@@ -94,17 +76,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// adTest
-double adTest(double xIn);
-RcppExport SEXP _implicit_adTest(SEXP xInSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type xIn(xInSEXP);
-    rcpp_result_gen = Rcpp::wrap(adTest(xIn));
-    return rcpp_result_gen;
-END_RCPP
-}
 // computeDiffusion
 Eigen::MatrixXd computeDiffusion(Eigen::VectorXd params, Eigen::MatrixXd X, Eigen::VectorXd init, Eigen::SparseMatrix<double> neighborMatrix, int nSpace, int nTime, bool KF, double tol, bool useExplicit);
 RcppExport SEXP _implicit_computeDiffusion(SEXP paramsSEXP, SEXP XSEXP, SEXP initSEXP, SEXP neighborMatrixSEXP, SEXP nSpaceSEXP, SEXP nTimeSEXP, SEXP KFSEXP, SEXP tolSEXP, SEXP useExplicitSEXP) {
@@ -126,13 +97,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_implicit_logLikelihood_ad", (DL_FUNC) &_implicit_logLikelihood_ad, 8},
     {"_implicit_solveBiCGSTAB", (DL_FUNC) &_implicit_solveBiCGSTAB, 5},
     {"_implicit_solveJacobi", (DL_FUNC) &_implicit_solveJacobi, 4},
     {"_implicit_makeLaplacian", (DL_FUNC) &_implicit_makeLaplacian, 2},
     {"_implicit_make_I_Laplacian", (DL_FUNC) &_implicit_make_I_Laplacian, 2},
     {"_implicit_lapTest", (DL_FUNC) &_implicit_lapTest, 9},
-    {"_implicit_adTest", (DL_FUNC) &_implicit_adTest, 1},
     {"_implicit_computeDiffusion", (DL_FUNC) &_implicit_computeDiffusion, 9},
     {NULL, NULL, 0}
 };

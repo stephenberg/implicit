@@ -1,177 +1,15 @@
 [
     {
         "definitions" : [
-            {
-                "column" : 8,
-                "file" : "C:/Dropbox/CWD/implicit/src/AutoDiffScalar.h",
-                "kind" : 2,
-                "line" : 18,
-                "name" : "make_coherent_impl<A, B>",
-                "parent_name" : "",
-                "usr" : "c:@N@Eigen@N@internal@ST>2#T#T@make_coherent_impl"
-            },
-            {
-                "column" : 7,
-                "file" : "C:/Dropbox/CWD/implicit/src/AutoDiffScalar.h",
-                "kind" : 2,
-                "line" : 67,
-                "name" : "AutoDiffScalar<_DerType>",
-                "parent_name" : "",
-                "usr" : "c:@N@Eigen@ST>1#T@AutoDiffScalar"
-            },
-            {
-                "column" : 110,
-                "file" : "C:/Dropbox/CWD/implicit/src/AutoDiffScalar.h",
-                "kind" : 8,
-                "line" : 74,
-                "name" : "type",
-                "parent_name" : "",
-                "usr" : "c:AutoDiffScalar.h@N@Eigen@ST>1#T@AutoDiffScalar@T@type"
-            },
-            {
-                "column" : 22,
-                "file" : "C:/Dropbox/CWD/implicit/src/AutoDiffScalar.h",
-                "kind" : 8,
-                "line" : 78,
-                "name" : "NumTraits",
-                "parent_name" : "",
-                "usr" : "c:AutoDiffScalar.h@N@Eigen@ST>1#T@AutoDiffScalar@T@NumTraits"
-            },
-            {
-                "column" : 8,
-                "file" : "C:/Dropbox/CWD/implicit/src/AutoDiffScalar.h",
-                "kind" : 2,
-                "line" : 503,
-                "name" : "ScalarBinaryOpTraits<DerType, BinOp>",
-                "parent_name" : "",
-                "usr" : "c:@N@Eigen@ST>2#T#T@ScalarBinaryOpTraits"
-            },
-            {
-                "column" : 35,
-                "file" : "C:/Dropbox/CWD/implicit/src/AutoDiffScalar.h",
-                "kind" : 8,
-                "line" : 505,
-                "name" : "ReturnType",
-                "parent_name" : "",
-                "usr" : "c:AutoDiffScalar.h@N@Eigen@ST>2#T#T@ScalarBinaryOpTraits@T@ReturnType"
-            }
         ],
         "file" : "C:/Dropbox/CWD/implicit/src/AutoDiffScalar.h",
-        "file_last_write" : 1569099023.000000
+        "file_last_write" : 1580941896.000000
     },
     {
         "definitions" : [
-            {
-                "column" : 48,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 8,
-                "line" : 5,
-                "name" : "adScalar",
-                "parent_name" : "",
-                "usr" : "c:adKF.cpp@T@adScalar"
-            },
-            {
-                "column" : 63,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 8,
-                "line" : 6,
-                "name" : "adMat",
-                "parent_name" : "",
-                "usr" : "c:adKF.cpp@T@adMat"
-            },
-            {
-                "column" : 39,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 8,
-                "line" : 7,
-                "name" : "spAdmat",
-                "parent_name" : "",
-                "usr" : "c:adKF.cpp@T@spAdmat"
-            },
-            {
-                "column" : 10,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 10,
-                "name" : "adZero(int)",
-                "parent_name" : "",
-                "usr" : "c:@F@adZero#I#"
-            },
-            {
-                "column" : 6,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 18,
-                "name" : "setZero_ad(adMat &, int)",
-                "parent_name" : "",
-                "usr" : "c:@F@setZero_ad#&$@N@Eigen@S@Matrix>#$@N@Eigen@S@AutoDiffScalar>#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI-1#VI-1#VI0#VI-1#VI-1#I#"
-            },
-            {
-                "column" : 7,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 26,
-                "name" : "solveJacobi(Eigen::SparseMatrix<adScalar> &, adMat &, adMat, double)",
-                "parent_name" : "",
-                "usr" : "c:@F@solveJacobi#&$@N@Eigen@S@SparseMatrix>#$@N@Eigen@S@AutoDiffScalar>#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI0#I#&$@N@Eigen@S@Matrix>#S2_#VI-1#VI-1#VI0#VI-1#VI-1#S5_#d#"
-            },
-            {
-                "column" : 7,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 100,
-                "name" : "matrixVectorMultiply(Eigen::MatrixXd, adMat)",
-                "parent_name" : "",
-                "usr" : "c:@F@matrixVectorMultiply#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#$@N@Eigen@S@Matrix>#$@N@Eigen@S@AutoDiffScalar>#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI-1#VI-1#VI0#VI-1#VI-1#"
-            },
-            {
-                "column" : 6,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 116,
-                "name" : "zero_I_L(spAdmat &, Eigen::SparseMatrix<double>, int, bool)",
-                "parent_name" : "",
-                "usr" : "c:@F@zero_I_L#&$@N@Eigen@S@SparseMatrix>#$@N@Eigen@S@AutoDiffScalar>#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI0#I#$@N@Eigen@S@SparseMatrix>#d#VI0#I#I#b#"
-            },
-            {
-                "column" : 6,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 132,
-                "name" : "make_Laplacian(Eigen::SparseMatrix<adScalar> &, adMat, int, bool)",
-                "parent_name" : "",
-                "usr" : "c:@F@make_Laplacian#&$@N@Eigen@S@SparseMatrix>#$@N@Eigen@S@AutoDiffScalar>#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI0#I#$@N@Eigen@S@Matrix>#S2_#VI-1#VI-1#VI0#VI-1#VI-1#I#b#"
-            },
-            {
-                "column" : 7,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 182,
-                "name" : "computeDiffusion(adMat, Eigen::MatrixXd, adMat, Eigen::SparseMatrix<double>, int, int, double, int)",
-                "parent_name" : "",
-                "usr" : "c:@F@computeDiffusion#$@N@Eigen@S@Matrix>#$@N@Eigen@S@AutoDiffScalar>#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI-1#VI-1#VI0#VI-1#VI-1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#$@N@Eigen@S@SparseMatrix>#d#VI0#I#I#I#d#I#"
-            },
-            {
-                "column" : 17,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 280,
-                "name" : "getDiffusionFromAdmat(adMat)",
-                "parent_name" : "",
-                "usr" : "c:@F@getDiffusionFromAdmat#$@N@Eigen@S@Matrix>#$@N@Eigen@S@AutoDiffScalar>#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI-1#VI-1#VI0#VI-1#VI-1#"
-            },
-            {
-                "column" : 12,
-                "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-                "kind" : 6,
-                "line" : 292,
-                "name" : "logLikelihood_ad(Eigen::VectorXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::SparseMatrix<double>, int, double, Eigen::VectorXi, Eigen::VectorXi)",
-                "parent_name" : "",
-                "usr" : "c:@F@logLikelihood_ad#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#$@N@Eigen@S@SparseMatrix>#d#VI0#I#I#d#$@N@Eigen@S@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S3_#"
-            }
         ],
         "file" : "C:/Dropbox/CWD/implicit/src/adKF.cpp",
-        "file_last_write" : 1571031566.000000
+        "file_last_write" : 1580941880.000000
     },
     {
         "definitions" : [
@@ -230,15 +68,6 @@
                 "usr" : "c:@F@lapTest#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#$@N@Eigen@S@SparseMatrix>#d#VI0#I#I#I#b#d#b#"
             },
             {
-                "column" : 8,
-                "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
-                "kind" : 6,
-                "line" : 254,
-                "name" : "adTest(double)",
-                "parent_name" : "",
-                "usr" : "c:@F@adTest#d#"
-            },
-            {
                 "column" : 17,
                 "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
                 "kind" : 6,
@@ -249,6 +78,6 @@
             }
         ],
         "file" : "C:/Dropbox/CWD/implicit/src/kolmogorov.cpp",
-        "file_last_write" : 1571031531.000000
+        "file_last_write" : 1580942000.000000
     }
 ]
