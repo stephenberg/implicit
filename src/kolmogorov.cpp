@@ -105,7 +105,7 @@ Eigen::VectorXd solveJacobi(Eigen::SparseMatrix<double>& L,
 }
 
 
-//[[Rcpp::export]]
+// [[Rcpp::export]]
 void makeLaplacian(Eigen::SparseMatrix<double>& L,
                                           Eigen::VectorXd mu){
 
@@ -272,7 +272,7 @@ std::vector<Eigen::SparseMatrix<double> > lapTest(Eigen::VectorXd params,
 // }
 
 
-// [[Rcpp::export]]
+//[[Rcpp::export]]
 Eigen::MatrixXd computeDiffusion(Eigen::VectorXd params,
                                  Eigen::MatrixXd X,
                                  Eigen::VectorXd init,
