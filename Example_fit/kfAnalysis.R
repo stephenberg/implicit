@@ -1,216 +1,201 @@
 library(implicit)
-load("analysisCovariates.RData")
-source("kolmogorov.R")
-library(sp)
-library(ggplot2)
+library(Matrix)
+library(sf)
+setwd("C:/Dropbox/CWD/")
 
-params=c(-4,-4,c(-89.9,43.1,log(0.5),log(10)))
+source("wiscScripts/makeAdjacency.R")
+source("wiscScripts/makeDesignMatrix.R")
+source("implicit/Example_fit/kolmogorov.R")
 
-X_intercept=X[,1,drop=FALSE]
+load("Data/gridCovariates.RData")
 
-KF=TRUE
-steps=20
-tol=10^-6
-coords=coordinates(longLats)
-neighborMatrix=A
+#positive and negatives observations
+negatives=as.matrix(st_drop_geometry(y_sf)[,1:20])
+positives=as.matrix(st_drop_geometry(y_sf)[,21:40])
 
+#intercept only design matrix
+X_intercept=makeDesignMatrix(nTime=20,geom=grid)
 
-gradFunc<-function(params,X,X_spline,neighborMatrix,steps,KF,y,yIndices,tol,method="simple",kernel){
-  val=numDeriv::grad(func=logLikelihood,params,method=method,side=NULL,method.args=list(eps=10^-4),X,X_spline,neighborMatrix,steps,KF,y,yIndices,tol,method,kernel)
-  return(val)
+#design matrix with covariates
+timeIndependentCovariates=list(nlcd_sf,soil_sf,river_sf)
+timeDependentCovariates=list(culling=culling_sf)
+X=makeDesignMatrix(timeIndependentCovariates = timeIndependentCovariates,
+                        timeDependentCovariates = timeDependentCovariates)
+X=X[,colnames(X)%in%c("intercept",
+                 "Pasture_Hay",
+                 "Cultivated_Crops",
+                 "clayTot",
+                 "river",
+                 "culling")]
+
+#get adjacency matrix based on the grid geometry
+A=makeAdjacency(grid)
+boundary=which(colSums(A)<4)
+negatives[boundary,]=0
+positives[boundary,]=0
+
+#fit model
+par0=c(0,-5,500000,000,log(100000),-2)
+
+#argument list of loglikelihood function:
+# logLikelihood<-function(params,
+#                         X,
+#                         neighborMatrix,
+#                         geom,
+#                         timeSteps,
+#                         negatives,
+#                         positives,
+#                         tol){
+logLikeGradient<-function(params,
+                          X,
+                          neighborMatrix,
+                          geom,
+                          timeSteps,
+                          negatives,
+                          positives,
+                          tol){
+  return(numDeriv::grad(logLikelihood,params,method="Richardson",side=NULL,method.args=list(eps=0.01),
+              X,
+              neighborMatrix,
+              geom,
+              timeSteps,
+              negatives,
+              positives,
+              tol))
 }
 
-res_io_KF=optim(par=params,fn=logLikelihood,gr=gradFunc,
-                X_intercept,
-                coords,
-                neighborMatrix,
-                steps,
-                KF,
-                y,
-                yIndices,
-                tol,
-                "simple",
-                TRUE,
-                method="BFGS",control=list(fnscale=-1,
-                                           trace=1,
-                                           REPORT=1,
-                                           reltol=10^-16,
-                                           maxit=200))
+res_IO=optim(par0,
+          fn=logLikelihood,
+          gr=NULL,
+          X_intercept,
+          A,
+          grid,
+          20,
+          negatives,
+          positives,
+          10^-8,
+          method="BFGS",
+          control=list(fnscale=-1,
+                       trace=1,
+                       REPORT=1,
+                       parscale=c(1,1,10000,10000,1,1),
+                       maxit=300)
+          )
 
-# params=c(-5,-5,c(-90,43.2,log(2),log(0.1)))
-# res_io_exp=optim(par=params,fn=logLikelihood,gr=gradFunc,
-#                  X_intercept,
-#                  coords,
-#                  neighborMatrix,
-#                  steps,
-#                  !KF,
-#                  y,
-#                  yIndices,
-#                  tol,
-#                  "simple",
-#                  TRUE,
-#                  method="BFGS",control=list(fnscale=-1,
-#                                             trace=1,
-#                                             REPORT=1,
-#                                             reltol=10^-16,
-#                                             maxit=200))
-# 
+U_IO_sf=computeDiffusion_wrapper(res_IO$par,
+                              X_intercept,
+                              A,
+                              grid,
+                              20,
+                              y_sf,
+                              10^-8)
+plot(U_IO_sf,max.plot=20,border=NA)
+parIO=res_IO$par
+params=c(parIO[1],0,0,0,0,0,parIO[2],0,0,0,0,0,parIO[3:6])
 
-params=res_io_KF$par
-params=c(params[1],rep(0,dim(X)[2]-1),params[2],rep(0,dim(X)[2]-1),params[3:length(params)])
-res_KF=optim(par=params,fn=logLikelihood,gr=gradFunc,X,coords,neighborMatrix,steps,KF,y,yIndices,tol,"simple",TRUE,
-             method="BFGS",control=list(fnscale=-1,
-                                        trace=1,
-                                        REPORT=1,
-                                        maxit=200,
-                                        reltol=10^-16))
+res_covariates=optim(params,
+             fn=logLikelihood,
+             gr=NULL,
+             X,
+             A,
+             grid,
+             20,
+             negatives,
+             positives,
+             10^-8,
+             method="BFGS",
+             control=list(fnscale=-1,
+                          trace=1,
+                          REPORT=1,
+                          parscale=c(1,1,1,1,1,0.01,1,1,1,1,1,0.01,10000,10000,1,1),
+                          maxit=300)
+)
 
-# params=res_io_exp$par
-# params=c(params[1],rep(0,dim(X)[2]-1),params[2],rep(0,dim(X)[2]-1),params[3:length(params)])
-
-# res_exp=optim(par=params,fn=logLikelihood,gr=gradFunc,X,coords,neighborMatrix,steps,!KF,y,yIndices,tol,"simple",TRUE,
-#               method="BFGS",control=list(fnscale=-1,
-#                                          trace=1,
-#                                          REPORT=1,
-#                                          maxit=200,
-#                                          reltol=10^-16))
-#  
-U_IO_KF=computeDiffusion_wrapper(res_io_KF$par,
-                                 X_intercept,
-                                 coords,
-                                 neighborMatrix,
-                                 steps,
-                                 KF,
-                                 y,
-                                 yIndices,
-                                 tol,
-                                 "simple",
-                                 TRUE)
-# 
-# U_IO_exp=computeDiffusion_wrapper(res_io_exp$par,
-#                                   X_intercept,
-#                                   coords,
-#                                   neighborMatrix,
-#                                   steps,
-#                                   !KF,
-#                                   y,
-#                                   yIndices,
-#                                   tol,
-#                                   "simple",
-#                                   TRUE)
-# 
-U_cov_KF=computeDiffusion_wrapper(res_KF$par,
+U_covariates_I=numDeriv::jacobian(func=logLikeGradient,
+                                  x=res_covariates$par,
+                                  method="Richardson",
+                                  side=NULL,
+                                  method.args=list(),
                                   X,
-                                  coords,
-                                  neighborMatrix,
-                                  steps,
-                                  KF,
-                                  y,
-                                  yIndices,
-                                  tol,
-                                  "simple",
-                                  TRUE)
-# 
-# U_cov_exp=computeDiffusion_wrapper(res_exp$par,
-#                                    X,
-#                                    coords,
-#                                    neighborMatrix,
-#                                    steps,
-#                                    !KF,
-#                                    y,
-#                                    yIndices,
-#                                    tol,
-#                                    "simple",
-#                                    TRUE)
-# # 
-# H_IO_KF=numDeriv::jacobian(gradFunc,res_io_KF$par,method="simple",side=NULL,list(),
-#                            X_intercept,
-#                            coords,
-#                            neighborMatrix,
-#                            steps,
-#                            KF,
-#                            y,
-#                            yIndices,
-#                            tol,
-#                            "simple",
-#                            TRUE)
-# # 
-# H_IO_exp=numDeriv::jacobian(gradFunc,res_io_exp$par,method="simple",side=NULL,list(),
-#                             X_intercept,
-#                             coords,
-#                             neighborMatrix,
-#                             steps,
-#                             !KF,
-#                             y,
-#                             yIndices,
-#                             tol,
-#                             "simple",
-#                             TRUE)
-# # 
-# H_cov_exp=numDeriv::jacobian(gradFunc,res_exp$par,method="simple",side=NULL,list(),
-#                              X,
-#                              coords,
-#                              neighborMatrix,
-#                              steps,
-#                              !KF,
-#                              y,
-#                              yIndices,
-#                              tol,
-#                              "simple",
-#                              TRUE)
-# # 
-# H_cov_KF=numDeriv::jacobian(gradFunc,res_KF$par,method="simple",side=NULL,list(),
-#                             X,
-#                             coords,
-#                             neighborMatrix,
-#                             steps,
-#                             KF,
-#                             y,
-#                             yIndices,
-#                             tol,
-#                             "simple",
-#                             TRUE)
-# 
+                                  A,
+                                  grid,
+                                  20,
+                                  negatives,
+                                  positives,
+                                  10^-8)
 
-for (i in seq(1,20,by=1)){
-  df=data.frame(x=coordinates(harvest_red)[,1],y=coordinates(harvest_red)[,2],probs=U_IO_KF[,i])
-  p1=ggplot(df,aes(x=x,y=y,col=probs))+geom_point(size=4,shape="square")+ggtitle(label=round(i))#+scale_color_gradient(limits=c(0,1))
-  print(p1)
-}
-for (i in seq(1,20,by=1)){
-  df=data.frame(x=coordinates(harvest_red)[,1],y=coordinates(harvest_red)[,2],probs=U_cov_KF[,i])
-  p1=ggplot(df,aes(x=x,y=y,col=probs))+geom_point(size=4,shape="square")+ggtitle(label=round(i))#+scale_color_gradient(limits=c(0,1))
-  print(p1)
+U_covariates_sf=computeDiffusion_wrapper(res_covariates$par,
+                                 X,
+                                 A,
+                                 grid,
+                                 20,
+                                 y_sf,
+                                 10^-8)
+plot(U_covariates_sf,max.plot=20,border=NA)
+par(mfrow=c(1,2))
+plot(U_covariates_sf[,17],border=NA,main="Predicted, 2018")
+plot(y_sf[,37],max.plot=20,border=NA,main="Actual, 2018")
+
+toMatrix<-function(par,X,covariance=NULL,grid){
+  cellSize=st_area(grid[1])
+  names=colnames(X)
+  p=dim(X)[2]
+  alphaInds=1:p
+  gammaInds=(p+1):(2*p)
+  initInds=(2*p+1):length(par)
+  alpha=par[alphaInds]
+  gamma=par[gammaInds]
+  init=par[initInds]
+  init[3]=exp(init[3])
+  init[4]=1/(1+exp(-init[4]))
+  
+  SE=sqrt(diag(covariance))
+  SE_alpha=SE[alphaInds]
+  SE_gamma=SE[gammaInds]
+  SE_init=SE[initInds]
+  SE_init[3]=SE[initInds[3]]*init[3]
+  SE_init[4]=SE[initInds[4]]*(init[4]*(1-init[4]))
+  alpha=cbind(alpha=alpha,SE=SE_alpha)
+  gamma=cbind(gamma=gamma,SE=SE_gamma)
+  init=cbind(init,SE=SE_init)
+  
+  
+  
+  rownames(alpha)=names
+  rownames(gamma)=names
+  rownames(init)=c("long","lat","sigma","kappa")
+  return(list(alpha,gamma,init))
 }
 
-# for (i in seq(1,20,by=1)){
-#   df=data.frame(x=coordinates(harvest_red)[,1],y=coordinates(harvest_red)[,2],probs=U_IO_exp[,i])
-#   p1=ggplot(df,aes(x=x,y=y,col=probs))+geom_point(size=4,shape="square")+ggtitle(label=round(i))#+scale_color_gradient(limits=c(0,1))
-#   print(p1)
-# }
-# for (i in seq(1,20,by=1)){
-#   df=data.frame(x=coordinates(harvest_red)[,1],y=coordinates(harvest_red)[,2],probs=U_cov_exp[,i])
-#   p1=ggplot(df,aes(x=x,y=y,col=probs))+geom_point(size=4,shape="square")+ggtitle(label=round(i))#+scale_color_gradient(limits=c(0,1))
-#   print(p1)
-# }
+speed<-function(X,alpha,gamma,grid){
+  cell_area=st_area(grid[1])
+  diffusion=matrix(exp(X%*%alpha),ncol=20)*cell_area/10^6
+  growth=matrix(exp(X%*%gamma),ncol=20)
+  C=matrix(2*sqrt(diffusion*growth),ncol=20)
+  C=as.data.frame(C)
+  colnames(C)=1:20
+  
+  return(list(diffusion=st_as_sf(as.data.frame(diffusion),geom=grid),
+              growth=st_as_sf(as.data.frame(growth),geom=grid),
+              st_as_sf(C,geom=grid)))
+}
 
+coefs=toMatrix(res_covariates$par,X,-solve(U_covariates_I),grid)
+alpha=coefs[[1]][,1]
+gamma=coefs[[2]][,1]
+C=speed(X,alpha,gamma,grid)
 
-save(res_io_KF,res_io_exp,res_KF,res_exp,H_cov_KF,H_cov_exp,H_IO_exp,H_IO_KF,U_cov_exp,U_cov_KF,U_IO_exp,U_IO_KF,X,file="cwdFits.RData")
-
-
-# load("Data/harvestProportions.RData")
-# load("cwdFits.RData")
-# awHarvest=matrix(X[,2],ncol=20)
-# propHarvest=matrix(X[,3],ncol=20)
-# diffusion=X%*%res_KF$par[1:4]
-#
-# diffusion=matrix(X%*%res_KF$par[1:4],ncol=20)
-# growth=matrix(X%*%res_KF$par[5:8],ncol=20)
-# mu=exp(diffusion)
-# lambda=exp(growth)
-# for (i in 1:20){
-#   df=data.frame(x=coordinates(coreGrid)[,1],y=coordinates(coreGrid)[,2],probs=U_cov_KF[,i],awHarvest=awHarvest[,i],propHarvest=propHarvest[,i],lambda=lambda[,i],mu=mu[,i],growth=growth[,i],diffusion=diffusion[,i],hay=matrix(X[,4],ncol=20)[,i])
-#   p1=ggplot(df,aes(x=x,y=y,col=growth))+geom_point(size=4,shape="square")+ggtitle(label=round(i))#+scale_color_gradient(limits=c(0,1))
-#   print(p1)
-# }
-
+X_without_culling=X
+X[,6]=0
+U_withoutCulling_sf=computeDiffusion_wrapper(res_covariates$par,
+                                           X_without_culling,
+                                           A,
+                                           grid,
+                                           20,
+                                           y_sf,
+                                           10^-8)
+for (i in 1:10){
+  par(mfrow=c(1,2))
+  plot(U_covariates_sf[i])
+  plot(U_withoutCulling_sf[i])
+}
