@@ -271,6 +271,25 @@ std::vector<Eigen::SparseMatrix<double> > lapTest(Eigen::VectorXd params,
 //   return 0;
 // }
 
+//[[Rcpp::export]]
+double logLikelihood(Eigen::MatrixXd& negatives,
+                     Eigen::MatrixXd& positives,
+                     Eigen::MatrixXd& probabilities){
+  int nSpace=negatives.rows();
+  int nTime=negatives.cols();
+  double logLike=0;
+  for (int i=0;i<nTime;i++){
+    for (int j=0;j<nSpace;j++){
+      if (negatives(j,i)>0){
+        logLike+=(negatives(j,i)*std::log(1-probabilities(j,i)));
+      }
+      if (positives(j,i)>0){
+        logLike+=(positives(j,i)*std::log(probabilities(j,i)));
+      }
+    }
+  }
+  return logLike;
+}
 
 //[[Rcpp::export]]
 Eigen::MatrixXd computeDiffusion(Eigen::VectorXd params,

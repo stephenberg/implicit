@@ -21,6 +21,10 @@ lapTest <- function(params, X, init, neighborMatrix, nSpace, nTime, KF, tol, use
     .Call('_implicit_lapTest', PACKAGE = 'implicit', params, X, init, neighborMatrix, nSpace, nTime, KF, tol, useExplicit)
 }
 
+logLikelihood <- function(negatives, positives, probabilities) {
+    .Call('_implicit_logLikelihood', PACKAGE = 'implicit', negatives, positives, probabilities)
+}
+
 computeDiffusion <- function(params, X, init, neighborMatrix, nSpace, nTime, KF, tol, useExplicit = FALSE) {
     .Call('_implicit_computeDiffusion', PACKAGE = 'implicit', params, X, init, neighborMatrix, nSpace, nTime, KF, tol, useExplicit)
 }

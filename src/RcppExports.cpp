@@ -76,6 +76,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// logLikelihood
+double logLikelihood(Eigen::MatrixXd& negatives, Eigen::MatrixXd& positives, Eigen::MatrixXd& probabilities);
+RcppExport SEXP _implicit_logLikelihood(SEXP negativesSEXP, SEXP positivesSEXP, SEXP probabilitiesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd& >::type negatives(negativesSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd& >::type positives(positivesSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd& >::type probabilities(probabilitiesSEXP);
+    rcpp_result_gen = Rcpp::wrap(logLikelihood(negatives, positives, probabilities));
+    return rcpp_result_gen;
+END_RCPP
+}
 // computeDiffusion
 Eigen::MatrixXd computeDiffusion(Eigen::VectorXd params, Eigen::MatrixXd X, Eigen::VectorXd init, Eigen::SparseMatrix<double> neighborMatrix, int nSpace, int nTime, bool KF, double tol, bool useExplicit);
 RcppExport SEXP _implicit_computeDiffusion(SEXP paramsSEXP, SEXP XSEXP, SEXP initSEXP, SEXP neighborMatrixSEXP, SEXP nSpaceSEXP, SEXP nTimeSEXP, SEXP KFSEXP, SEXP tolSEXP, SEXP useExplicitSEXP) {
@@ -102,6 +115,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_implicit_makeLaplacian", (DL_FUNC) &_implicit_makeLaplacian, 2},
     {"_implicit_make_I_Laplacian", (DL_FUNC) &_implicit_make_I_Laplacian, 2},
     {"_implicit_lapTest", (DL_FUNC) &_implicit_lapTest, 9},
+    {"_implicit_logLikelihood", (DL_FUNC) &_implicit_logLikelihood, 3},
     {"_implicit_computeDiffusion", (DL_FUNC) &_implicit_computeDiffusion, 9},
     {NULL, NULL, 0}
 };
