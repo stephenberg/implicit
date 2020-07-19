@@ -5,9 +5,10 @@
         "-IC:/Users/saber/OneDrive/Documents/R/win-library/3.6/Rcpp/include",
         "-IC:/Users/saber/OneDrive/Documents/R/win-library/3.6/RcppEigen/include",
         "-IC:/PROGRA~1/R/R-36~1.1/include",
-        "-DNDEBUG"
+        "-DNDEBUG",
+        "-IC:/Dropbox/CWD/implicit/inst/include/"
     ],
-    "hash" : "1580942542",
+    "hash" : "15809425421585255146",
     "is_cpp" : true,
     "pch" : "Rcpp"
 }

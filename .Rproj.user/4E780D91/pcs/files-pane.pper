@@ -1,9 +1,9 @@
 {
-    "path" : "C:/Dropbox/CWD/implicit",
-    "sortOrder" : [
+    "path": "E:/Dropbox/implicit",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }
