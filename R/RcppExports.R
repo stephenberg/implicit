@@ -25,7 +25,59 @@ logLikelihood <- function(negatives, positives, probabilities) {
     .Call('_implicit_logLikelihood', PACKAGE = 'implicit', negatives, positives, probabilities)
 }
 
+logLikelihood_general <- function(negatives, positives, probabilities, internalPoints, rows, cols) {
+    .Call('_implicit_logLikelihood_general', PACKAGE = 'implicit', negatives, positives, probabilities, internalPoints, rows, cols)
+}
+
 computeDiffusion <- function(params, X, init, neighborMatrix, nSpace, nTime, KF, tol, useExplicit = FALSE) {
     .Call('_implicit_computeDiffusion', PACKAGE = 'implicit', params, X, init, neighborMatrix, nSpace, nTime, KF, tol, useExplicit)
+}
+
+dst1 <- function(U) {
+    .Call('_implicit_dst1', PACKAGE = 'implicit', U)
+}
+
+L_f <- function(mu_, f_, rows, cols, diffusionType, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_L_f', PACKAGE = 'implicit', mu_, f_, rows, cols, diffusionType, lengthX, lengthY)
+}
+
+homogeneous_L_f <- function(f_, rows, cols, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_homogeneous_L_f', PACKAGE = 'implicit', f_, rows, cols, lengthX, lengthY)
+}
+
+irregular_Homogeneous_L_f <- function(f_, rows, cols, boundaryPoints_, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_irregular_Homogeneous_L_f', PACKAGE = 'implicit', f_, rows, cols, boundaryPoints_, lengthX, lengthY)
+}
+
+general_Homogeneous_Lf <- function(f_, rows, cols, boundaryPoints_, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_general_Homogeneous_Lf', PACKAGE = 'implicit', f_, rows, cols, boundaryPoints_, dirichlet, lengthX, lengthY)
+}
+
+invert <- function(rows, cols, mu, x, b, diffusionType, nIter, lengthX = 1, lengthY = 1, preconditionerType = 1L, debug = FALSE) {
+    .Call('_implicit_invert', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, nIter, lengthX, lengthY, preconditionerType, debug)
+}
+
+fixBoundary <- function(x, internalPoints) {
+    .Call('_implicit_fixBoundary', PACKAGE = 'implicit', x, internalPoints)
+}
+
+invert_Irregular <- function(rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet = TRUE, lengthX = 1, lengthY = 1, preconditionerType = 1L, debug = FALSE) {
+    .Call('_implicit_invert_Irregular', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, preconditionerType, debug)
+}
+
+irregularLaplacianTest <- function(rows, cols, x, internalPoints, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_irregularLaplacianTest', PACKAGE = 'implicit', rows, cols, x, internalPoints, lengthX, lengthY)
+}
+
+computeDiffusion2 <- function(params, X, init, rows, cols, nTime, diffusionType, tol, nIter, lengthX = 1, lengthY = 1, pad = TRUE) {
+    .Call('_implicit_computeDiffusion2', PACKAGE = 'implicit', params, X, init, rows, cols, nTime, diffusionType, tol, nIter, lengthX, lengthY, pad)
+}
+
+computeDiffusion_general <- function(params, X, init, rows, cols, nTime, tol, nIter, internalPoints, dirichlet = TRUE, lengthX = 1, lengthY = 1, pad = TRUE, iterative = TRUE, diffusionType = 1L) {
+    .Call('_implicit_computeDiffusion_general', PACKAGE = 'implicit', params, X, init, rows, cols, nTime, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, pad, iterative, diffusionType)
+}
+
+computeDiffusion_guess <- function(params, X, init, rows, cols, nTime, tol, nIter, internalPoints, U_guess, dirichlet = TRUE, lengthX = 1, lengthY = 1, pad = TRUE, iterative = TRUE, diffusionType = 1L) {
+    .Call('_implicit_computeDiffusion_guess', PACKAGE = 'implicit', params, X, init, rows, cols, nTime, tol, nIter, internalPoints, U_guess, dirichlet, lengthX, lengthY, pad, iterative, diffusionType)
 }
 
