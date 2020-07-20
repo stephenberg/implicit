@@ -6,76 +6,6 @@
 
 using namespace Rcpp;
 
-// solveBiCGSTAB
-Eigen::VectorXd solveBiCGSTAB(Eigen::SparseMatrix<double>& lhs, Eigen::VectorXd& rhs, int maxit, double tol, bool print);
-RcppExport SEXP _implicit_solveBiCGSTAB(SEXP lhsSEXP, SEXP rhsSEXP, SEXP maxitSEXP, SEXP tolSEXP, SEXP printSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double>& >::type lhs(lhsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type rhs(rhsSEXP);
-    Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
-    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    Rcpp::traits::input_parameter< bool >::type print(printSEXP);
-    rcpp_result_gen = Rcpp::wrap(solveBiCGSTAB(lhs, rhs, maxit, tol, print));
-    return rcpp_result_gen;
-END_RCPP
-}
-// solveJacobi
-Eigen::VectorXd solveJacobi(Eigen::SparseMatrix<double>& L, Eigen::VectorXd& rhs, Eigen::VectorXd guess, double tol);
-RcppExport SEXP _implicit_solveJacobi(SEXP LSEXP, SEXP rhsSEXP, SEXP guessSEXP, SEXP tolSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double>& >::type L(LSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type rhs(rhsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type guess(guessSEXP);
-    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(solveJacobi(L, rhs, guess, tol));
-    return rcpp_result_gen;
-END_RCPP
-}
-// makeLaplacian
-void makeLaplacian(Eigen::SparseMatrix<double>& L, Eigen::VectorXd mu);
-RcppExport SEXP _implicit_makeLaplacian(SEXP LSEXP, SEXP muSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double>& >::type L(LSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type mu(muSEXP);
-    makeLaplacian(L, mu);
-    return R_NilValue;
-END_RCPP
-}
-// make_I_Laplacian
-void make_I_Laplacian(Eigen::SparseMatrix<double>& I_L, Eigen::VectorXd mu);
-RcppExport SEXP _implicit_make_I_Laplacian(SEXP I_LSEXP, SEXP muSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double>& >::type I_L(I_LSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type mu(muSEXP);
-    make_I_Laplacian(I_L, mu);
-    return R_NilValue;
-END_RCPP
-}
-// lapTest
-std::vector<Eigen::SparseMatrix<double> > lapTest(Eigen::VectorXd params, Eigen::MatrixXd X, Eigen::VectorXd init, Eigen::SparseMatrix<double> neighborMatrix, int nSpace, int nTime, bool KF, double tol, bool useExplicit);
-RcppExport SEXP _implicit_lapTest(SEXP paramsSEXP, SEXP XSEXP, SEXP initSEXP, SEXP neighborMatrixSEXP, SEXP nSpaceSEXP, SEXP nTimeSEXP, SEXP KFSEXP, SEXP tolSEXP, SEXP useExplicitSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type params(paramsSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type init(initSEXP);
-    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double> >::type neighborMatrix(neighborMatrixSEXP);
-    Rcpp::traits::input_parameter< int >::type nSpace(nSpaceSEXP);
-    Rcpp::traits::input_parameter< int >::type nTime(nTimeSEXP);
-    Rcpp::traits::input_parameter< bool >::type KF(KFSEXP);
-    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    Rcpp::traits::input_parameter< bool >::type useExplicit(useExplicitSEXP);
-    rcpp_result_gen = Rcpp::wrap(lapTest(params, X, init, neighborMatrix, nSpace, nTime, KF, tol, useExplicit));
-    return rcpp_result_gen;
-END_RCPP
-}
 // logLikelihood
 double logLikelihood(Eigen::MatrixXd& negatives, Eigen::MatrixXd& positives, Eigen::MatrixXd& probabilities);
 RcppExport SEXP _implicit_logLikelihood(SEXP negativesSEXP, SEXP positivesSEXP, SEXP probabilitiesSEXP) {
@@ -102,174 +32,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
     Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
     rcpp_result_gen = Rcpp::wrap(logLikelihood_general(negatives, positives, probabilities, internalPoints, rows, cols));
-    return rcpp_result_gen;
-END_RCPP
-}
-// computeDiffusion
-Eigen::MatrixXd computeDiffusion(Eigen::VectorXd params, Eigen::MatrixXd X, Eigen::VectorXd init, Eigen::SparseMatrix<double> neighborMatrix, int nSpace, int nTime, bool KF, double tol, bool useExplicit);
-RcppExport SEXP _implicit_computeDiffusion(SEXP paramsSEXP, SEXP XSEXP, SEXP initSEXP, SEXP neighborMatrixSEXP, SEXP nSpaceSEXP, SEXP nTimeSEXP, SEXP KFSEXP, SEXP tolSEXP, SEXP useExplicitSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type params(paramsSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type init(initSEXP);
-    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double> >::type neighborMatrix(neighborMatrixSEXP);
-    Rcpp::traits::input_parameter< int >::type nSpace(nSpaceSEXP);
-    Rcpp::traits::input_parameter< int >::type nTime(nTimeSEXP);
-    Rcpp::traits::input_parameter< bool >::type KF(KFSEXP);
-    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    Rcpp::traits::input_parameter< bool >::type useExplicit(useExplicitSEXP);
-    rcpp_result_gen = Rcpp::wrap(computeDiffusion(params, X, init, neighborMatrix, nSpace, nTime, KF, tol, useExplicit));
-    return rcpp_result_gen;
-END_RCPP
-}
-// dst1
-Eigen::MatrixXd dst1(Eigen::MatrixXd U);
-RcppExport SEXP _implicit_dst1(SEXP USEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type U(USEXP);
-    rcpp_result_gen = Rcpp::wrap(dst1(U));
-    return rcpp_result_gen;
-END_RCPP
-}
-// L_f
-Eigen::VectorXd L_f(Eigen::VectorXd& mu_, Eigen::VectorXd& f_, int rows, int cols, int diffusionType, double lengthX, double lengthY);
-RcppExport SEXP _implicit_L_f(SEXP mu_SEXP, SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP diffusionTypeSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu_(mu_SEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(L_f(mu_, f_, rows, cols, diffusionType, lengthX, lengthY));
-    return rcpp_result_gen;
-END_RCPP
-}
-// homogeneous_L_f
-Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_, int rows, int cols, double lengthX, double lengthY);
-RcppExport SEXP _implicit_homogeneous_L_f(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(homogeneous_L_f(f_, rows, cols, lengthX, lengthY));
-    return rcpp_result_gen;
-END_RCPP
-}
-// irregular_Homogeneous_L_f
-Eigen::VectorXd irregular_Homogeneous_L_f(Eigen::VectorXd& f_, int rows, int cols, Eigen::VectorXi& boundaryPoints_, double lengthX, double lengthY);
-RcppExport SEXP _implicit_irregular_Homogeneous_L_f(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP boundaryPoints_SEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type boundaryPoints_(boundaryPoints_SEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(irregular_Homogeneous_L_f(f_, rows, cols, boundaryPoints_, lengthX, lengthY));
-    return rcpp_result_gen;
-END_RCPP
-}
-// general_Homogeneous_Lf
-Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_, int rows, int cols, Eigen::VectorXi& boundaryPoints_, bool dirichlet, double lengthX, double lengthY);
-RcppExport SEXP _implicit_general_Homogeneous_Lf(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP boundaryPoints_SEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type boundaryPoints_(boundaryPoints_SEXP);
-    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(general_Homogeneous_Lf(f_, rows, cols, boundaryPoints_, dirichlet, lengthX, lengthY));
-    return rcpp_result_gen;
-END_RCPP
-}
-// invert
-Eigen::VectorXd invert(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, int nIter, double lengthX, double lengthY, int preconditionerType, bool debug);
-RcppExport SEXP _implicit_invert(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP nIterSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP debugSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type b(bSEXP);
-    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
-    Rcpp::traits::input_parameter< int >::type nIter(nIterSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    Rcpp::traits::input_parameter< int >::type preconditionerType(preconditionerTypeSEXP);
-    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
-    rcpp_result_gen = Rcpp::wrap(invert(rows, cols, mu, x, b, diffusionType, nIter, lengthX, lengthY, preconditionerType, debug));
-    return rcpp_result_gen;
-END_RCPP
-}
-// fixBoundary
-Eigen::VectorXd fixBoundary(Eigen::VectorXd x, Eigen::VectorXi& internalPoints);
-RcppExport SEXP _implicit_fixBoundary(SEXP xSEXP, SEXP internalPointsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type internalPoints(internalPointsSEXP);
-    rcpp_result_gen = Rcpp::wrap(fixBoundary(x, internalPoints));
-    return rcpp_result_gen;
-END_RCPP
-}
-// invert_Irregular
-Eigen::VectorXd invert_Irregular(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, double tol, int nIter, Eigen::VectorXi& internalPoints, bool dirichlet, double lengthX, double lengthY, int preconditionerType, bool debug);
-RcppExport SEXP _implicit_invert_Irregular(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP internalPointsSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP debugSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type b(bSEXP);
-    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
-    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    Rcpp::traits::input_parameter< int >::type nIter(nIterSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type internalPoints(internalPointsSEXP);
-    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    Rcpp::traits::input_parameter< int >::type preconditionerType(preconditionerTypeSEXP);
-    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
-    rcpp_result_gen = Rcpp::wrap(invert_Irregular(rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, preconditionerType, debug));
-    return rcpp_result_gen;
-END_RCPP
-}
-// irregularLaplacianTest
-Eigen::VectorXd irregularLaplacianTest(int rows, int cols, Eigen::VectorXd& x, Eigen::VectorXi& internalPoints, double lengthX, double lengthY);
-RcppExport SEXP _implicit_irregularLaplacianTest(SEXP rowsSEXP, SEXP colsSEXP, SEXP xSEXP, SEXP internalPointsSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type internalPoints(internalPointsSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(irregularLaplacianTest(rows, cols, x, internalPoints, lengthX, lengthY));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -320,54 +82,122 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// computeDiffusion_guess
-Eigen::MatrixXd computeDiffusion_guess(Eigen::VectorXd params, Eigen::MatrixXd X, Eigen::VectorXd init, int rows, int cols, int nTime, double tol, int nIter, Eigen::VectorXi internalPoints, Eigen::MatrixXd U_guess, bool dirichlet, double lengthX, double lengthY, bool pad, bool iterative, int diffusionType);
-RcppExport SEXP _implicit_computeDiffusion_guess(SEXP paramsSEXP, SEXP XSEXP, SEXP initSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP nTimeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP internalPointsSEXP, SEXP U_guessSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP padSEXP, SEXP iterativeSEXP, SEXP diffusionTypeSEXP) {
+// invert
+Eigen::VectorXd invert(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, int nIter, double lengthX, double lengthY, int preconditionerType, bool debug);
+RcppExport SEXP _implicit_invert(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP nIterSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP debugSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type params(paramsSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd >::type init(initSEXP);
     Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
     Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< int >::type nTime(nTimeSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type b(bSEXP);
+    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
+    Rcpp::traits::input_parameter< int >::type nIter(nIterSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
+    Rcpp::traits::input_parameter< int >::type preconditionerType(preconditionerTypeSEXP);
+    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
+    rcpp_result_gen = Rcpp::wrap(invert(rows, cols, mu, x, b, diffusionType, nIter, lengthX, lengthY, preconditionerType, debug));
+    return rcpp_result_gen;
+END_RCPP
+}
+// invert_Irregular
+Eigen::VectorXd invert_Irregular(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, double tol, int nIter, Eigen::VectorXi& internalPoints, bool dirichlet, double lengthX, double lengthY, int preconditionerType, bool debug);
+RcppExport SEXP _implicit_invert_Irregular(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP internalPointsSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP debugSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type b(bSEXP);
+    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
     Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< int >::type nIter(nIterSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi >::type internalPoints(internalPointsSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type U_guess(U_guessSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type internalPoints(internalPointsSEXP);
     Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
     Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
     Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    Rcpp::traits::input_parameter< bool >::type iterative(iterativeSEXP);
-    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
-    rcpp_result_gen = Rcpp::wrap(computeDiffusion_guess(params, X, init, rows, cols, nTime, tol, nIter, internalPoints, U_guess, dirichlet, lengthX, lengthY, pad, iterative, diffusionType));
+    Rcpp::traits::input_parameter< int >::type preconditionerType(preconditionerTypeSEXP);
+    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
+    rcpp_result_gen = Rcpp::wrap(invert_Irregular(rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, preconditionerType, debug));
+    return rcpp_result_gen;
+END_RCPP
+}
+// dst1
+Eigen::MatrixXd dst1(Eigen::MatrixXd U);
+RcppExport SEXP _implicit_dst1(SEXP USEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type U(USEXP);
+    rcpp_result_gen = Rcpp::wrap(dst1(U));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fick_L_f
+Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_, Eigen::VectorXd& f_, int rows, int cols, double lengthX, double lengthY);
+RcppExport SEXP _implicit_fick_L_f(SEXP mu_SEXP, SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu_(mu_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
+    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
+    rcpp_result_gen = Rcpp::wrap(fick_L_f(mu_, f_, rows, cols, lengthX, lengthY));
+    return rcpp_result_gen;
+END_RCPP
+}
+// homogeneous_L_f
+Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_, int rows, int cols, double lengthX, double lengthY);
+RcppExport SEXP _implicit_homogeneous_L_f(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
+    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
+    rcpp_result_gen = Rcpp::wrap(homogeneous_L_f(f_, rows, cols, lengthX, lengthY));
+    return rcpp_result_gen;
+END_RCPP
+}
+// general_Homogeneous_Lf
+Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_, int rows, int cols, Eigen::VectorXi& boundaryPoints_, bool dirichlet, double lengthX, double lengthY);
+RcppExport SEXP _implicit_general_Homogeneous_Lf(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP boundaryPoints_SEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
+    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type boundaryPoints_(boundaryPoints_SEXP);
+    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
+    rcpp_result_gen = Rcpp::wrap(general_Homogeneous_Lf(f_, rows, cols, boundaryPoints_, dirichlet, lengthX, lengthY));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_implicit_solveBiCGSTAB", (DL_FUNC) &_implicit_solveBiCGSTAB, 5},
-    {"_implicit_solveJacobi", (DL_FUNC) &_implicit_solveJacobi, 4},
-    {"_implicit_makeLaplacian", (DL_FUNC) &_implicit_makeLaplacian, 2},
-    {"_implicit_make_I_Laplacian", (DL_FUNC) &_implicit_make_I_Laplacian, 2},
-    {"_implicit_lapTest", (DL_FUNC) &_implicit_lapTest, 9},
     {"_implicit_logLikelihood", (DL_FUNC) &_implicit_logLikelihood, 3},
     {"_implicit_logLikelihood_general", (DL_FUNC) &_implicit_logLikelihood_general, 6},
-    {"_implicit_computeDiffusion", (DL_FUNC) &_implicit_computeDiffusion, 9},
-    {"_implicit_dst1", (DL_FUNC) &_implicit_dst1, 1},
-    {"_implicit_L_f", (DL_FUNC) &_implicit_L_f, 7},
-    {"_implicit_homogeneous_L_f", (DL_FUNC) &_implicit_homogeneous_L_f, 5},
-    {"_implicit_irregular_Homogeneous_L_f", (DL_FUNC) &_implicit_irregular_Homogeneous_L_f, 6},
-    {"_implicit_general_Homogeneous_Lf", (DL_FUNC) &_implicit_general_Homogeneous_Lf, 7},
-    {"_implicit_invert", (DL_FUNC) &_implicit_invert, 11},
-    {"_implicit_fixBoundary", (DL_FUNC) &_implicit_fixBoundary, 2},
-    {"_implicit_invert_Irregular", (DL_FUNC) &_implicit_invert_Irregular, 14},
-    {"_implicit_irregularLaplacianTest", (DL_FUNC) &_implicit_irregularLaplacianTest, 6},
     {"_implicit_computeDiffusion2", (DL_FUNC) &_implicit_computeDiffusion2, 12},
     {"_implicit_computeDiffusion_general", (DL_FUNC) &_implicit_computeDiffusion_general, 15},
-    {"_implicit_computeDiffusion_guess", (DL_FUNC) &_implicit_computeDiffusion_guess, 16},
+    {"_implicit_invert", (DL_FUNC) &_implicit_invert, 11},
+    {"_implicit_invert_Irregular", (DL_FUNC) &_implicit_invert_Irregular, 14},
+    {"_implicit_dst1", (DL_FUNC) &_implicit_dst1, 1},
+    {"_implicit_fick_L_f", (DL_FUNC) &_implicit_fick_L_f, 6},
+    {"_implicit_homogeneous_L_f", (DL_FUNC) &_implicit_homogeneous_L_f, 5},
+    {"_implicit_general_Homogeneous_Lf", (DL_FUNC) &_implicit_general_Homogeneous_Lf, 7},
     {NULL, NULL, 0}
 };
 

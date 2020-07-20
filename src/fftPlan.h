@@ -1,7 +1,6 @@
 #include <Rcpp.h>
 #include <fftw3.h>
 #include <RcppEigen.h>
-#include "matrixFree.h"
 using namespace Rcpp;
 using namespace Eigen;
 
