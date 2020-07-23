@@ -105,13 +105,13 @@
     },
     {
         "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-        "file_last_write": 1595284943.0,
+        "file_last_write": 1595540465.0,
         "definitions": [
             {
-                "usr": "c:@F@homogeneousDiffusion_derivatives#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S2_#S2_#I#I#I#I#d#I#d#d#b#",
+                "usr": "c:@F@homogeneousDiffusion_derivatives#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S2_#S2_#I#I#I#I#d#I#d#d#b#b#",
                 "kind": 6,
                 "parent_name": "",
-                "name": "homogeneousDiffusion_derivatives(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, double, int, double, double, bool)",
+                "name": "homogeneousDiffusion_derivatives(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, double, int, double, double, bool, bool)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
                 "line": 22,
                 "column": 12
@@ -122,7 +122,7 @@
                 "parent_name": "",
                 "name": "computeDiffusion2(Eigen::VectorXd, Eigen::MatrixXd, Eigen::VectorXd, int, int, int, int, double, int, double, double, bool)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 352,
+                "line": 385,
                 "column": 17
             },
             {
@@ -131,7 +131,7 @@
                 "parent_name": "",
                 "name": "computeDiffusion_general(Eigen::VectorXd, Eigen::MatrixXd, Eigen::VectorXd, int, int, int, double, int, Eigen::VectorXi, bool, double, double, bool, bool, int)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 431,
+                "line": 464,
                 "column": 17
             }
         ]

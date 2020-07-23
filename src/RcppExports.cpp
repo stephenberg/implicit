@@ -18,8 +18,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // homogeneousDiffusion_derivatives
-Rcpp::List homogeneousDiffusion_derivatives(double mu_0, Eigen::VectorXd gamma, Eigen::VectorXd longLat, double sigma, double kappa, Eigen::MatrixXd coords, Eigen::MatrixXd X_reaction, Eigen::VectorXi positive, Eigen::VectorXi cell, Eigen::VectorXi time, int rows, int cols, int nTime, int diffusionType, double tol, int nIter, double lengthX, double lengthY, bool pad);
-RcppExport SEXP _implicit_homogeneousDiffusion_derivatives(SEXP mu_0SEXP, SEXP gammaSEXP, SEXP longLatSEXP, SEXP sigmaSEXP, SEXP kappaSEXP, SEXP coordsSEXP, SEXP X_reactionSEXP, SEXP positiveSEXP, SEXP cellSEXP, SEXP timeSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP nTimeSEXP, SEXP diffusionTypeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP padSEXP) {
+Rcpp::List homogeneousDiffusion_derivatives(double mu_0, Eigen::VectorXd gamma, Eigen::VectorXd longLat, double sigma, double kappa, Eigen::MatrixXd coords, Eigen::MatrixXd X_reaction, Eigen::VectorXi positive, Eigen::VectorXi cell, Eigen::VectorXi time, int rows, int cols, int nTime, int diffusionType, double tol, int nIter, double lengthX, double lengthY, bool differentiate, bool debug);
+RcppExport SEXP _implicit_homogeneousDiffusion_derivatives(SEXP mu_0SEXP, SEXP gammaSEXP, SEXP longLatSEXP, SEXP sigmaSEXP, SEXP kappaSEXP, SEXP coordsSEXP, SEXP X_reactionSEXP, SEXP positiveSEXP, SEXP cellSEXP, SEXP timeSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP nTimeSEXP, SEXP diffusionTypeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP differentiateSEXP, SEXP debugSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -41,8 +41,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type nIter(nIterSEXP);
     Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
     Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(homogeneousDiffusion_derivatives(mu_0, gamma, longLat, sigma, kappa, coords, X_reaction, positive, cell, time, rows, cols, nTime, diffusionType, tol, nIter, lengthX, lengthY, pad));
+    Rcpp::traits::input_parameter< bool >::type differentiate(differentiateSEXP);
+    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
+    rcpp_result_gen = Rcpp::wrap(homogeneousDiffusion_derivatives(mu_0, gamma, longLat, sigma, kappa, coords, X_reaction, positive, cell, time, rows, cols, nTime, diffusionType, tol, nIter, lengthX, lengthY, differentiate, debug));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -286,7 +287,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_implicit_dst1", (DL_FUNC) &_implicit_dst1, 1},
-    {"_implicit_homogeneousDiffusion_derivatives", (DL_FUNC) &_implicit_homogeneousDiffusion_derivatives, 19},
+    {"_implicit_homogeneousDiffusion_derivatives", (DL_FUNC) &_implicit_homogeneousDiffusion_derivatives, 20},
     {"_implicit_computeDiffusion2", (DL_FUNC) &_implicit_computeDiffusion2, 12},
     {"_implicit_computeDiffusion_general", (DL_FUNC) &_implicit_computeDiffusion_general, 15},
     {"_implicit_invert", (DL_FUNC) &_implicit_invert, 11},
