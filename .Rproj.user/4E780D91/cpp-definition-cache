@@ -5,6 +5,45 @@
         "definitions": []
     },
     {
+        "file": "E:/Dropbox/implicit/src/convenienceFunctions.h",
+        "file_last_write": 1595282100.0,
+        "definitions": [
+            {
+                "usr": "c:@F@logit#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "logit(double)",
+                "file": "E:/Dropbox/implicit/src/convenienceFunctions.h",
+                "line": 6,
+                "column": 15
+            },
+            {
+                "usr": "c:@F@expit#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "expit(double)",
+                "file": "E:/Dropbox/implicit/src/convenienceFunctions.h",
+                "line": 10,
+                "column": 15
+            }
+        ]
+    },
+    {
+        "file": "E:/Dropbox/implicit/src/dst1.cpp",
+        "file_last_write": 1595259529.0,
+        "definitions": [
+            {
+                "usr": "c:@F@dst1#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "dst1(Eigen::MatrixXd)",
+                "file": "E:/Dropbox/implicit/src/dst1.cpp",
+                "line": 8,
+                "column": 17
+            }
+        ]
+    },
+    {
         "file": "E:/Dropbox/implicit/src/fftPlan.h",
         "file_last_write": 1595207740.0,
         "definitions": [
@@ -66,25 +105,16 @@
     },
     {
         "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-        "file_last_write": 1595208126.0,
+        "file_last_write": 1595284943.0,
         "definitions": [
             {
-                "usr": "c:@F@logLikelihood#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#S0_#",
+                "usr": "c:@F@homogeneousDiffusion_derivatives#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S2_#S2_#I#I#I#I#d#I#d#d#b#",
                 "kind": 6,
                 "parent_name": "",
-                "name": "logLikelihood(Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::MatrixXd &)",
+                "name": "homogeneousDiffusion_derivatives(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, double, int, double, double, bool)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 17,
-                "column": 8
-            },
-            {
-                "usr": "c:@F@logLikelihood_general#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#S0_#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#I#I#",
-                "kind": 6,
-                "parent_name": "",
-                "name": "logLikelihood_general(Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::VectorXi &, int, int)",
-                "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 37,
-                "column": 8
+                "line": 22,
+                "column": 12
             },
             {
                 "usr": "c:@F@computeDiffusion2#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#I#I#I#I#d#I#d#d#b#",
@@ -92,7 +122,7 @@
                 "parent_name": "",
                 "name": "computeDiffusion2(Eigen::VectorXd, Eigen::MatrixXd, Eigen::VectorXd, int, int, int, int, double, int, double, double, bool)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 66,
+                "line": 352,
                 "column": 17
             },
             {
@@ -101,14 +131,14 @@
                 "parent_name": "",
                 "name": "computeDiffusion_general(Eigen::VectorXd, Eigen::MatrixXd, Eigen::VectorXd, int, int, int, double, int, Eigen::VectorXi, bool, double, double, bool, bool, int)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 145,
+                "line": 431,
                 "column": 17
             }
         ]
     },
     {
         "file": "E:/Dropbox/implicit/src/inversionFunctions.h",
-        "file_last_write": 1595208085.0,
+        "file_last_write": 1595259489.0,
         "definitions": [
             {
                 "usr": "c:@F@fixBoundary#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#",
@@ -136,15 +166,66 @@
                 "file": "E:/Dropbox/implicit/src/inversionFunctions.h",
                 "line": 127,
                 "column": 17
-            },
+            }
+        ]
+    },
+    {
+        "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
+        "file_last_write": 1595283736.0,
+        "definitions": [
             {
-                "usr": "c:@F@dst1#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
+                "usr": "c:@F@logLikelihood_adjusted#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S2_#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S2_#",
                 "kind": 6,
                 "parent_name": "",
-                "name": "dst1(Eigen::MatrixXd)",
-                "file": "E:/Dropbox/implicit/src/inversionFunctions.h",
-                "line": 241,
+                "name": "logLikelihood_adjusted(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::MatrixXd &, Eigen::VectorXd &)",
+                "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
+                "line": 9,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@logLikelihood_raw#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "logLikelihood_raw(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::MatrixXd &)",
+                "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
+                "line": 32,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@derivative_logLikelihood_adjusted#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S2_#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S4_#S2_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "derivative_logLikelihood_adjusted(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::VectorXd &)",
+                "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
+                "line": 48,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@etaDerivative_logLikelihood_adjusted#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S2_#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S2_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "etaDerivative_logLikelihood_adjusted(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::MatrixXd &, Eigen::VectorXd &)",
+                "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
+                "line": 74,
                 "column": 17
+            },
+            {
+                "usr": "c:@F@derivative_logLikelihood_raw#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S2_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "derivative_logLikelihood_raw(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::MatrixXd &, Eigen::MatrixXd &)",
+                "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
+                "line": 100,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@logLikelihood_general#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#S0_#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#I#I#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "logLikelihood_general(Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::VectorXi &, int, int)",
+                "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
+                "line": 121,
+                "column": 8
             }
         ]
     },
