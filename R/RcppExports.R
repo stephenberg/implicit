@@ -5,6 +5,10 @@ dst1 <- function(U) {
     .Call('_implicit_dst1', PACKAGE = 'implicit', U)
 }
 
+dl_dmu <- function(U, rows, cols, diffusionType, nIter, lengthX, lengthY, positive, cell, time, mu, lambda) {
+    .Call('_implicit_dl_dmu', PACKAGE = 'implicit', U, rows, cols, diffusionType, nIter, lengthX, lengthY, positive, cell, time, mu, lambda)
+}
+
 homogeneousDiffusion_derivatives <- function(mu_0, gamma, longLat, sigma, kappa, coords, X_reaction, positive, cell, time, rows, cols, nTime, diffusionType, tol, nIter, lengthX = 1, lengthY = 1, differentiate = TRUE, debug = FALSE) {
     .Call('_implicit_homogeneousDiffusion_derivatives', PACKAGE = 'implicit', mu_0, gamma, longLat, sigma, kappa, coords, X_reaction, positive, cell, time, rows, cols, nTime, diffusionType, tol, nIter, lengthX, lengthY, differentiate, debug)
 }

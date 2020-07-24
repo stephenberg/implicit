@@ -16,6 +16,88 @@ using namespace Rcpp;
 // [[Rcpp::depends(RcppEigen)]]
 
 
+//wrt mu_0
+//[[Rcpp::export]]
+Eigen::VectorXd dl_dmu(Eigen::MatrixXd& U,
+                       int rows,
+                       int cols,
+                       int diffusionType,
+                       int nIter,
+                       double lengthX,
+                       double lengthY,
+                       Eigen::VectorXi& positive,
+                       Eigen::VectorXi& cell,
+                       Eigen::VectorXi& time,
+                       Eigen::Map<Eigen::MatrixXd> mu,
+                       Eigen::Map<Eigen::MatrixXd> lambda){
+  int nInternal=U.rows();
+  int nTime=U.cols();
+  Eigen::MatrixXd du_dTheta;
+  du_dTheta.setZero(nInternal,nTime);
+  Eigen::VectorXd dl_dmu;
+  dl_dmu.setZero(1);
+  
+  for (int i=0;i<nTime;i++){
+    //(du_0/dTheta)=0
+    if (i>0){
+      Eigen::VectorXd rhs(nInternal);
+      rhs=U.col(i-1).array()+lambda.col(i-1).array()*U.col(i-1).array()*(1-U.col(i-1).array());
+      Eigen::VectorXd guess,temp;
+      guess.setZero(nInternal);
+      temp.setZero(nInternal);
+      Eigen::VectorXd mu_i(mu.col(i-1));
+      du_dTheta.col(i)=invert(rows,
+                    cols,
+                    mu_i,
+                    guess,
+                    rhs,
+                    diffusionType,
+                    nIter,
+                    lengthX,
+                    lengthY);
+      temp=du_dTheta.col(i);
+      du_dTheta.col(i)=homogeneous_L_f(temp,
+                    rows,
+                    cols,
+                    lengthX,
+                    lengthY);
+      temp=du_dTheta.col(i);
+      du_dTheta.col(i)=invert(rows,
+                    cols,
+                    mu_i,
+                    guess,
+                    temp,
+                    diffusionType,
+                    nIter,
+                    lengthX,
+                    lengthY);
+      
+      Eigen::VectorXd rhs2;
+      rhs2.setZero(nInternal);
+      rhs2=du_dTheta.col(i-1).array()+lambda.col(i-1).array()*du_dTheta.col(i-1).array()+
+        -2*lambda.col(i-1).array()*U.col(i-1).array()*du_dTheta.col(i-1).array();
+        du_dTheta.col(i)=du_dTheta.col(i)+invert(rows,
+                      cols,
+                      mu_i,
+                      guess,
+                      rhs2,
+                      diffusionType,
+                      nIter,
+                      lengthX,
+                      lengthY);
+    }
+  }
+  
+  dl_dmu(0)=derivative_logLikelihood_raw(positive,
+         cell,
+         time,
+         U,
+         du_dTheta);
+  
+  return dl_dmu;
+}
+
+
 
 
 //[[Rcpp::export]]
