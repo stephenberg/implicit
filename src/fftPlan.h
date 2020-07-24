@@ -1,3 +1,6 @@
+#ifndef __FFTPLAN__
+#define __FFTPLAN__
+
 #include <Rcpp.h>
 #include <fftw3.h>
 #include <RcppEigen.h>
@@ -117,7 +120,7 @@ public:
   
 };
 
-
+#endif
 
 
 

@@ -5,32 +5,12 @@ dst1 <- function(U) {
     .Call('_implicit_dst1', PACKAGE = 'implicit', U)
 }
 
-dl_dmu <- function(U, rows, cols, diffusionType, nIter, lengthX, lengthY, positive, cell, time, mu, lambda) {
-    .Call('_implicit_dl_dmu', PACKAGE = 'implicit', U, rows, cols, diffusionType, nIter, lengthX, lengthY, positive, cell, time, mu, lambda)
-}
-
-homogeneousDiffusion_derivatives <- function(mu_0, gamma, longLat, sigma, kappa, coords, X_reaction, positive, cell, time, rows, cols, nTime, diffusionType, tol, nIter, lengthX = 1, lengthY = 1, differentiate = TRUE, debug = FALSE) {
-    .Call('_implicit_homogeneousDiffusion_derivatives', PACKAGE = 'implicit', mu_0, gamma, longLat, sigma, kappa, coords, X_reaction, positive, cell, time, rows, cols, nTime, diffusionType, tol, nIter, lengthX, lengthY, differentiate, debug)
-}
-
-computeDiffusion2 <- function(params, X, init, rows, cols, nTime, diffusionType, tol, nIter, lengthX = 1, lengthY = 1, pad = TRUE) {
-    .Call('_implicit_computeDiffusion2', PACKAGE = 'implicit', params, X, init, rows, cols, nTime, diffusionType, tol, nIter, lengthX, lengthY, pad)
-}
-
-computeDiffusion_general <- function(params, X, init, rows, cols, nTime, tol, nIter, internalPoints, dirichlet = TRUE, lengthX = 1, lengthY = 1, pad = TRUE, iterative = TRUE, diffusionType = 1L) {
-    .Call('_implicit_computeDiffusion_general', PACKAGE = 'implicit', params, X, init, rows, cols, nTime, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, pad, iterative, diffusionType)
-}
-
-invert <- function(rows, cols, mu, x, b, diffusionType, nIter, lengthX = 1, lengthY = 1, preconditionerType = 1L, debug = FALSE) {
-    .Call('_implicit_invert', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, nIter, lengthX, lengthY, preconditionerType, debug)
+invert <- function(rows, cols, mu, x, b, diffusionType, nIter, tol = 1.0e-10, lengthX = 1, lengthY = 1, preconditionerType = 1L, debug = FALSE) {
+    .Call('_implicit_invert', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, nIter, tol, lengthX, lengthY, preconditionerType, debug)
 }
 
 invert_Irregular <- function(rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet = TRUE, lengthX = 1, lengthY = 1, preconditionerType = 1L, debug = FALSE) {
     .Call('_implicit_invert_Irregular', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, preconditionerType, debug)
-}
-
-logLikelihood_adjusted <- function(positive, cell, time, age, sex, u, eta) {
-    .Call('_implicit_logLikelihood_adjusted', PACKAGE = 'implicit', positive, cell, time, age, sex, u, eta)
 }
 
 logLikelihood_raw <- function(positive, cell, time, u) {
@@ -39,18 +19,6 @@ logLikelihood_raw <- function(positive, cell, time, u) {
 
 derivative_logLikelihood_adjusted <- function(positive, cell, time, age, sex, u, du_dTheta, eta) {
     .Call('_implicit_derivative_logLikelihood_adjusted', PACKAGE = 'implicit', positive, cell, time, age, sex, u, du_dTheta, eta)
-}
-
-etaDerivative_logLikelihood_adjusted <- function(positive, cell, time, age, sex, u, eta) {
-    .Call('_implicit_etaDerivative_logLikelihood_adjusted', PACKAGE = 'implicit', positive, cell, time, age, sex, u, eta)
-}
-
-derivative_logLikelihood_raw <- function(positive, cell, time, u, du_dTheta) {
-    .Call('_implicit_derivative_logLikelihood_raw', PACKAGE = 'implicit', positive, cell, time, u, du_dTheta)
-}
-
-logLikelihood_general <- function(negatives, positives, probabilities, internalPoints, rows, cols) {
-    .Call('_implicit_logLikelihood_general', PACKAGE = 'implicit', negatives, positives, probabilities, internalPoints, rows, cols)
 }
 
 fick_L_f <- function(mu_, f_, rows, cols, lengthX = 1, lengthY = 1) {

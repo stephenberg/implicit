@@ -21,7 +21,7 @@
 //implicit matrix vector multiplication with inhomogeneous diffusion coefficients
 //diffusion coefficient in middle of Laplacian (Fickian diffusion)
 //[[Rcpp::export]]
-inline Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_,
+Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_,
                          Eigen::VectorXd& f_,
                          int rows,
                          int cols,
@@ -87,7 +87,7 @@ inline Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_,
 
 //implicit multiplication by the Laplacian with homogeneous diffusion
 //[[Rcpp::export]]
-inline Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_,
+Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_,
                                 int rows,
                                 int cols,
                                 double lengthX=1,
@@ -138,7 +138,7 @@ inline Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_,
 
 //implicit multiplication by the Laplacian with homogeneous diffusion
 //[[Rcpp::export]]
-inline Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
+Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
                                        int rows,
                                        int cols,
                                        Eigen::VectorXi& boundaryPoints_,
