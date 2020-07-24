@@ -17,6 +17,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dl_dmu
+Eigen::VectorXd dl_dmu(Eigen::MatrixXd& U, int rows, int cols, int diffusionType, int nIter, double lengthX, double lengthY, Eigen::VectorXi& positive, Eigen::VectorXi& cell, Eigen::VectorXi& time, Eigen::Map<Eigen::MatrixXd> mu, Eigen::Map<Eigen::MatrixXd> lambda);
+RcppExport SEXP _implicit_dl_dmu(SEXP USEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP diffusionTypeSEXP, SEXP nIterSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP positiveSEXP, SEXP cellSEXP, SEXP timeSEXP, SEXP muSEXP, SEXP lambdaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd& >::type U(USEXP);
+    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
+    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
+    Rcpp::traits::input_parameter< int >::type nIter(nIterSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
+    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type positive(positiveSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type cell(cellSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type time(timeSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd> >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd> >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(dl_dmu(U, rows, cols, diffusionType, nIter, lengthX, lengthY, positive, cell, time, mu, lambda));
+    return rcpp_result_gen;
+END_RCPP
+}
 // homogeneousDiffusion_derivatives
 Rcpp::List homogeneousDiffusion_derivatives(double mu_0, Eigen::VectorXd gamma, Eigen::VectorXd longLat, double sigma, double kappa, Eigen::MatrixXd coords, Eigen::MatrixXd X_reaction, Eigen::VectorXi positive, Eigen::VectorXi cell, Eigen::VectorXi time, int rows, int cols, int nTime, int diffusionType, double tol, int nIter, double lengthX, double lengthY, bool differentiate, bool debug);
 RcppExport SEXP _implicit_homogeneousDiffusion_derivatives(SEXP mu_0SEXP, SEXP gammaSEXP, SEXP longLatSEXP, SEXP sigmaSEXP, SEXP kappaSEXP, SEXP coordsSEXP, SEXP X_reactionSEXP, SEXP positiveSEXP, SEXP cellSEXP, SEXP timeSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP nTimeSEXP, SEXP diffusionTypeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP differentiateSEXP, SEXP debugSEXP) {
@@ -95,7 +117,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // invert
-Eigen::VectorXd invert(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, int nIter, double lengthX, double lengthY, int preconditionerType, bool debug);
+inline Eigen::VectorXd invert(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, int nIter, double lengthX, double lengthY, int preconditionerType, bool debug);
 RcppExport SEXP _implicit_invert(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP nIterSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP debugSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -116,7 +138,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // invert_Irregular
-Eigen::VectorXd invert_Irregular(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, double tol, int nIter, Eigen::VectorXi& internalPoints, bool dirichlet, double lengthX, double lengthY, int preconditionerType, bool debug);
+inline Eigen::VectorXd invert_Irregular(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, double tol, int nIter, Eigen::VectorXi& internalPoints, bool dirichlet, double lengthX, double lengthY, int preconditionerType, bool debug);
 RcppExport SEXP _implicit_invert_Irregular(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP internalPointsSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP debugSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -237,7 +259,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // fick_L_f
-Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_, Eigen::VectorXd& f_, int rows, int cols, double lengthX, double lengthY);
+inline Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_, Eigen::VectorXd& f_, int rows, int cols, double lengthX, double lengthY);
 RcppExport SEXP _implicit_fick_L_f(SEXP mu_SEXP, SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -253,7 +275,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // homogeneous_L_f
-Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_, int rows, int cols, double lengthX, double lengthY);
+inline Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_, int rows, int cols, double lengthX, double lengthY);
 RcppExport SEXP _implicit_homogeneous_L_f(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -268,7 +290,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // general_Homogeneous_Lf
-Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_, int rows, int cols, Eigen::VectorXi& boundaryPoints_, bool dirichlet, double lengthX, double lengthY);
+inline Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_, int rows, int cols, Eigen::VectorXi& boundaryPoints_, bool dirichlet, double lengthX, double lengthY);
 RcppExport SEXP _implicit_general_Homogeneous_Lf(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP boundaryPoints_SEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -287,6 +309,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_implicit_dst1", (DL_FUNC) &_implicit_dst1, 1},
+    {"_implicit_dl_dmu", (DL_FUNC) &_implicit_dl_dmu, 12},
     {"_implicit_homogeneousDiffusion_derivatives", (DL_FUNC) &_implicit_homogeneousDiffusion_derivatives, 20},
     {"_implicit_computeDiffusion2", (DL_FUNC) &_implicit_computeDiffusion2, 12},
     {"_implicit_computeDiffusion_general", (DL_FUNC) &_implicit_computeDiffusion_general, 15},

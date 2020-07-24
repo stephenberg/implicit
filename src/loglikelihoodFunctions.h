@@ -5,6 +5,9 @@ using namespace Rcpp;
 #include <math.h>
 #include "convenienceFunctions.h"
 
+#ifndef __LOGLIKE__
+#define __LOGLIKE__
+
 //[[Rcpp::export]]
 double logLikelihood_adjusted(Eigen::VectorXi& positive,
                               Eigen::VectorXi& cell,
@@ -144,3 +147,5 @@ double logLikelihood_general(Eigen::MatrixXd& negatives,
   }
   return logLike;
 }
+
+#endif

@@ -105,15 +105,24 @@
     },
     {
         "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-        "file_last_write": 1595540465.0,
+        "file_last_write": 1595601890.0,
         "definitions": [
+            {
+                "usr": "c:@F@dl_dmu#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#I#I#I#I#d#d#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S2_#S2_#$@N@Eigen@C@Map>#S1_#VI0#$@N@Eigen@C@Stride>#VI0#VI0#S4_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "dl_dmu(Eigen::MatrixXd &, int, int, int, int, double, double, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::Map<Eigen::MatrixXd>, Eigen::Map<Eigen::MatrixXd>)",
+                "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
+                "line": 21,
+                "column": 17
+            },
             {
                 "usr": "c:@F@homogeneousDiffusion_derivatives#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S2_#S2_#I#I#I#I#d#I#d#d#b#b#",
                 "kind": 6,
                 "parent_name": "",
                 "name": "homogeneousDiffusion_derivatives(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, double, int, double, double, bool, bool)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 22,
+                "line": 104,
                 "column": 12
             },
             {
@@ -122,7 +131,7 @@
                 "parent_name": "",
                 "name": "computeDiffusion2(Eigen::VectorXd, Eigen::MatrixXd, Eigen::VectorXd, int, int, int, int, double, int, double, double, bool)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 385,
+                "line": 467,
                 "column": 17
             },
             {
@@ -131,14 +140,14 @@
                 "parent_name": "",
                 "name": "computeDiffusion_general(Eigen::VectorXd, Eigen::MatrixXd, Eigen::VectorXd, int, int, int, double, int, Eigen::VectorXi, bool, double, double, bool, bool, int)",
                 "file": "E:/Dropbox/implicit/src/fisher_kpp.cpp",
-                "line": 464,
+                "line": 546,
                 "column": 17
             }
         ]
     },
     {
         "file": "E:/Dropbox/implicit/src/inversionFunctions.h",
-        "file_last_write": 1595259489.0,
+        "file_last_write": 1595600928.0,
         "definitions": [
             {
                 "usr": "c:@F@fixBoundary#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#",
@@ -146,8 +155,8 @@
                 "parent_name": "",
                 "name": "fixBoundary(Eigen::VectorXd, Eigen::VectorXi &)",
                 "file": "E:/Dropbox/implicit/src/inversionFunctions.h",
-                "line": 7,
-                "column": 17
+                "line": 10,
+                "column": 24
             },
             {
                 "usr": "c:@F@invert#I#I#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#I#I#d#d#I#b#",
@@ -155,8 +164,8 @@
                 "parent_name": "",
                 "name": "invert(int, int, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::VectorXd &, int, int, double, double, int, bool)",
                 "file": "E:/Dropbox/implicit/src/inversionFunctions.h",
-                "line": 21,
-                "column": 17
+                "line": 24,
+                "column": 24
             },
             {
                 "usr": "c:@F@invert_Irregular#I#I#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#I#d#I#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#b#d#d#I#b#",
@@ -164,14 +173,65 @@
                 "parent_name": "",
                 "name": "invert_Irregular(int, int, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::VectorXd &, int, double, int, Eigen::VectorXi &, bool, double, double, int, bool)",
                 "file": "E:/Dropbox/implicit/src/inversionFunctions.h",
-                "line": 127,
-                "column": 17
+                "line": 130,
+                "column": 24
+            }
+        ]
+    },
+    {
+        "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+        "file_last_write": 1595604159.0,
+        "definitions": [
+            {
+                "usr": "c:@C@KF_diffusion",
+                "kind": 2,
+                "parent_name": "",
+                "name": "KF_diffusion",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 9,
+                "column": 7
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@setInitialConditions#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "setInitialConditions",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 100,
+                "column": 8
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@computeDiffusion#I#d#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "computeDiffusion(int, double)",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 117,
+                "column": 8
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@logLikelihood#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "logLikelihood",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 140,
+                "column": 10
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@differentiateLogLikelihood#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "differentiateLogLikelihood",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 145,
+                "column": 19
             }
         ]
     },
     {
         "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-        "file_last_write": 1595283736.0,
+        "file_last_write": 1595601863.0,
         "definitions": [
             {
                 "usr": "c:@F@logLikelihood_adjusted#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S2_#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S2_#",
@@ -179,7 +239,7 @@
                 "parent_name": "",
                 "name": "logLikelihood_adjusted(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::MatrixXd &, Eigen::VectorXd &)",
                 "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-                "line": 9,
+                "line": 12,
                 "column": 8
             },
             {
@@ -188,7 +248,7 @@
                 "parent_name": "",
                 "name": "logLikelihood_raw(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::MatrixXd &)",
                 "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-                "line": 32,
+                "line": 35,
                 "column": 8
             },
             {
@@ -197,7 +257,7 @@
                 "parent_name": "",
                 "name": "derivative_logLikelihood_adjusted(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::VectorXd &)",
                 "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-                "line": 48,
+                "line": 51,
                 "column": 8
             },
             {
@@ -206,7 +266,7 @@
                 "parent_name": "",
                 "name": "etaDerivative_logLikelihood_adjusted(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::MatrixXd &, Eigen::VectorXd &)",
                 "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-                "line": 74,
+                "line": 77,
                 "column": 17
             },
             {
@@ -215,7 +275,7 @@
                 "parent_name": "",
                 "name": "derivative_logLikelihood_raw(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::MatrixXd &, Eigen::MatrixXd &)",
                 "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-                "line": 100,
+                "line": 103,
                 "column": 8
             },
             {
@@ -224,14 +284,14 @@
                 "parent_name": "",
                 "name": "logLikelihood_general(Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::VectorXi &, int, int)",
                 "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-                "line": 121,
+                "line": 124,
                 "column": 8
             }
         ]
     },
     {
         "file": "E:/Dropbox/implicit/src/multiplyByLaplacian.h",
-        "file_last_write": 1595208639.0,
+        "file_last_write": 1595601231.0,
         "definitions": [
             {
                 "usr": "c:@F@fick_L_f#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#I#I#d#d#",
@@ -240,7 +300,7 @@
                 "name": "fick_L_f(Eigen::VectorXd &, Eigen::VectorXd &, int, int, double, double)",
                 "file": "E:/Dropbox/implicit/src/multiplyByLaplacian.h",
                 "line": 24,
-                "column": 17
+                "column": 24
             },
             {
                 "usr": "c:@F@homogeneous_L_f#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#I#I#d#d#",
@@ -249,7 +309,7 @@
                 "name": "homogeneous_L_f(Eigen::VectorXd &, int, int, double, double)",
                 "file": "E:/Dropbox/implicit/src/multiplyByLaplacian.h",
                 "line": 90,
-                "column": 17
+                "column": 24
             },
             {
                 "usr": "c:@F@general_Homogeneous_Lf#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#I#I#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#b#d#d#",
@@ -258,7 +318,7 @@
                 "name": "general_Homogeneous_Lf(Eigen::VectorXd &, int, int, Eigen::VectorXi &, bool, double, double)",
                 "file": "E:/Dropbox/implicit/src/multiplyByLaplacian.h",
                 "line": 141,
-                "column": 17
+                "column": 24
             }
         ]
     },

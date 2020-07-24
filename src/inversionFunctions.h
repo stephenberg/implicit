@@ -1,10 +1,13 @@
+#ifndef __INVERSION__
+#define __INVERSION__
+
 #include <Rcpp.h>
 #include <RcppEigen.h>
 #include "fftPlan.h"
 #include "multiplyByLaplacian.h"
 
 
-Eigen::VectorXd fixBoundary(Eigen::VectorXd x,
+inline Eigen::VectorXd fixBoundary(Eigen::VectorXd x,
                             Eigen::VectorXi& internalPoints) {
   for (int i = 0; i < x.size(); i++) {
     x(i) = x(i) * internalPoints(i);
@@ -18,7 +21,7 @@ Eigen::VectorXd fixBoundary(Eigen::VectorXd x,
 //0's (Dirichlet boundary)
 //nIter is the number of iterations, the argument x is an initial guess
 //[[Rcpp::export]]
-Eigen::VectorXd invert(int rows,
+inline Eigen::VectorXd invert(int rows,
                        int cols,
                        Eigen::VectorXd& mu,
                        Eigen::VectorXd& x,
@@ -124,7 +127,7 @@ Eigen::VectorXd invert(int rows,
 //0's (Dirichlet boundary)
 //nIter is the number of iterations, the argument x is an initial guess
 //[[Rcpp::export]]
-Eigen::VectorXd invert_Irregular(int rows,
+inline Eigen::VectorXd invert_Irregular(int rows,
                                  int cols,
                                  Eigen::VectorXd& mu,
                                  Eigen::VectorXd& x,
@@ -234,4 +237,5 @@ Eigen::VectorXd invert_Irregular(int rows,
   return x;
 }
 
+#endif
 
