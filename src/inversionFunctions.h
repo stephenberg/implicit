@@ -7,7 +7,7 @@
 #include "multiplyByLaplacian.h"
 
 
-inline Eigen::VectorXd fixBoundary(Eigen::VectorXd x,
+Eigen::VectorXd fixBoundary(Eigen::VectorXd x,
                             Eigen::VectorXi& internalPoints) {
   for (int i = 0; i < x.size(); i++) {
     x(i) = x(i) * internalPoints(i);
@@ -21,13 +21,14 @@ inline Eigen::VectorXd fixBoundary(Eigen::VectorXd x,
 //0's (Dirichlet boundary)
 //nIter is the number of iterations, the argument x is an initial guess
 //[[Rcpp::export]]
-inline Eigen::VectorXd invert(int rows,
+Eigen::VectorXd invert(int rows,
                        int cols,
                        Eigen::VectorXd& mu,
                        Eigen::VectorXd& x,
                        Eigen::VectorXd& b,
                        int diffusionType,
                        int nIter,
+                       double tol=1.0e-10,
                        double lengthX=1,
                        double lengthY=1,
                        int preconditionerType=1,
@@ -127,7 +128,7 @@ inline Eigen::VectorXd invert(int rows,
 //0's (Dirichlet boundary)
 //nIter is the number of iterations, the argument x is an initial guess
 //[[Rcpp::export]]
-inline Eigen::VectorXd invert_Irregular(int rows,
+Eigen::VectorXd invert_Irregular(int rows,
                                  int cols,
                                  Eigen::VectorXd& mu,
                                  Eigen::VectorXd& x,
