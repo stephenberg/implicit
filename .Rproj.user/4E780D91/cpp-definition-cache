@@ -180,7 +180,7 @@
     },
     {
         "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-        "file_last_write": 1595604159.0,
+        "file_last_write": 1595604398.0,
         "definitions": [
             {
                 "usr": "c:@C@KF_diffusion",
@@ -197,7 +197,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "setInitialConditions",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 100,
+                "line": 103,
                 "column": 8
             },
             {
@@ -206,7 +206,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "computeDiffusion(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 117,
+                "line": 120,
                 "column": 8
             },
             {
@@ -215,8 +215,53 @@
                 "parent_name": "KF_diffusion",
                 "name": "logLikelihood",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 140,
+                "line": 143,
                 "column": 10
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@dl_dmu#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "dl_dmu",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 147,
+                "column": 19
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@dl_dgamma#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "dl_dgamma",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 152,
+                "column": 19
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@dl_dlongLat#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "dl_dlongLat",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 157,
+                "column": 19
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@dl_dsigma#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "dl_dsigma",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 162,
+                "column": 19
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@dl_dkappa#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "dl_dkappa",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 167,
+                "column": 19
             },
             {
                 "usr": "c:@C@KF_diffusion@F@differentiateLogLikelihood#",
@@ -224,7 +269,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "differentiateLogLikelihood",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 145,
+                "line": 172,
                 "column": 19
             }
         ]
