@@ -251,30 +251,6 @@
         ]
     },
     {
-        "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-        "file_last_write": 1595617901.0,
-        "definitions": [
-            {
-                "usr": "c:@F@logLikelihood_raw#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
-                "kind": 6,
-                "parent_name": "",
-                "name": "logLikelihood_raw(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::MatrixXd &)",
-                "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-                "line": 13,
-                "column": 8
-            },
-            {
-                "usr": "c:@F@derivative_logLikelihood_adjusted#&$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S2_#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S4_#S2_#",
-                "kind": 6,
-                "parent_name": "",
-                "name": "derivative_logLikelihood_adjusted(Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXi &, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::MatrixXd &, Eigen::MatrixXd &, Eigen::VectorXd &)",
-                "file": "E:/Dropbox/implicit/src/loglikelihoodFunctions.h",
-                "line": 29,
-                "column": 8
-            }
-        ]
-    },
-    {
         "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
         "file_last_write": 1595614632.0,
         "definitions": []
