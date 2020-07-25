@@ -5,31 +5,27 @@ dst1 <- function(U) {
     .Call('_implicit_dst1', PACKAGE = 'implicit', U)
 }
 
-invert <- function(rows, cols, mu, x, b, diffusionType, nIter, tol = 1.0e-10, lengthX = 1, lengthY = 1, preconditionerType = 1L, debug = FALSE) {
-    .Call('_implicit_invert', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, nIter, tol, lengthX, lengthY, preconditionerType, debug)
+invert <- function(rows, cols, mu, x, b, diffusionType, nIter, tol = 1.0e-10, lengthX = 1, lengthY = 1, preconditionerType = 1L, dirichlet = TRUE, debug = FALSE) {
+    .Call('_implicit_invert', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, nIter, tol, lengthX, lengthY, preconditionerType, dirichlet, debug)
 }
 
 invert_Irregular <- function(rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet = TRUE, lengthX = 1, lengthY = 1, preconditionerType = 1L, debug = FALSE) {
     .Call('_implicit_invert_Irregular', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, preconditionerType, debug)
 }
 
-logLikelihood_raw <- function(positive, cell, time, u) {
-    .Call('_implicit_logLikelihood_raw', PACKAGE = 'implicit', positive, cell, time, u)
+fick_L_f <- function(mu_, f_, rows, cols, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_fick_L_f', PACKAGE = 'implicit', mu_, f_, rows, cols, dirichlet, lengthX, lengthY)
 }
 
-derivative_logLikelihood_adjusted <- function(positive, cell, time, age, sex, u, du_dTheta, eta) {
-    .Call('_implicit_derivative_logLikelihood_adjusted', PACKAGE = 'implicit', positive, cell, time, age, sex, u, du_dTheta, eta)
+homogeneous_L_f <- function(f_, rows, cols, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_homogeneous_L_f', PACKAGE = 'implicit', f_, rows, cols, dirichlet, lengthX, lengthY)
 }
 
-fick_L_f <- function(mu_, f_, rows, cols, lengthX = 1, lengthY = 1) {
-    .Call('_implicit_fick_L_f', PACKAGE = 'implicit', mu_, f_, rows, cols, lengthX, lengthY)
+general_Homogeneous_Lf <- function(f_, rows, cols, internalPoints_, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_general_Homogeneous_Lf', PACKAGE = 'implicit', f_, rows, cols, internalPoints_, dirichlet, lengthX, lengthY)
 }
 
-homogeneous_L_f <- function(f_, rows, cols, lengthX = 1, lengthY = 1) {
-    .Call('_implicit_homogeneous_L_f', PACKAGE = 'implicit', f_, rows, cols, lengthX, lengthY)
-}
-
-general_Homogeneous_Lf <- function(f_, rows, cols, boundaryPoints_, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
-    .Call('_implicit_general_Homogeneous_Lf', PACKAGE = 'implicit', f_, rows, cols, boundaryPoints_, dirichlet, lengthX, lengthY)
+general_Fick_Lf <- function(mu_, f_, rows, cols, internalPoints_, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
+    .Call('_implicit_general_Fick_Lf', PACKAGE = 'implicit', mu_, f_, rows, cols, internalPoints_, dirichlet, lengthX, lengthY)
 }
 

@@ -32,6 +32,7 @@ Eigen::VectorXd invert(int rows,
                        double lengthX=1,
                        double lengthY=1,
                        int preconditionerType=1,
+                       bool dirichlet=true,
                        bool debug=false){
   
   int N=rows*cols;
@@ -53,14 +54,14 @@ Eigen::VectorXd invert(int rows,
                y.data());
   if (diffusionType==1){
     r=internalMu_inverse.asDiagonal()*x
-    -homogeneous_L_f(x,rows,cols,lengthX,lengthY)-b;
+    -homogeneous_L_f(x,rows,cols,dirichlet,lengthX,lengthY)-b;
   }
   if (diffusionType==0){
-    r=x-fick_L_f(mu,x,rows,cols,lengthX,lengthY)-b;
+    r=x-fick_L_f(mu,x,rows,cols,dirichlet,lengthX,lengthY)-b;
   }
   if (diffusionType==-1){
     r=internalMu_inverse.asDiagonal()*x-
-      homogeneous_L_f(x,rows,cols,lengthX,lengthY)-
+      homogeneous_L_f(x,rows,cols,dirichlet,lengthX,lengthY)-
       internalMu_inverse.asDiagonal()*b;
   }
   
@@ -79,17 +80,17 @@ Eigen::VectorXd invert(int rows,
   double r_norm=std::pow(r.array().pow(2).array().sum(),0.5)/r.size();
   double alphaNum=(r.array()*y.array()).array().sum();
   int count=0;
-  while ((r_norm>std::pow(10,-10.0))& (count<nIter)){
+  while ((r_norm>tol)& (count<nIter)){
     if (diffusionType==1){
       Ap=internalMu_inverse.asDiagonal()*p
-      -homogeneous_L_f(p,rows,cols,lengthX,lengthY);
+      -homogeneous_L_f(p,rows,cols,dirichlet,lengthX,lengthY);
     }
     if (diffusionType==0){
-      Ap=p-fick_L_f(mu,p,rows,cols,lengthX,lengthY);
+      Ap=p-fick_L_f(mu,p,rows,cols,dirichlet,lengthX,lengthY);
     }
     if (diffusionType==-1){
       Ap=internalMu_inverse.asDiagonal()*p
-      -homogeneous_L_f(p,rows,cols,lengthX,lengthY);
+      -homogeneous_L_f(p,rows,cols,dirichlet,lengthX,lengthY);
     }
     double alpha=alphaNum/((p.adjoint()*Ap)(0));
     x=x+alpha*p;
@@ -171,7 +172,7 @@ Eigen::VectorXd invert_Irregular(int rows,
     -general_Homogeneous_Lf(x,rows,cols,internalPoints,dirichlet,lengthX,lengthY)-b;
   }
   if (diffusionType==0){
-    r=x-fixBoundary(fick_L_f(mu,x,rows,cols,lengthX,lengthY),internalPoints)-b;
+    r=x-general_Fick_Lf(mu,x,rows,cols,internalPoints,dirichlet,lengthX,lengthY)-b;
   }
   if (diffusionType==-1){
     r=internalMu_inverse.asDiagonal()*x-
@@ -200,7 +201,7 @@ Eigen::VectorXd invert_Irregular(int rows,
       -general_Homogeneous_Lf(p,rows,cols,internalPoints,dirichlet,lengthX,lengthY);
     }
     if (diffusionType==0){
-      Ap=p-fixBoundary(fick_L_f(mu,p,rows,cols,lengthX,lengthY),internalPoints);
+      Ap=p-general_Fick_Lf(mu,p,rows,cols,internalPoints,dirichlet,lengthX,lengthY);
     }
     if (diffusionType==-1){
       Ap=internalMu_inverse.asDiagonal()*p

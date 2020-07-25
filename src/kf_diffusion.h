@@ -3,7 +3,6 @@
 #include "fftPlan.h"
 #include "convenienceFunctions.h"
 #include "inversionFunctions.h"
-#include "logLikelihoodFunctions.h"
 
 using namespace Rcpp;
 using namespace Eigen;
@@ -47,6 +46,61 @@ private:
   
   
 public:
+  
+  KF_diffusion(double mu_0_,
+               Eigen::VectorXd gamma_,
+               Eigen::VectorXd longLat_,
+               double sigma_,
+               double kappa_,
+               Eigen::MatrixXd coords_,
+               Eigen::MatrixXd X_reaction_,
+               int rows_,
+               int cols_,
+               int nTime_,
+               int diffusionType_,
+               double lengthX_ = 1,
+               double lengthY_= 1){
+    
+    //assignments
+    mu_0=mu_0_;
+    gamma=gamma_;
+    longLat=longLat_;
+    sigma=sigma_;
+    kappa=kappa_;
+    coords=coords_;
+    X_reaction=X_reaction_;
+    rows=rows_;
+    cols=cols_;
+    nTime=nTime_;
+    diffusionType=diffusionType_;
+    lengthX=lengthX_;
+    lengthY=lengthY_;
+    rectangular=true;
+    individualCovariates=false;
+    dirichlet=true;
+    computed=false;
+    
+    //number of internal points, full grid points
+    nInternal=rows*cols;
+    nFull=(rows+2)*(cols+2);
+    
+    u.setZero(nInternal,nTime); //initialize diffusion
+    
+    //initialize mu and lambda
+    Eigen::VectorXd muVec, lambdaVec;
+    muVec.setZero(X_reaction.rows());
+    muVec=muVec.array()+mu_0;
+    
+    lambdaVec.setZero(X_reaction.rows());
+    lambdaVec = (X_reaction*gamma).array().exp();
+    
+    Eigen::Map<Eigen::MatrixXd> muMap(muVec.data(),nFull,nTime);
+    Eigen::Map<Eigen::MatrixXd> lambdaMap(lambdaVec.data(),nFull,nTime);
+    
+    mu=muMap;
+    lambda=lambdaMap;
+  }
+  
   KF_diffusion(double mu_0_,
                Eigen::VectorXd gamma_,
                Eigen::VectorXd longLat_,
@@ -84,6 +138,7 @@ public:
     rectangular=true;
     individualCovariates=false;
     dirichlet=true;
+    computed=false;
 
     //number of internal points, full grid points
     nInternal=rows*cols;
@@ -106,6 +161,71 @@ public:
     lambda=lambdaMap;
     
     computed=false;
+    individualCovariates=false;
+  }
+  
+  KF_diffusion(double mu_0_,
+               Eigen::VectorXd gamma_,
+               Eigen::VectorXd longLat_,
+               double sigma_,
+               double kappa_,
+               Eigen::VectorXd eta_,
+               Eigen::MatrixXd coords_,
+               Eigen::MatrixXd X_reaction_,
+               Eigen::MatrixXd X_individual_,
+               Eigen::VectorXi positive_,
+               Eigen::VectorXi cell_,
+               Eigen::VectorXi time_,
+               int rows_,
+               int cols_,
+               int nTime_,
+               int diffusionType_,
+               double lengthX_ = 1,
+               double lengthY_= 1){
+    
+    //assignments
+    mu_0=mu_0_;
+    gamma=gamma_;
+    longLat=longLat_;
+    sigma=sigma_;
+    kappa=kappa_;
+    eta=eta_;
+    coords=coords_;
+    X_reaction=X_reaction_;
+    X_individual=X_individual_;
+    positive=positive_;
+    cell=cell_;
+    time=time_;
+    rows=rows_;
+    cols=cols_;
+    nTime=nTime_;
+    diffusionType=diffusionType_;
+    lengthX=lengthX_;
+    lengthY=lengthY_;
+    rectangular=true;
+    individualCovariates=true;
+    dirichlet=true;
+    computed=false;
+    
+    //number of internal points, full grid points
+    nInternal=rows*cols;
+    nFull=(rows+2)*(cols+2);
+    
+    u.setZero(nInternal,nTime); //initialize diffusion
+    
+    //initialize mu and lambda
+    Eigen::VectorXd muVec, lambdaVec;
+    muVec.setZero(X_reaction.rows());
+    muVec=muVec.array()+mu_0;
+    
+    lambdaVec.setZero(X_reaction.rows());
+    lambdaVec = (X_reaction*gamma).array().exp();
+    
+    Eigen::Map<Eigen::MatrixXd> muMap(muVec.data(),nFull,nTime);
+    Eigen::Map<Eigen::MatrixXd> lambdaMap(lambdaVec.data(),nFull,nTime);
+    
+    mu=muMap;
+    lambda=lambdaMap;
   }
   
   void setInitialConditions(){
