@@ -140,18 +140,18 @@ public:
     individualCovariates=false;
     dirichlet=true;
     computed=false;
-
+    
     //number of internal points, full grid points
     nInternal=rows*cols;
     nFull=(rows+2)*(cols+2);
-
+    
     u.setZero(nInternal,nTime); //initialize diffusion
-
+    
     //initialize mu and lambda
     VectorXd muVec, lambdaVec;
     muVec.setZero(X_reaction.rows());
     muVec=muVec.array()+mu_0;
-
+    
     lambdaVec.setZero(X_reaction.rows());
     lambdaVec = (X_reaction*gamma).array().exp();
     
@@ -265,19 +265,7 @@ public:
       rhs=u.col(i-1).array()+lambda_i_1.array()*u.col(i-1).array()*(1-u.col(i-1).array());
       VectorXd guess(u.col(i-1));
       VectorXd mu_i(mu.col(i-1));
-      u.col(i)=invert(rows,
-             cols,
-             mu_i,
-             guess,
-             rhs,
-             diffusionType,
-             nIter,
-             tol,
-             lengthX,
-             lengthY,
-             1,//preconditioner type
-             dirichlet,
-             false);//debug
+      u.col(i)=solver(mu_i,guess,rhs,nIter,tol);
     }
     computed=true;
   }
@@ -306,7 +294,7 @@ public:
   
   //derivative of diffusion wrt mu_0
   MatrixXd du_dmu(int nIter=100,
-                               double tol=1.0e-10){
+                  double tol=1.0e-10){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -328,19 +316,7 @@ public:
         guess.setZero(nInternal);
         temp.setZero(nInternal);
         VectorXd mu_i(mu.col(i-1));
-        du_dTheta.col(i)=invert(rows,
-                      cols,
-                      mu_i,
-                      guess,
-                      rhs,
-                      diffusionType,
-                      nIter,
-                      tol,
-                      lengthX,
-                      lengthY,
-                      1,//preconditioner type
-                      dirichlet,
-                      false);//debug
+        du_dTheta.col(i)=solver(mu_i,guess,rhs,nIter,tol);
         
         temp=du_dTheta.col(i);
         du_dTheta.col(i)=homogeneous_L_f(temp,
@@ -351,37 +327,12 @@ public:
                       lengthY);
         
         temp=du_dTheta.col(i);
-        du_dTheta.col(i)=invert(rows,
-                      cols,
-                      mu_i,
-                      guess,
-                      temp,
-                      diffusionType,
-                      nIter,
-                      tol,
-                      lengthX,
-                      lengthY,
-                      1,//preconditioner type
-                      dirichlet,
-                      false);//debug
-        
+        du_dTheta.col(i)=solver(mu_i,guess,temp,nIter,tol);
         VectorXd rhs2;
         rhs2.setZero(nInternal);
         rhs2=du_dTheta.col(i-1).array()+lambda_i_1.array()*du_dTheta.col(i-1).array()+
           -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
-          du_dTheta.col(i)=du_dTheta.col(i)+invert(rows,
-                        cols,
-                        mu_i,
-                        guess,
-                        rhs2,
-                        diffusionType,
-                        nIter,
-                        tol,
-                        lengthX,
-                        lengthY,
-                        1,
-                        dirichlet,
-                        false);
+          du_dTheta.col(i)=du_dTheta.col(i)+solver(mu_i,guess,rhs2,nIter,tol);
       }
     }
     
@@ -390,7 +341,7 @@ public:
   
   //derivative of diffusion with respect to gamma
   std::vector<MatrixXd> du_dgamma(int nIter=100,
-                            double tol=1.0e-10){
+                                  double tol=1.0e-10){
     computeDiffusion();
     std::vector<MatrixXd> du_dTheta_list;
     MatrixXd du_dTheta;
@@ -410,9 +361,9 @@ public:
           Map<VectorXd> lambda_i_1(internalLambdaMatrix.data(),rows*cols);
           
           //get covariate values for previous time point
-          Map<MatrixXd> Xp=time_i_covariate(X_reaction,i-1,pInd);
-          MatrixXd internalXpMatrix(Xp.block(1,1,rows,cols));
-          Map<VectorXd> Xp_i_1(internalXpMatrix.data(),rows,cols);
+          Map<MatrixXd> XpMatrix=time_i_covariate(X_reaction,i-1,pInd);
+          MatrixXd internalXpMatrix(XpMatrix.block(1,1,rows,cols));
+          Map<VectorXd> Xp_i_1(internalXpMatrix.data(),rows*cols);
           
           VectorXd rhs2,guess;
           guess.setZero(nInternal);
@@ -423,19 +374,7 @@ public:
             lambda_i_1.array()*du_dTheta.col(i-1).array()+
             -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
             VectorXd mu_i(mu.col(i-1));
-            du_dTheta.col(i)=invert(rows,
-                          cols,
-                          mu_i,
-                          guess,
-                          rhs2,
-                          diffusionType,
-                          nIter,
-                          tol,
-                          lengthX,
-                          lengthY,
-                          1,
-                          dirichlet,
-                          false);
+          du_dTheta.col(i)=solver(mu_i,guess,rhs2,nIter,tol);
         }
       }
       du_dTheta_list.push_back(du_dTheta);
@@ -444,7 +383,7 @@ public:
   }
   
   std::vector<MatrixXd> du_dlongLat(int nIter=100,
-                       double tol=1.0e-10){
+                                    double tol=1.0e-10){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -490,19 +429,7 @@ public:
             lambda_i_1.array()*du_dTheta.col(i-1).array()+
             -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
             VectorXd mu_i(mu.col(i-1));
-            du_dTheta.col(i)=invert(rows,
-                          cols,
-                          mu_i,
-                          guess,
-                          rhs2,
-                          diffusionType,
-                          nIter,
-                          tol,
-                          lengthX,
-                          lengthY,
-                          1,
-                          dirichlet,
-                          false);
+            du_dTheta.col(i)=solver(mu_i,guess,rhs2,nIter,tol);
         }
       }
       
@@ -511,7 +438,7 @@ public:
     return du_dTheta_list;
   }
   
-  Eigen::MatrixXd du_dsigma(int nIter=100,
+  MatrixXd du_dsigma(int nIter=100,
                             double tol=1.0e-10){
     computeDiffusion();
     
@@ -555,25 +482,13 @@ public:
           lambda_i_1.array()*du_dTheta.col(i-1).array()+
           -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
           VectorXd mu_i(mu.col(i-1));
-          du_dTheta.col(i)=invert(rows,
-                        cols,
-                        mu_i,
-                        guess,
-                        rhs2,
-                        diffusionType,
-                        nIter,
-                        tol,
-                        lengthX,
-                        lengthY,
-                        1,
-                        dirichlet,
-                        false);
+          du_dTheta.col(i)=solver(mu_i,guess,rhs2,nIter,tol);
       }
     }
     
     return du_dTheta;
   }
-  Eigen::MatrixXd du_dkappa(int nIter=100,
+  MatrixXd du_dkappa(int nIter=100,
                             double tol=1.0e-10){
     computeDiffusion();
     
@@ -617,27 +532,14 @@ public:
           lambda_i_1.array()*du_dTheta.col(i-1).array()+
           -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
           VectorXd mu_i(mu.col(i-1));
-          du_dTheta.col(i)=invert(rows,
-                        cols,
-                        mu_i,
-                        guess,
-                        rhs2,
-                        diffusionType,
-                        nIter,
-                        tol,
-                        lengthX,
-                        lengthY,
-                        1,
-                        dirichlet,
-                        false);
+          du_dTheta.col(i)=solver(mu_i,guess,rhs2,nIter,tol);
       }
     }
     
     return du_dTheta;
   }
   
-  VectorXd dlogLike_dEta(int nIter=100,
-                                double tol=1.0e-10){
+  VectorXd dl_dEta(){
     computeDiffusion();
     
     VectorXd derivative;
@@ -708,6 +610,52 @@ public:
   
   VectorXd differentiateLogLikelihood(){
     VectorXd x;
+    if (individualCovariates){
+      //1 diffusion coefficient, p1 reaction coefficients, p2 diffusion coefficients
+      //2 long lat coefficients, sigma, kappa
+      x.setZero(1+X_reaction.cols()+X_individual.cols()+4);
+    }
+    else{
+      x.setZero(1+X_reaction.cols()+4);
+    }
+    
+    //diffusion
+    int count=0;
+    Eigen::MatrixXd du_dTheta(nInternal,nTime);
+    du_dTheta=du_dmu();
+    x(count)=dl_du(du_dTheta);
+    count+=1;
+    
+    //gamma
+    std::vector<MatrixXd> du_dTheta_list;
+    du_dTheta_list=du_dgamma();
+    for (int i=0;i<du_dTheta_list.size();i++){
+      x(count)=dl_du(du_dTheta_list[i]);
+      count+=1;
+    }
+    
+    //longLat
+    du_dTheta_list=du_dlongLat();
+    for (int i=0;i<du_dTheta_list.size();i++){
+      x(count)=dl_du(du_dTheta_list[i]);
+      count+=1;
+    }
+    
+    //sigma
+    du_dTheta=du_dsigma();
+    x(count)=dl_du(du_dTheta);
+    count+=1;
+    
+    //kappa
+    du_dTheta=du_dsigma();
+    x(count)=dl_du(du_dTheta);
+    count+=1;
+    
+    //eta
+    if (individualCovariates){
+      x.segment(count,X_individual.cols())=dl_dEta();
+    }
+    
     return x;
   }
   
@@ -719,6 +667,26 @@ public:
     Map<MatrixXd> X_p(X_.col(p).data(),nFull,nTime);
     Map<MatrixXd> X_p_i(X_p.col(i).data(),rows+2,cols+2);
     return X_p_i;
+  }
+  
+  VectorXd solver(VectorXd& mu_i,
+                         VectorXd& guess,
+                         VectorXd& rhs,
+                         int nIter,
+                         double tol){
+    return invert(rows,
+         cols,
+         mu_i,
+         guess,
+         rhs,
+         diffusionType,
+         nIter,
+         tol,
+         lengthX,
+         lengthY,
+         1,//preconditioner type
+         dirichlet,
+         false);//debug
   }
 };
 
