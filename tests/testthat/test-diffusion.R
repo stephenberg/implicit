@@ -1,0 +1,28 @@
+test_that("diffusion works", {
+  source("../../misc/diffusion.R")
+  load("../../misc/setup.RData")
+  u0=computeDiffusion(mu_0,
+                      gamma,
+                      longLat,
+                      sigma,
+                      kappa,
+                      coords,
+                      X_reaction,
+                      rows-2,
+                      cols-2,
+                      nTime,
+                      diffusionType,
+                      TRUE,
+                      lengthX,
+                      lengthY,
+                      TRUE)
+  u1=diffusion(params=c(mu_0,gamma,longLat,sigma,kappa),
+               X=X_reaction,
+               rows=rows-2,
+               cols=cols-2,
+               lengthX=1,
+               lengthY=1,
+               geom=grid,
+               nTime=nTime)
+  expect_equal(u0,u1,tol=10^-14)
+})

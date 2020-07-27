@@ -138,7 +138,7 @@
     },
     {
         "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-        "file_last_write": 1595625757.0,
+        "file_last_write": 1595815048.0,
         "definitions": [
             {
                 "usr": "c:@C@KF_diffusion",
@@ -155,7 +155,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "setInitialConditions",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 231,
+                "line": 232,
                 "column": 8
             },
             {
@@ -164,7 +164,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "computeDiffusion(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 248,
+                "line": 249,
                 "column": 8
             },
             {
@@ -173,52 +173,52 @@
                 "parent_name": "KF_diffusion",
                 "name": "logLikelihood",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 275,
+                "line": 285,
                 "column": 10
             },
             {
-                "usr": "c:@C@KF_diffusion@F@dlogLike_dmu#I#d#",
+                "usr": "c:@C@KF_diffusion@F@du_dmu#I#d#",
                 "kind": 7,
                 "parent_name": "KF_diffusion",
-                "name": "dlogLike_dmu(int, double)",
+                "name": "du_dmu(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 299,
+                "line": 308,
+                "column": 12
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@du_dgamma#I#d#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "du_dgamma(int, double)",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 392,
+                "column": 25
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@du_dlongLat#I#d#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "du_dlongLat(int, double)",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 446,
+                "column": 25
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@du_dsigma#I#d#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "du_dsigma(int, double)",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 514,
                 "column": 19
             },
             {
-                "usr": "c:@C@KF_diffusion@F@dlogLike_dgamma#I#d#",
+                "usr": "c:@C@KF_diffusion@F@du_dkappa#I#d#",
                 "kind": 7,
                 "parent_name": "KF_diffusion",
-                "name": "dlogLike_dgamma(int, double)",
+                "name": "du_dkappa(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 365,
-                "column": 19
-            },
-            {
-                "usr": "c:@C@KF_diffusion@F@dlogLike_dlongLat#I#d#",
-                "kind": 7,
-                "parent_name": "KF_diffusion",
-                "name": "dlogLike_dlongLat(int, double)",
-                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 407,
-                "column": 19
-            },
-            {
-                "usr": "c:@C@KF_diffusion@F@dlogLike_dsigma#I#d#",
-                "kind": 7,
-                "parent_name": "KF_diffusion",
-                "name": "dlogLike_dsigma(int, double)",
-                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 466,
-                "column": 19
-            },
-            {
-                "usr": "c:@C@KF_diffusion@F@dlogLike_dkappa#I#d#",
-                "kind": 7,
-                "parent_name": "KF_diffusion",
-                "name": "dlogLike_dkappa(int, double)",
-                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 520,
+                "line": 576,
                 "column": 19
             },
             {
@@ -227,17 +227,26 @@
                 "parent_name": "KF_diffusion",
                 "name": "dlogLike_dEta(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 573,
-                "column": 19
+                "line": 639,
+                "column": 12
             },
             {
                 "usr": "c:@C@KF_diffusion@F@dl_du#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
                 "kind": 7,
                 "parent_name": "KF_diffusion",
-                "name": "dl_du(Eigen::MatrixXd &)",
+                "name": "dl_du(MatrixXd &)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 595,
+                "line": 661,
                 "column": 10
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@padDiffusion#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "padDiffusion(MatrixXd &)",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 686,
+                "column": 12
             },
             {
                 "usr": "c:@C@KF_diffusion@F@differentiateLogLikelihood#",
@@ -245,19 +254,92 @@
                 "parent_name": "KF_diffusion",
                 "name": "differentiateLogLikelihood",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 620,
-                "column": 19
+                "line": 709,
+                "column": 12
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@get_u#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "get_u",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 714,
+                "column": 12
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@time_i_covariate#&$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#I#I#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "time_i_covariate(MatrixXd &, int, int)",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 718,
+                "column": 17
             }
         ]
     },
     {
         "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
-        "file_last_write": 1595626560.0,
-        "definitions": []
+        "file_last_write": 1595815471.0,
+        "definitions": [
+            {
+                "usr": "c:@F@computeDiffusion#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "computeDiffusion(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
+                "line": 4,
+                "column": 17
+            },
+            {
+                "usr": "c:@F@du_dmu#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "du_dmu(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
+                "line": 46,
+                "column": 17
+            },
+            {
+                "usr": "c:@F@du_dkappa#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "du_dkappa(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
+                "line": 89,
+                "column": 17
+            },
+            {
+                "usr": "c:@F@du_dsigma#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "du_dsigma(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
+                "line": 132,
+                "column": 17
+            },
+            {
+                "usr": "c:@F@du_dgamma#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "du_dgamma(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
+                "line": 175,
+                "column": 30
+            },
+            {
+                "usr": "c:@F@du_dlongLat#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "du_dlongLat(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
+                "line": 219,
+                "column": 30
+            }
+        ]
     },
     {
         "file": "E:/Dropbox/implicit/src/multiplyByLaplacian.h",
-        "file_last_write": 1595629291.0,
+        "file_last_write": 1595710921.0,
         "definitions": [
             {
                 "usr": "c:@F@fick_L_f#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#I#I#b#d#d#",
@@ -274,7 +356,7 @@
                 "parent_name": "",
                 "name": "homogeneous_L_f(Eigen::VectorXd &, int, int, bool, double, double)",
                 "file": "E:/Dropbox/implicit/src/multiplyByLaplacian.h",
-                "line": 91,
+                "line": 111,
                 "column": 17
             },
             {
@@ -283,7 +365,7 @@
                 "parent_name": "",
                 "name": "general_Homogeneous_Lf(Eigen::VectorXd &, int, int, Eigen::VectorXi &, bool, double, double)",
                 "file": "E:/Dropbox/implicit/src/multiplyByLaplacian.h",
-                "line": 152,
+                "line": 172,
                 "column": 17
             },
             {
@@ -292,7 +374,7 @@
                 "parent_name": "",
                 "name": "general_Fick_Lf(Eigen::VectorXd &, Eigen::VectorXd &, int, int, Eigen::VectorXi &, bool, double, double)",
                 "file": "E:/Dropbox/implicit/src/multiplyByLaplacian.h",
-                "line": 249,
+                "line": 269,
                 "column": 17
             }
         ]

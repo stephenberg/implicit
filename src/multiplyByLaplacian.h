@@ -54,10 +54,20 @@ Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_,
       leftMu=(mu(i+1,j)+mu(i+1,j+1))/2;
       rightMu=(mu(i+1,j+1)+mu(i+1,j+2))/2;
       if (j==0){
-        b(i,j)+=(rightMu*f(i,j+1)-(leftMu+rightMu)*f(i,j))/std::pow(h_x,2);
+        if (dirichlet){
+          b(i,j)+=(rightMu*f(i,j+1)-(leftMu+rightMu)*f(i,j))/std::pow(h_x,2);
+        }
+        else{
+          b(i,j)+=(rightMu*f(i,j+1)-(rightMu)*f(i,j))/std::pow(h_x,2);          
+        }
       }
       if (j==(cols-1)){
-        b(i,j)+=(leftMu*f(i,j-1)-(leftMu+rightMu)*f(i,j))/std::pow(h_x,2);
+        if (dirichlet){
+          b(i,j)+=(leftMu*f(i,j-1)-(leftMu+rightMu)*f(i,j))/std::pow(h_x,2);
+        }
+        else{
+          b(i,j)+=(leftMu*f(i,j-1)-(leftMu)*f(i,j))/std::pow(h_x,2);
+        }
       }
       if ((j>0)&(j<(cols-1))){
         b(i,j)+=(rightMu*f(i,j+1)+leftMu*f(i,j-1)-(leftMu+rightMu)*f(i,j))/std::pow(h_x,2);
@@ -72,10 +82,20 @@ Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_,
       upperMu=(mu(i,j+1)+mu(i+1,j+1))/2;
       lowerMu=(mu(i+1,j+1)+mu(i+2,j+1))/2;
       if (i==0){
-        b(i,j)+=(lowerMu*f(i+1,j)-(lowerMu+upperMu)*f(i,j))/std::pow(h_y,2);
+        if (dirichlet){
+          b(i,j)+=(lowerMu*f(i+1,j)-(lowerMu+upperMu)*f(i,j))/std::pow(h_y,2);
+        }
+        else{
+          b(i,j)+=(lowerMu*f(i+1,j)-(lowerMu)*f(i,j))/std::pow(h_y,2);
+        }
       }
       if (i==(rows-1)){
-        b(i,j)+=(upperMu*f(i-1,j)-(lowerMu+upperMu)*f(i,j))/std::pow(h_y,2);
+        if (dirichlet){
+          b(i,j)+=(upperMu*f(i-1,j)-(lowerMu+upperMu)*f(i,j))/std::pow(h_y,2);
+        }
+        else{
+          b(i,j)+=(upperMu*f(i-1,j)-(upperMu)*f(i,j))/std::pow(h_y,2);
+        }
       }
       if ((i>0)& (i<(rows-1))){
         b(i,j)+=(lowerMu*f(i+1,j)+upperMu*f(i-1,j)-(lowerMu+upperMu)*f(i,j))/std::pow(h_y,2);
