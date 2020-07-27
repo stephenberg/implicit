@@ -138,7 +138,7 @@
     },
     {
         "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-        "file_last_write": 1595815048.0,
+        "file_last_write": 1595867517.0,
         "definitions": [
             {
                 "usr": "c:@C@KF_diffusion",
@@ -173,7 +173,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "logLikelihood",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 285,
+                "line": 273,
                 "column": 10
             },
             {
@@ -182,7 +182,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dmu(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 308,
+                "line": 296,
                 "column": 12
             },
             {
@@ -191,7 +191,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dgamma(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 392,
+                "line": 343,
                 "column": 25
             },
             {
@@ -200,7 +200,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dlongLat(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 446,
+                "line": 385,
                 "column": 25
             },
             {
@@ -209,8 +209,8 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dsigma(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 514,
-                "column": 19
+                "line": 441,
+                "column": 12
             },
             {
                 "usr": "c:@C@KF_diffusion@F@du_dkappa#I#d#",
@@ -218,16 +218,16 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dkappa(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 576,
-                "column": 19
+                "line": 491,
+                "column": 12
             },
             {
-                "usr": "c:@C@KF_diffusion@F@dlogLike_dEta#I#d#",
+                "usr": "c:@C@KF_diffusion@F@dl_dEta#",
                 "kind": 7,
                 "parent_name": "KF_diffusion",
-                "name": "dlogLike_dEta(int, double)",
+                "name": "dl_dEta",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 639,
+                "line": 542,
                 "column": 12
             },
             {
@@ -236,7 +236,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "dl_du(MatrixXd &)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 661,
+                "line": 563,
                 "column": 10
             },
             {
@@ -245,7 +245,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "padDiffusion(MatrixXd &)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 686,
+                "line": 588,
                 "column": 12
             },
             {
@@ -254,7 +254,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "differentiateLogLikelihood",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 709,
+                "line": 611,
                 "column": 12
             },
             {
@@ -263,7 +263,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "get_u",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 714,
+                "line": 662,
                 "column": 12
             },
             {
@@ -272,8 +272,17 @@
                 "parent_name": "KF_diffusion",
                 "name": "time_i_covariate(MatrixXd &, int, int)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 718,
+                "line": 666,
                 "column": 17
+            },
+            {
+                "usr": "c:@C@KF_diffusion@F@solver#&$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#I#d#",
+                "kind": 7,
+                "parent_name": "KF_diffusion",
+                "name": "solver(VectorXd &, VectorXd &, VectorXd &, int, double)",
+                "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
+                "line": 672,
+                "column": 12
             }
         ]
     },

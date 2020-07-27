@@ -13,4 +13,6 @@ RoxygenNote: 7.1.1
 Encoding: UTF-8
 Depends: R (>= 3.5.0)
 Suggests: 
-    testthat
+    testthat,
+    sf,
+    Matrix

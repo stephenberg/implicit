@@ -11,7 +11,7 @@ diffusion<-function(params,
   mu=params[1]
   gamma=params[(2):(p+1)]
   
-  coords=st_coordinates(st_centroid(geom))
+  coords=sf::st_coordinates(sf::st_centroid(geom))
   initParams=params[(p+2):length(params)]
   
   init=NULL
@@ -35,7 +35,7 @@ diffusion<-function(params,
     mx[i,i+1]=1/hx^2
     mx[i+1,i]=1/hx^2
   }
-  mx=Matrix(mx,sparse=TRUE)
+
   I_y=Matrix::Diagonal(rows,x=1)
   
   my=matrix(0,rows,rows)
@@ -44,12 +44,12 @@ diffusion<-function(params,
     my[i,i+1]=1/hy^2
     my[i+1,i]=1/hy^2
   }
+  my=Matrix::Matrix(my,sparse=TRUE)
   I_x=Matrix::Diagonal(cols,x=1)
   
-  L=kronecker(mx,I_y)+kronecker(I_x,my)
+  L=Matrix::kronecker(mx,I_y)+Matrix::kronecker(I_x,my)
   
   H=Matrix::kronecker(I_x,I_y)-mu*L
-  
   #growth coefficients
   lambda=exp(X%*%gamma)
   
@@ -57,7 +57,7 @@ diffusion<-function(params,
     lambda_i=matrix(lambda,ncol=nTime)[,i-1]
     lambda_i=c(matrix(lambda_i,ncol=cols+2)[2:(rows+1),][,2:(cols+1)])
     rhs=U[,i-1]+lambda_i*U[,i-1]*(1-U[,i-1])
-    U[,i]=as.numeric(solve(H,rhs))
+    U[,i]=as.numeric(Matrix::solve(H,rhs))
   }
   Ufull=matrix(0,(rows+2)*(cols+2),nTime)
   for (i in 1:nTime){
