@@ -9,6 +9,8 @@ Description: Fits diffusion PDE model for binary response data.
 License: GPL-3
 Imports: Rcpp (>= 1.0.1), RcppEigen (>= 0.3.3.5.0)
 LinkingTo: Rcpp, RcppEigen
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Encoding: UTF-8
 Depends: R (>= 3.5.0)
+Suggests: 
+    testthat

@@ -1,0 +1,54 @@
+test_that("du_dmu works", {
+  source("../../misc/diffusion.R")
+  load("../../misc/setup.RData")
+  du_dmu0=du_dmu(mu_0,
+                 gamma,
+                 longLat,
+                 sigma,
+                 kappa,
+                 coords,
+                 X_reaction,
+                 rows-2,
+                 cols-2,
+                 nTime,
+                 diffusionType,
+                 TRUE,
+                 lengthX,
+                 lengthY,
+                 TRUE)
+  
+  step=0.00000001
+  
+  u0=computeDiffusion(mu_0-step,
+                      gamma,
+                      longLat,
+                      sigma,
+                      kappa,
+                      coords,
+                      X_reaction,
+                      rows-2,
+                      cols-2,
+                      nTime,
+                      diffusionType,
+                      TRUE,
+                      lengthX,
+                      lengthY,
+                      TRUE)
+  u1=computeDiffusion(mu_0+step,
+                      gamma,
+                      longLat,
+                      sigma,
+                      kappa,
+                      coords,
+                      X_reaction,
+                      rows-2,
+                      cols-2,
+                      nTime,
+                      diffusionType,
+                      TRUE,
+                      lengthX,
+                      lengthY,
+                      TRUE)
+  du_dmu1=(u1-u0)/(2*step)
+  expect_equal(du_dmu0,du_dmu1,tol=10^-7)
+})

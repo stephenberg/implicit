@@ -1,0 +1,54 @@
+test_that("du_dkappa works", {
+  source("../../misc/diffusion.R")
+  load("../../misc/setup.RData")
+  du_dkappa0=du_dkappa(mu_0,
+                 gamma,
+                 longLat,
+                 sigma,
+                 kappa,
+                 coords,
+                 X_reaction,
+                 rows-2,
+                 cols-2,
+                 nTime,
+                 diffusionType,
+                 TRUE,
+                 lengthX,
+                 lengthY,
+                 TRUE)
+  
+  step=0.0001
+  
+  u0=computeDiffusion(mu_0,
+                      gamma,
+                      longLat,
+                      sigma,
+                      kappa-step,
+                      coords,
+                      X_reaction,
+                      rows-2,
+                      cols-2,
+                      nTime,
+                      diffusionType,
+                      TRUE,
+                      lengthX,
+                      lengthY,
+                      TRUE)
+  u1=computeDiffusion(mu_0,
+                      gamma,
+                      longLat,
+                      sigma,
+                      kappa+step,
+                      coords,
+                      X_reaction,
+                      rows-2,
+                      cols-2,
+                      nTime,
+                      diffusionType,
+                      TRUE,
+                      lengthX,
+                      lengthY,
+                      TRUE)
+  du_dkappa1=(u1-u0)/(2*step)
+  expect_equal(du_dkappa0,du_dkappa1,tol=10^-9)
+})

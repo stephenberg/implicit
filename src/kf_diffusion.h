@@ -13,27 +13,27 @@ private:
   
   //diffusion parameters
   double mu_0; //diffusion coefficient
-  Eigen::VectorXd gamma; //growth coefficients
-  Eigen::VectorXd longLat; //center of gaussian kernel initial conditions
-  Eigen::MatrixXd coords; //coordinates of grid cells
+  VectorXd gamma; //growth coefficients
+  VectorXd longLat; //center of gaussian kernel initial conditions
+  MatrixXd coords; //coordinates of grid cells
   double sigma,kappa; //spread and intensity of initial diffusion
-  Eigen::VectorXd eta; //coefficients for individual/deer level covariates, eg age, sex
+  VectorXd eta; //coefficients for individual/deer level covariates, eg age, sex
   
   //covariate values
-  Eigen::MatrixXd X_diffusion;
-  Eigen::MatrixXd X_reaction;
-  Eigen::MatrixXd X_individual;
+  MatrixXd X_diffusion;
+  MatrixXd X_reaction;
+  MatrixXd X_individual;
   
   //diffusion values and diffusion/growth coefficient values (functions of diffusion parameters)
-  Eigen::MatrixXd u,mu,lambda;
+  MatrixXd u,mu,lambda;
   
   //data and model properties
-  Eigen::VectorXi positive,cell,time; //cwd status, location, and time sampled for each deer
+  VectorXi positive,cell,time; //cwd status, location, and time sampled for each deer
   bool individualCovariates; //include individual level covariates
   
   //properties of the grid
   bool rectangular; //indicator for whether the grid is rectangular
-  Eigen::VectorXi internalPointIndicator; //indicator for whether each point is internal or on the boundary
+  VectorXi internalPointIndicator; //indicator for whether each point is internal or on the boundary
   int rows,cols; //number of internal rows, internal columns
   int nInternal,nFull;  //number of locations in internal, full grid 
   int nTime; //number of time steps
@@ -48,18 +48,19 @@ private:
 public:
   
   KF_diffusion(double mu_0_,
-               Eigen::VectorXd gamma_,
-               Eigen::VectorXd longLat_,
+               VectorXd gamma_,
+               VectorXd longLat_,
                double sigma_,
                double kappa_,
-               Eigen::MatrixXd coords_,
-               Eigen::MatrixXd X_reaction_,
+               MatrixXd coords_,
+               MatrixXd X_reaction_,
                int rows_,
                int cols_,
                int nTime_,
                int diffusionType_,
+               bool dirichlet_ = true,
                double lengthX_ = 1,
-               double lengthY_= 1){
+               double lengthY_ = 1){
     
     //assignments
     mu_0=mu_0_;
@@ -73,11 +74,11 @@ public:
     cols=cols_;
     nTime=nTime_;
     diffusionType=diffusionType_;
+    dirichlet=dirichlet_;
     lengthX=lengthX_;
     lengthY=lengthY_;
     rectangular=true;
     individualCovariates=false;
-    dirichlet=true;
     computed=false;
     
     //number of internal points, full grid points
@@ -87,30 +88,30 @@ public:
     u.setZero(nInternal,nTime); //initialize diffusion
     
     //initialize mu and lambda
-    Eigen::VectorXd muVec, lambdaVec;
+    VectorXd muVec, lambdaVec;
     muVec.setZero(X_reaction.rows());
     muVec=muVec.array()+mu_0;
     
     lambdaVec.setZero(X_reaction.rows());
     lambdaVec = (X_reaction*gamma).array().exp();
     
-    Eigen::Map<Eigen::MatrixXd> muMap(muVec.data(),nFull,nTime);
-    Eigen::Map<Eigen::MatrixXd> lambdaMap(lambdaVec.data(),nFull,nTime);
+    Map<MatrixXd> muMap(muVec.data(),nFull,nTime);
+    Map<MatrixXd> lambdaMap(lambdaVec.data(),nFull,nTime);
     
     mu=muMap;
     lambda=lambdaMap;
   }
   
   KF_diffusion(double mu_0_,
-               Eigen::VectorXd gamma_,
-               Eigen::VectorXd longLat_,
+               VectorXd gamma_,
+               VectorXd longLat_,
                double sigma_,
                double kappa_,
-               Eigen::MatrixXd coords_,
-               Eigen::MatrixXd X_reaction_,
-               Eigen::VectorXi positive_,
-               Eigen::VectorXi cell_,
-               Eigen::VectorXi time_,
+               MatrixXd coords_,
+               MatrixXd X_reaction_,
+               VectorXi positive_,
+               VectorXi cell_,
+               VectorXi time_,
                int rows_,
                int cols_,
                int nTime_,
@@ -147,15 +148,15 @@ public:
     u.setZero(nInternal,nTime); //initialize diffusion
 
     //initialize mu and lambda
-    Eigen::VectorXd muVec, lambdaVec;
+    VectorXd muVec, lambdaVec;
     muVec.setZero(X_reaction.rows());
     muVec=muVec.array()+mu_0;
 
     lambdaVec.setZero(X_reaction.rows());
     lambdaVec = (X_reaction*gamma).array().exp();
     
-    Eigen::Map<Eigen::MatrixXd> muMap(muVec.data(),nFull,nTime);
-    Eigen::Map<Eigen::MatrixXd> lambdaMap(lambdaVec.data(),nFull,nTime);
+    Map<MatrixXd> muMap(muVec.data(),nFull,nTime);
+    Map<MatrixXd> lambdaMap(lambdaVec.data(),nFull,nTime);
     
     mu=muMap;
     lambda=lambdaMap;
@@ -165,17 +166,17 @@ public:
   }
   
   KF_diffusion(double mu_0_,
-               Eigen::VectorXd gamma_,
-               Eigen::VectorXd longLat_,
+               VectorXd gamma_,
+               VectorXd longLat_,
                double sigma_,
                double kappa_,
-               Eigen::VectorXd eta_,
-               Eigen::MatrixXd coords_,
-               Eigen::MatrixXd X_reaction_,
-               Eigen::MatrixXd X_individual_,
-               Eigen::VectorXi positive_,
-               Eigen::VectorXi cell_,
-               Eigen::VectorXi time_,
+               VectorXd eta_,
+               MatrixXd coords_,
+               MatrixXd X_reaction_,
+               MatrixXd X_individual_,
+               VectorXi positive_,
+               VectorXi cell_,
+               VectorXi time_,
                int rows_,
                int cols_,
                int nTime_,
@@ -214,22 +215,22 @@ public:
     u.setZero(nInternal,nTime); //initialize diffusion
     
     //initialize mu and lambda
-    Eigen::VectorXd muVec, lambdaVec;
+    VectorXd muVec, lambdaVec;
     muVec.setZero(X_reaction.rows());
     muVec=muVec.array()+mu_0;
     
     lambdaVec.setZero(X_reaction.rows());
     lambdaVec = (X_reaction*gamma).array().exp();
     
-    Eigen::Map<Eigen::MatrixXd> muMap(muVec.data(),nFull,nTime);
-    Eigen::Map<Eigen::MatrixXd> lambdaMap(lambdaVec.data(),nFull,nTime);
+    Map<MatrixXd> muMap(muVec.data(),nFull,nTime);
+    Map<MatrixXd> lambdaMap(lambdaVec.data(),nFull,nTime);
     
     mu=muMap;
     lambda=lambdaMap;
   }
   
   void setInitialConditions(){
-    Eigen::MatrixXd init(rows+2,cols+2);
+    MatrixXd init(rows+2,cols+2);
     int count=0;
     for (int cInd=0;cInd<cols+2;cInd++){
       for (int rInd=0;rInd<rows+2;rInd++){
@@ -241,7 +242,7 @@ public:
       }
     }
     
-    Eigen::Map<Eigen::MatrixXd> u0_map(u.col(0).data(), rows, cols);
+    Map<MatrixXd> u0_map(u.col(0).data(), rows, cols);
     u0_map=init.block(1,1,rows,cols);
   }
   
@@ -249,25 +250,34 @@ public:
                         double tol=1.0e-10){
     if (computed) return;
     
-    Eigen::VectorXd rhs(nInternal);
+    VectorXd rhs(nInternal);
     setInitialConditions();
     for (int i=1;i<nTime;i++){
+      
+      //get growth coefficients for previous time point
+      Map<MatrixXd> lambdaMatrix(lambda.col(i-1).data(),rows+2,cols+2);
+      MatrixXd internalLambdaMatrix(lambdaMatrix.block(1,1,rows,cols));
+      Map<VectorXd> lambda_i_1(internalLambdaMatrix.data(),rows*cols);
+      
       //Kolmogorov-Fisher
       //U2-U1=HU2+Lambda*U1(1-U1)
       //(I-H)U2=U1+Lambda*U1(1-U1)
-      rhs=u.col(i-1).array()+lambda.col(i-1).array()*u.col(i-1).array()*(1-u.col(i-1).array());
-      Eigen::VectorXd guess(u.col(i-1));
-      Eigen::VectorXd mu_i(mu.col(i-1));
+      rhs=u.col(i-1).array()+lambda_i_1.array()*u.col(i-1).array()*(1-u.col(i-1).array());
+      VectorXd guess(u.col(i-1));
+      VectorXd mu_i(mu.col(i-1));
       u.col(i)=invert(rows,
-            cols,
-            mu_i,
-            guess,
-            rhs,
-            diffusionType,
-            nIter,
-            tol,
-            lengthX,
-            lengthY);
+             cols,
+             mu_i,
+             guess,
+             rhs,
+             diffusionType,
+             nIter,
+             tol,
+             lengthX,
+             lengthY,
+             1,//preconditioner type
+             dirichlet,
+             false);//debug
     }
     computed=true;
   }
@@ -294,26 +304,30 @@ public:
   }
   
   
-  
-  //wrt mu_0
-  Eigen::VectorXd dlogLike_dmu(int nIter=100,
+  //derivative of diffusion wrt mu_0
+  MatrixXd du_dmu(int nIter=100,
                                double tol=1.0e-10){
     computeDiffusion();
     
-    Eigen::MatrixXd du_dTheta;
+    MatrixXd du_dTheta;
     du_dTheta.setZero(nInternal,nTime);
-    Eigen::VectorXd dl_dmu;
-    dl_dmu.setZero(1);
     
     for (int i=0;i<nTime;i++){
       //(du_0/dTheta)=0
       if (i>0){
-        Eigen::VectorXd rhs(nInternal);
-        rhs=u.col(i-1).array()+lambda.col(i-1).array()*u.col(i-1).array()*(1-u.col(i-1).array());
-        Eigen::VectorXd guess,temp;
+        
+        //get growth coefficients for previous time point
+        Map<MatrixXd> lambdaMatrix(lambda.col(i-1).data(),rows+2,cols+2);
+        MatrixXd internalLambdaMatrix(lambdaMatrix.block(1,1,rows,cols));
+        Map<VectorXd> lambda_i_1(internalLambdaMatrix.data(),rows*cols);
+        
+        
+        VectorXd rhs(nInternal);
+        rhs=u.col(i-1).array()+lambda_i_1.array()*u.col(i-1).array()*(1-u.col(i-1).array());
+        VectorXd guess,temp;
         guess.setZero(nInternal);
         temp.setZero(nInternal);
-        Eigen::VectorXd mu_i(mu.col(i-1));
+        VectorXd mu_i(mu.col(i-1));
         du_dTheta.col(i)=invert(rows,
                       cols,
                       mu_i,
@@ -323,13 +337,19 @@ public:
                       nIter,
                       tol,
                       lengthX,
-                      lengthY);
+                      lengthY,
+                      1,//preconditioner type
+                      dirichlet,
+                      false);//debug
+        
         temp=du_dTheta.col(i);
         du_dTheta.col(i)=homogeneous_L_f(temp,
                       rows,
                       cols,
+                      dirichlet,
                       lengthX,
                       lengthY);
+        
         temp=du_dTheta.col(i);
         du_dTheta.col(i)=invert(rows,
                       cols,
@@ -338,13 +358,17 @@ public:
                       temp,
                       diffusionType,
                       nIter,
+                      tol,
                       lengthX,
-                      lengthY);
+                      lengthY,
+                      1,//preconditioner type
+                      dirichlet,
+                      false);//debug
         
-        Eigen::VectorXd rhs2;
+        VectorXd rhs2;
         rhs2.setZero(nInternal);
-        rhs2=du_dTheta.col(i-1).array()+lambda.col(i-1).array()*du_dTheta.col(i-1).array()+
-          -2*lambda.col(i-1).array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
+        rhs2=du_dTheta.col(i-1).array()+lambda_i_1.array()*du_dTheta.col(i-1).array()+
+          -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
           du_dTheta.col(i)=du_dTheta.col(i)+invert(rows,
                         cols,
                         mu_i,
@@ -352,41 +376,53 @@ public:
                         rhs2,
                         diffusionType,
                         nIter,
+                        tol,
                         lengthX,
-                        lengthY);
+                        lengthY,
+                        1,
+                        dirichlet,
+                        false);
       }
     }
     
-    dl_dmu(0)=dl_du(du_dTheta);
-    return dl_dmu;
+    return du_dTheta;
   }
   
-  //with respect to gamma
-  Eigen::VectorXd dlogLike_dgamma(int nIter=100,
-                                  double tol=1.0e-10){
+  //derivative of diffusion with respect to gamma
+  std::vector<MatrixXd> du_dgamma(int nIter=100,
+                            double tol=1.0e-10){
     computeDiffusion();
-    
-    Eigen::MatrixXd du_dTheta;
+    std::vector<MatrixXd> du_dTheta_list;
+    MatrixXd du_dTheta;
     du_dTheta.setZero(nInternal,nTime);
     
     int p=X_reaction.cols();
-    Eigen::VectorXd dl_dgamma(p);
-    dl_dgamma.setZero(p);
     
     for (int pInd=0;pInd<p;pInd++){
       du_dTheta.setZero(nInternal,nTime);
       for (int i=0;i<nTime;i++){
         //(du_0/dTheta)=0
         if (i>0){
-          Eigen::VectorXd rhs2,guess;
+          
+          //get growth coefficients for previous time point
+          Map<MatrixXd> lambdaMatrix(lambda.col(i-1).data(),rows+2,cols+2);
+          MatrixXd internalLambdaMatrix(lambdaMatrix.block(1,1,rows,cols));
+          Map<VectorXd> lambda_i_1(internalLambdaMatrix.data(),rows*cols);
+          
+          //get covariate values for previous time point
+          Map<MatrixXd> Xp=time_i_covariate(X_reaction,i-1,pInd);
+          MatrixXd internalXpMatrix(Xp.block(1,1,rows,cols));
+          Map<VectorXd> Xp_i_1(internalXpMatrix.data(),rows,cols);
+          
+          VectorXd rhs2,guess;
           guess.setZero(nInternal);
           
           rhs2.setZero(nInternal);
           rhs2=du_dTheta.col(i-1).array()+
-            X_reaction.col(pInd).array()*lambda.col(i-1).array()*u.col(i-1).array()*(1-u.col(i-1).array()).array()+
-            lambda.col(i-1).array()*du_dTheta.col(i-1).array()+
-            -2*lambda.col(i-1).array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
-            Eigen::VectorXd mu_i(mu.col(i-1));
+            Xp_i_1.array()*lambda_i_1.array()*u.col(i-1).array()*(1-u.col(i-1).array()).array()+
+            lambda_i_1.array()*du_dTheta.col(i-1).array()+
+            -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
+            VectorXd mu_i(mu.col(i-1));
             du_dTheta.col(i)=invert(rows,
                           cols,
                           mu_i,
@@ -394,28 +430,32 @@ public:
                           rhs2,
                           diffusionType,
                           nIter,
+                          tol,
                           lengthX,
-                          lengthY);
+                          lengthY,
+                          1,
+                          dirichlet,
+                          false);
         }
       }
-
-      dl_dgamma(pInd)=dl_du(du_dTheta);
+      du_dTheta_list.push_back(du_dTheta);
     }
-    return dl_dgamma;
+    return du_dTheta_list;
   }
   
-  Eigen::VectorXd dlogLike_dlongLat(int nIter=100,
-                                    double tol=1.0e-10){
+  std::vector<MatrixXd> du_dlongLat(int nIter=100,
+                       double tol=1.0e-10){
     computeDiffusion();
     
-    Eigen::MatrixXd du_dTheta;
+    MatrixXd du_dTheta;
     du_dTheta.setZero(nInternal,nTime);
     
-    Eigen::VectorXd dl_dlongLat(2);
-    dl_dlongLat.setZero();
     
-    Eigen::MatrixXd initFull(rows+2,cols+2);
-    Eigen::Map<Eigen::MatrixXd> du_dTheta0_map(du_dTheta.col(0).data(),rows,cols);
+    MatrixXd initFull(rows+2,cols+2);
+    Map<MatrixXd> du_dTheta0_map(du_dTheta.col(0).data(),rows,cols);
+    
+    
+    std::vector<MatrixXd> du_dTheta_list;
     
     for (int llInd=0;llInd<2;llInd++){
       du_dTheta.setZero(nInternal,nTime);
@@ -426,7 +466,7 @@ public:
           int count=0;
           for (int cInd=0;cInd<cols+2;cInd++){
             for (int rInd=0;rInd<rows+2;rInd++){
-              Eigen::VectorXd d(2);
+              VectorXd d(2);
               d(0)=coords(count,0)-longLat(0);
               d(1)=coords(count,1)-longLat(1);
               double dist2=std::pow(d(0),2)+std::pow(d(1),2);
@@ -437,14 +477,19 @@ public:
           du_dTheta0_map=initFull.block(1,1,rows,cols);
         }
         else{
-          Eigen::VectorXd rhs2,guess;
+          Map<MatrixXd> lambdaMatrix(lambda.col(i-1).data(),rows+2,cols+2);
+          MatrixXd internalLambdaMatrix(lambdaMatrix.block(1,1,rows,cols));
+          Map<VectorXd> lambda_i_1(internalLambdaMatrix.data(),rows*cols);
+          
+          
+          VectorXd rhs2,guess;
           guess.setZero(nInternal);
           
           rhs2.setZero(nInternal);
           rhs2=du_dTheta.col(i-1).array()+
-            lambda.col(i-1).array()*du_dTheta.col(i-1).array()+
-            -2*lambda.col(i-1).array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
-            Eigen::VectorXd mu_i(mu.col(i-1));
+            lambda_i_1.array()*du_dTheta.col(i-1).array()+
+            -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
+            VectorXd mu_i(mu.col(i-1));
             du_dTheta.col(i)=invert(rows,
                           cols,
                           mu_i,
@@ -452,38 +497,44 @@ public:
                           rhs2,
                           diffusionType,
                           nIter,
+                          tol,
                           lengthX,
-                          lengthY);
+                          lengthY,
+                          1,
+                          dirichlet,
+                          false);
         }
       }
-
-      dl_dlongLat(llInd)=dl_du(du_dTheta);
+      
+      du_dTheta_list.push_back(du_dTheta);
     }
-    return dl_dlongLat;
+    return du_dTheta_list;
   }
   
-  //with respect to sigma  
-  Eigen::VectorXd dlogLike_dsigma(int nIter=100,
-                                  double tol=1.0e-10){
+  Eigen::MatrixXd du_dsigma(int nIter=100,
+                            double tol=1.0e-10){
     computeDiffusion();
     
-    Eigen::MatrixXd du_dTheta;
+    MatrixXd du_dTheta;
     du_dTheta.setZero(nInternal,nTime);
     
-    Eigen::VectorXd dl_dsigma(1);
-    dl_dsigma.setZero();
     
-    Eigen::MatrixXd initFull(rows+2,cols+2);
-    Eigen::Map<Eigen::MatrixXd> du_dTheta0_map(du_dTheta.col(0).data(),rows,cols);
+    MatrixXd initFull(rows+2,cols+2);
+    Map<MatrixXd> du_dTheta0_map(du_dTheta.col(0).data(),rows,cols);
+    
+    
+    du_dTheta.setZero(nInternal,nTime);
+    
     
     for (int i=0;i<nTime;i++){
       if (i==0){
         int count=0;
         for (int cInd=0;cInd<cols+2;cInd++){
           for (int rInd=0;rInd<rows+2;rInd++){
-            double d1=coords(count,0)-longLat(0);
-            double d2=coords(count,1)-longLat(1);
-            double dist2=std::pow(d1,2)+std::pow(d2,2);
+            VectorXd d(2);
+            d(0)=coords(count,0)-longLat(0);
+            d(1)=coords(count,1)-longLat(1);
+            double dist2=std::pow(d(0),2)+std::pow(d(1),2);
             initFull(rInd,cInd)=expit(kappa)*std::exp(-dist2/(2*std::pow(sigma,2)))*dist2/std::pow(sigma,3);
             count=count+1;
           }
@@ -491,14 +542,19 @@ public:
         du_dTheta0_map=initFull.block(1,1,rows,cols);
       }
       else{
-        Eigen::VectorXd rhs2,guess;
+        Map<MatrixXd> lambdaMatrix(lambda.col(i-1).data(),rows+2,cols+2);
+        MatrixXd internalLambdaMatrix(lambdaMatrix.block(1,1,rows,cols));
+        Map<VectorXd> lambda_i_1(internalLambdaMatrix.data(),rows*cols);
+        
+        
+        VectorXd rhs2,guess;
         guess.setZero(nInternal);
         
         rhs2.setZero(nInternal);
         rhs2=du_dTheta.col(i-1).array()+
-          lambda.col(i-1).array()*du_dTheta.col(i-1).array()+
-          -2*lambda.col(i-1).array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
-          Eigen::VectorXd mu_i(mu.col(i-1));
+          lambda_i_1.array()*du_dTheta.col(i-1).array()+
+          -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
+          VectorXd mu_i(mu.col(i-1));
           du_dTheta.col(i)=invert(rows,
                         cols,
                         mu_i,
@@ -506,38 +562,41 @@ public:
                         rhs2,
                         diffusionType,
                         nIter,
+                        tol,
                         lengthX,
-                        lengthY);
+                        lengthY,
+                        1,
+                        dirichlet,
+                        false);
       }
     }
     
-    dl_dsigma(0)=dl_du(du_dTheta);
-    
-    return dl_dsigma;
+    return du_dTheta;
   }
-
-  //with respect to kappa  
-  Eigen::VectorXd dlogLike_dkappa(int nIter=100,
-                                  double tol=1.0e-10){
+  Eigen::MatrixXd du_dkappa(int nIter=100,
+                            double tol=1.0e-10){
     computeDiffusion();
     
-    Eigen::MatrixXd du_dTheta;
+    MatrixXd du_dTheta;
     du_dTheta.setZero(nInternal,nTime);
     
-    Eigen::VectorXd dl_dkappa(1);
-    dl_dkappa.setZero();
     
-    Eigen::MatrixXd initFull(rows+2,cols+2);
-    Eigen::Map<Eigen::MatrixXd> du_dTheta0_map(du_dTheta.col(0).data(),rows,cols);
+    MatrixXd initFull(rows+2,cols+2);
+    Map<MatrixXd> du_dTheta0_map(du_dTheta.col(0).data(),rows,cols);
+    
+    
+    du_dTheta.setZero(nInternal,nTime);
+    
     
     for (int i=0;i<nTime;i++){
       if (i==0){
         int count=0;
         for (int cInd=0;cInd<cols+2;cInd++){
           for (int rInd=0;rInd<rows+2;rInd++){
-            double d1=coords(count,0)-longLat(0);
-            double d2=coords(count,1)-longLat(1);
-            double dist2=std::pow(d1,2)+std::pow(d2,2);
+            VectorXd d(2);
+            d(0)=coords(count,0)-longLat(0);
+            d(1)=coords(count,1)-longLat(1);
+            double dist2=std::pow(d(0),2)+std::pow(d(1),2);
             initFull(rInd,cInd)=expit(kappa)*(1-expit(kappa))*std::exp(-dist2/(2*std::pow(sigma,2)));
             count=count+1;
           }
@@ -545,14 +604,19 @@ public:
         du_dTheta0_map=initFull.block(1,1,rows,cols);
       }
       else{
-        Eigen::VectorXd rhs2,guess;
+        Map<MatrixXd> lambdaMatrix(lambda.col(i-1).data(),rows+2,cols+2);
+        MatrixXd internalLambdaMatrix(lambdaMatrix.block(1,1,rows,cols));
+        Map<VectorXd> lambda_i_1(internalLambdaMatrix.data(),rows*cols);
+        
+        
+        VectorXd rhs2,guess;
         guess.setZero(nInternal);
         
         rhs2.setZero(nInternal);
         rhs2=du_dTheta.col(i-1).array()+
-          lambda.col(i-1).array()*du_dTheta.col(i-1).array()+
-          -2*lambda.col(i-1).array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
-          Eigen::VectorXd mu_i(mu.col(i-1));
+          lambda_i_1.array()*du_dTheta.col(i-1).array()+
+          -2*lambda_i_1.array()*u.col(i-1).array()*du_dTheta.col(i-1).array();
+          VectorXd mu_i(mu.col(i-1));
           du_dTheta.col(i)=invert(rows,
                         cols,
                         mu_i,
@@ -560,21 +624,23 @@ public:
                         rhs2,
                         diffusionType,
                         nIter,
+                        tol,
                         lengthX,
-                        lengthY);
+                        lengthY,
+                        1,
+                        dirichlet,
+                        false);
       }
     }
     
-    dl_dkappa(0)=dl_du(du_dTheta);
-    
-    return dl_dkappa;
+    return du_dTheta;
   }
   
-  Eigen::VectorXd dlogLike_dEta(int nIter=100,
+  VectorXd dlogLike_dEta(int nIter=100,
                                 double tol=1.0e-10){
     computeDiffusion();
     
-    Eigen::VectorXd derivative;
+    VectorXd derivative;
     derivative.setZero(X_individual.cols());
     for (int i=0;i<positive.size();i++){
       int time_i=time(i);
@@ -592,7 +658,7 @@ public:
     return(derivative);
   }
   
-  double dl_du(Eigen::MatrixXd& du_dTheta){
+  double dl_du(MatrixXd& du_dTheta){
     double derivative=0;
     for (int i=0;i<positive.size();i++){
       int time_i=time(i);
@@ -617,9 +683,42 @@ public:
     return(derivative);
   }
   
-  Eigen::VectorXd differentiateLogLikelihood(){
-    Eigen::VectorXd x;
+  MatrixXd padDiffusion(MatrixXd& u_){
+    MatrixXd u_Full(nFull,nTime);
+    u_Full.setZero();
+    
+    for (int i=0;i<nTime;i++){
+      Map<MatrixXd> u_i(u_.col(i).data(),rows,cols);
+      Map<MatrixXd> u_Full_i(u_Full.col(i).data(),rows+2,cols+2);
+      u_Full_i.block(1,1,rows,cols)=u_i;
+      
+      if (!dirichlet){
+        for (int rowInd=1;rowInd<rows+1;rowInd++){
+          u_Full_i(rowInd,0)=u_Full_i(rowInd,1);
+          u_Full_i(rowInd,cols+1)=u_Full_i(rowInd,cols);
+        }
+        for (int colInd=1;colInd<cols+1;colInd++){
+          u_Full_i(0,colInd)=u_Full_i(1,colInd);
+          u_Full_i(rows+1,colInd)=u_Full_i(rows,colInd);
+        }
+      }
+    }
+    return(u_Full);
+  }
+  
+  VectorXd differentiateLogLikelihood(){
+    VectorXd x;
     return x;
+  }
+  
+  MatrixXd get_u(){
+    return u;
+  }
+  
+  Map<MatrixXd> time_i_covariate(MatrixXd& X_, int i=0,int p=0){
+    Map<MatrixXd> X_p(X_.col(p).data(),nFull,nTime);
+    Map<MatrixXd> X_p_i(X_p.col(i).data(),rows+2,cols+2);
+    return X_p_i;
   }
 };
 

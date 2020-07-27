@@ -1,0 +1,60 @@
+
+test_that("du_dlongLat works", {
+  source("../../misc/diffusion.R")
+  load("../../misc/setup.RData")
+  du_dlongLat0=du_dlongLat(mu_0,
+                       gamma,
+                       longLat,
+                       sigma,
+                       kappa,
+                       coords,
+                       X_reaction,
+                       rows-2,
+                       cols-2,
+                       nTime,
+                       diffusionType,
+                       TRUE,
+                       lengthX,
+                       lengthY,
+                       TRUE)
+  
+  step=0.00001
+  for (i in 1:length(du_dlongLat0)){
+    longLat0=longLat
+    longLat1=longLat
+    longLat0[i]=longLat[i]-step
+    longLat1[i]=longLat[i]+step
+    u0=computeDiffusion(mu_0,
+                        gamma,
+                        longLat0,
+                        sigma,
+                        kappa,
+                        coords,
+                        X_reaction,
+                        rows-2,
+                        cols-2,
+                        nTime,
+                        diffusionType,
+                        TRUE,
+                        lengthX,
+                        lengthY,
+                        TRUE)
+    u1=computeDiffusion(mu_0,
+                        gamma,
+                        longLat1,
+                        sigma,
+                        kappa,
+                        coords,
+                        X_reaction,
+                        rows-2,
+                        cols-2,
+                        nTime,
+                        diffusionType,
+                        TRUE,
+                        lengthX,
+                        lengthY,
+                        TRUE)
+    du_dlongLat1=(u1-u0)/(2*step)
+    expect_equal(du_dlongLat0[[i]],du_dlongLat1,tol=10^-10)
+  }
+})

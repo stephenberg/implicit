@@ -13,6 +13,30 @@ invert_Irregular <- function(rows, cols, mu, x, b, diffusionType, tol, nIter, in
     .Call('_implicit_invert_Irregular', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, preconditionerType, debug)
 }
 
+computeDiffusion <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_computeDiffusion', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
+du_dmu <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_du_dmu', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
+du_dkappa <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_du_dkappa', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
+du_dsigma <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_du_dsigma', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
+du_dgamma <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_du_dgamma', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
+du_dlongLat <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_du_dlongLat', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
 fick_L_f <- function(mu_, f_, rows, cols, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
     .Call('_implicit_fick_L_f', PACKAGE = 'implicit', mu_, f_, rows, cols, dirichlet, lengthX, lengthY)
 }
