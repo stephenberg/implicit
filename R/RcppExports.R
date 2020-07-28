@@ -37,6 +37,14 @@ du_dlongLat <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reac
     .Call('_implicit_du_dlongLat', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
 }
 
+dl_dtheta <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_dl_dtheta', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
+loglikelihood <- function(mu_0_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_loglikelihood', PACKAGE = 'implicit', mu_0_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
 fick_L_f <- function(mu_, f_, rows, cols, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
     .Call('_implicit_fick_L_f', PACKAGE = 'implicit', mu_, f_, rows, cols, dirichlet, lengthX, lengthY)
 }

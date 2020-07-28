@@ -214,6 +214,66 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dl_dtheta
+Eigen::VectorXd dl_dtheta(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::VectorXd eta_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, Eigen::MatrixXd X_individual_, Eigen::VectorXi cell_, Eigen::VectorXi positive_, Eigen::VectorXi time_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_dl_dtheta(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP eta_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP X_individual_SEXP, SEXP cell_SEXP, SEXP positive_SEXP, SEXP time_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
+    Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
+    Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type eta_(eta_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_individual_(X_individual_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type cell_(cell_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type positive_(positive_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type time_(time_SEXP);
+    Rcpp::traits::input_parameter< int >::type rows_(rows_SEXP);
+    Rcpp::traits::input_parameter< int >::type cols_(cols_SEXP);
+    Rcpp::traits::input_parameter< int >::type nTime_(nTime_SEXP);
+    Rcpp::traits::input_parameter< int >::type diffusionType_(diffusionType_SEXP);
+    Rcpp::traits::input_parameter< bool >::type dirichlet_(dirichlet_SEXP);
+    Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
+    Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
+    Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
+    rcpp_result_gen = Rcpp::wrap(dl_dtheta(mu_0_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    return rcpp_result_gen;
+END_RCPP
+}
+// loglikelihood
+double loglikelihood(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::VectorXd eta_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, Eigen::MatrixXd X_individual_, Eigen::VectorXi cell_, Eigen::VectorXi positive_, Eigen::VectorXi time_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_loglikelihood(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP eta_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP X_individual_SEXP, SEXP cell_SEXP, SEXP positive_SEXP, SEXP time_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
+    Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
+    Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type eta_(eta_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_individual_(X_individual_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type cell_(cell_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type positive_(positive_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type time_(time_SEXP);
+    Rcpp::traits::input_parameter< int >::type rows_(rows_SEXP);
+    Rcpp::traits::input_parameter< int >::type cols_(cols_SEXP);
+    Rcpp::traits::input_parameter< int >::type nTime_(nTime_SEXP);
+    Rcpp::traits::input_parameter< int >::type diffusionType_(diffusionType_SEXP);
+    Rcpp::traits::input_parameter< bool >::type dirichlet_(dirichlet_SEXP);
+    Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
+    Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
+    Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
+    rcpp_result_gen = Rcpp::wrap(loglikelihood(mu_0_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    return rcpp_result_gen;
+END_RCPP
+}
 // fick_L_f
 Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_, Eigen::VectorXd& f_, int rows, int cols, bool dirichlet, double lengthX, double lengthY);
 RcppExport SEXP _implicit_fick_L_f(SEXP mu_SEXP, SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
@@ -293,6 +353,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_implicit_du_dsigma", (DL_FUNC) &_implicit_du_dsigma, 15},
     {"_implicit_du_dgamma", (DL_FUNC) &_implicit_du_dgamma, 15},
     {"_implicit_du_dlongLat", (DL_FUNC) &_implicit_du_dlongLat, 15},
+    {"_implicit_dl_dtheta", (DL_FUNC) &_implicit_dl_dtheta, 20},
+    {"_implicit_loglikelihood", (DL_FUNC) &_implicit_loglikelihood, 20},
     {"_implicit_fick_L_f", (DL_FUNC) &_implicit_fick_L_f, 7},
     {"_implicit_homogeneous_L_f", (DL_FUNC) &_implicit_homogeneous_L_f, 6},
     {"_implicit_general_Homogeneous_Lf", (DL_FUNC) &_implicit_general_Homogeneous_Lf, 7},
