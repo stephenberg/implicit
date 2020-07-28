@@ -138,7 +138,7 @@
     },
     {
         "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-        "file_last_write": 1595867517.0,
+        "file_last_write": 1595880797.0,
         "definitions": [
             {
                 "usr": "c:@C@KF_diffusion",
@@ -182,7 +182,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dmu(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 296,
+                "line": 298,
                 "column": 12
             },
             {
@@ -191,7 +191,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dgamma(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 343,
+                "line": 345,
                 "column": 25
             },
             {
@@ -200,7 +200,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dlongLat(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 385,
+                "line": 387,
                 "column": 25
             },
             {
@@ -209,7 +209,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dsigma(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 441,
+                "line": 443,
                 "column": 12
             },
             {
@@ -218,7 +218,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dkappa(int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 491,
+                "line": 493,
                 "column": 12
             },
             {
@@ -227,7 +227,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "dl_dEta",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 542,
+                "line": 544,
                 "column": 12
             },
             {
@@ -236,7 +236,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "dl_du(MatrixXd &)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 563,
+                "line": 569,
                 "column": 10
             },
             {
@@ -245,7 +245,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "padDiffusion(MatrixXd &)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 588,
+                "line": 606,
                 "column": 12
             },
             {
@@ -254,7 +254,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "differentiateLogLikelihood",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 611,
+                "line": 629,
                 "column": 12
             },
             {
@@ -263,7 +263,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "get_u",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 662,
+                "line": 680,
                 "column": 12
             },
             {
@@ -272,7 +272,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "time_i_covariate(MatrixXd &, int, int)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 666,
+                "line": 684,
                 "column": 17
             },
             {
@@ -281,14 +281,14 @@
                 "parent_name": "KF_diffusion",
                 "name": "solver(VectorXd &, VectorXd &, VectorXd &, int, double)",
                 "file": "E:/Dropbox/implicit/src/kf_diffusion.h",
-                "line": 672,
+                "line": 690,
                 "column": 12
             }
         ]
     },
     {
         "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
-        "file_last_write": 1595815471.0,
+        "file_last_write": 1595879817.0,
         "definitions": [
             {
                 "usr": "c:@F@computeDiffusion#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#I#I#I#I#b#d#d#b#",
@@ -343,6 +343,24 @@
                 "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
                 "line": 219,
                 "column": 30
+            },
+            {
+                "usr": "c:@F@dl_dtheta#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#S1_#$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S2_#S2_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "dl_dtheta(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::VectorXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
+                "line": 263,
+                "column": 17
+            },
+            {
+                "usr": "c:@F@loglikelihood#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#S1_#$@N@Eigen@C@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S2_#S2_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "loglikelihood(double, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::VectorXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/Dropbox/implicit/src/modelFitting.cpp",
+                "line": 306,
+                "column": 8
             }
         ]
     },

@@ -109,15 +109,16 @@ public:
                double kappa_,
                MatrixXd coords_,
                MatrixXd X_reaction_,
-               VectorXi positive_,
                VectorXi cell_,
+               VectorXi positive_,
                VectorXi time_,
                int rows_,
                int cols_,
                int nTime_,
                int diffusionType_,
+               bool dirichlet_ = true,
                double lengthX_ = 1,
-               double lengthY_= 1){
+               double lengthY_ = 1){
     
     //assignments
     mu_0=mu_0_;
@@ -127,19 +128,19 @@ public:
     kappa=kappa_;
     coords=coords_;
     X_reaction=X_reaction_;
-    positive=positive_;
-    cell=cell_;
-    time=time_;
     rows=rows_;
     cols=cols_;
     nTime=nTime_;
     diffusionType=diffusionType_;
+    dirichlet=dirichlet_;
     lengthX=lengthX_;
     lengthY=lengthY_;
     rectangular=true;
     individualCovariates=false;
-    dirichlet=true;
     computed=false;
+    cell=cell_;
+    positive=positive_;
+    time=time_;
     
     //number of internal points, full grid points
     nInternal=rows*cols;
@@ -160,9 +161,6 @@ public:
     
     mu=muMap;
     lambda=lambdaMap;
-    
-    computed=false;
-    individualCovariates=false;
   }
   
   KF_diffusion(double mu_0_,
@@ -174,15 +172,16 @@ public:
                MatrixXd coords_,
                MatrixXd X_reaction_,
                MatrixXd X_individual_,
-               VectorXi positive_,
                VectorXi cell_,
+               VectorXi positive_,
                VectorXi time_,
                int rows_,
                int cols_,
                int nTime_,
                int diffusionType_,
+               bool dirichlet_ = true,
                double lengthX_ = 1,
-               double lengthY_= 1){
+               double lengthY_ = 1){
     
     //assignments
     mu_0=mu_0_;
@@ -194,19 +193,19 @@ public:
     coords=coords_;
     X_reaction=X_reaction_;
     X_individual=X_individual_;
-    positive=positive_;
-    cell=cell_;
-    time=time_;
     rows=rows_;
     cols=cols_;
     nTime=nTime_;
     diffusionType=diffusionType_;
+    dirichlet=dirichlet_;
     lengthX=lengthX_;
     lengthY=lengthY_;
     rectangular=true;
     individualCovariates=true;
-    dirichlet=true;
     computed=false;
+    cell=cell_;
+    positive=positive_;
+    time=time_;
     
     //number of internal points, full grid points
     nInternal=rows*cols;
@@ -228,6 +227,7 @@ public:
     mu=muMap;
     lambda=lambdaMap;
   }
+  
   
   void setInitialConditions(){
     MatrixXd init(rows+2,cols+2);
@@ -271,7 +271,10 @@ public:
   }
   
   double logLikelihood(){
+    computeDiffusion();
     double logLike=0;
+    VectorXd shifts;
+    if (individualCovariates) shifts=X_individual*eta;
     for (int i=0;i<positive.size();i++){
       int time_i=time(i);
       int cell_i=cell(i);
@@ -282,10 +285,9 @@ public:
       
       if (individualCovariates){  
         double logit_i=logit(probRaw_i);
-        logit_i+=(X_individual.row(i).array()*eta.array()).array().sum();
+        logit_i+=shifts(i);
         probAdjusted_i=expit(logit_i);
       }
-      
       logLike+=pos_i*std::log(probAdjusted_i)+(1-pos_i)*std::log(1-probAdjusted_i);
     }
     return(logLike);
@@ -544,6 +546,9 @@ public:
     
     VectorXd derivative;
     derivative.setZero(X_individual.cols());
+    
+    VectorXd shifts;
+    if (individualCovariates) shifts=X_individual*eta;
     for (int i=0;i<positive.size();i++){
       int time_i=time(i);
       int cell_i=cell(i);
@@ -552,35 +557,48 @@ public:
       double probRaw_i=u(cell_i,time_i);
       double logit_i=logit(probRaw_i);
       
-      logit_i+=(X_individual.row(i).array()*eta.array()).array().sum();
+      logit_i+=shifts(i);
       double probAdjusted_i=expit(logit_i);
-      
-      derivative=derivative+(pos_i-probAdjusted_i)*X_individual.row(i);
+      for (int pInd=0;pInd<X_individual.cols();pInd++){
+        derivative(pInd)=derivative(pInd)+(pos_i-probAdjusted_i)*X_individual(i,pInd);
+      }
     }
     return(derivative);
   }
   
   double dl_du(MatrixXd& du_dTheta){
     double derivative=0;
+    // Rcout<<"positives: "<<positive.size()<<"\n";
+    // Rcout<<"min "<<positive.minCoeff()<<"\n";
+    // Rcout<<"max "<<positive.maxCoeff()<<"\n";
+    // Rcout<<"cell: "<<cell.size()<<"\n";
+    // Rcout<<"min "<<cell.minCoeff()<<"\n";
+    // Rcout<<"max "<<cell.maxCoeff()<<"\n";
+    // Rcout<<"time: "<<time.size()<<"\n";
+    // Rcout<<"min "<<time.minCoeff()<<"\n";
+    // Rcout<<"max "<<time.maxCoeff()<<"\n";
+    // 
+    VectorXd shifts;
+    if (individualCovariates) shifts=X_individual*eta;
     for (int i=0;i<positive.size();i++){
       int time_i=time(i);
       int cell_i=cell(i);
       int pos_i=positive(i);
-      
-      
+
+
       double probRaw_i=u(cell_i,time_i);
       double probAdjusted_i=probRaw_i;
-      
-      if (individualCovariates){  
+
+      if (individualCovariates){
         double logit_i=logit(probRaw_i);
-        logit_i+=(X_individual.row(i).array()*eta.array()).array().sum();
+        logit_i+=shifts(i);
         probAdjusted_i=expit(logit_i);
       }
-      
+
       double rawVar=probRaw_i*(1-probRaw_i);
       double derivRaw_i=du_dTheta(cell_i,time_i);
       derivative+=(pos_i-probAdjusted_i)/rawVar*derivRaw_i;
-      
+
     }
     return(derivative);
   }
@@ -611,7 +629,7 @@ public:
   VectorXd differentiateLogLikelihood(){
     VectorXd x;
     if (individualCovariates){
-      //1 diffusion coefficient, p1 reaction coefficients, p2 diffusion coefficients
+      //1 diffusion coefficient, p1 reaction coefficients, p2 individual coefficients
       //2 long lat coefficients, sigma, kappa
       x.setZero(1+X_reaction.cols()+X_individual.cols()+4);
     }
@@ -625,7 +643,7 @@ public:
     du_dTheta=du_dmu();
     x(count)=dl_du(du_dTheta);
     count+=1;
-    
+    // 
     //gamma
     std::vector<MatrixXd> du_dTheta_list;
     du_dTheta_list=du_dgamma();
@@ -633,29 +651,29 @@ public:
       x(count)=dl_du(du_dTheta_list[i]);
       count+=1;
     }
-    
+    // 
     //longLat
     du_dTheta_list=du_dlongLat();
     for (int i=0;i<du_dTheta_list.size();i++){
       x(count)=dl_du(du_dTheta_list[i]);
       count+=1;
     }
-    
-    //sigma
+    //
+    // //sigma
     du_dTheta=du_dsigma();
     x(count)=dl_du(du_dTheta);
     count+=1;
-    
-    //kappa
-    du_dTheta=du_dsigma();
+
+    // //kappa
+    du_dTheta=du_dkappa();
     x(count)=dl_du(du_dTheta);
     count+=1;
-    
-    //eta
+    // 
+    // //eta
     if (individualCovariates){
       x.segment(count,X_individual.cols())=dl_dEta();
     }
-    
+    // 
     return x;
   }
   
