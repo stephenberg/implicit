@@ -1,2 +1,0 @@
-#pragma code_page(65001)
-2 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/fftw3.dir/embed.manifest"

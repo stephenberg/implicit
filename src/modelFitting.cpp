@@ -342,6 +342,7 @@ double loglikelihood(double mu_0_,
                          dirichlet_,
                          lengthX_,
                          lengthY_);
+<<<<<<< HEAD
   
   return diffusion.logLikelihood();
 }
@@ -350,3 +351,7 @@ double loglikelihood(double mu_0_,
 int main() {
 
 }
+=======
+  return diffusion.logLikelihood();
+}
+>>>>>>> 263e79fd2f86d4863e510a160792143bb747d30a
