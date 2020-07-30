@@ -157,31 +157,3 @@ Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Communi
     Feature record: CXX_FEATURE:1cxx_variable_templates
     Feature record: CXX_FEATURE:1cxx_variadic_macros
     Feature record: CXX_FEATURE:1cxx_variadic_templates
-Determining if the C compiler works passed with the following output:
-Change Dir: E:/implicit/.git-rewrite/t/Eigen/out/build/x64-Debug/CMakeFiles/CMakeTmp
-
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_b9078 
-[1/2] Building C object CMakeFiles\cmTC_b9078.dir\testCCompiler.c.obj
-[2/2] Linking C executable cmTC_b9078.exe
-
-
-Detecting C compiler ABI info compiled with the following output:
-Change Dir: E:/implicit/.git-rewrite/t/Eigen/out/build/x64-Debug/CMakeFiles/CMakeTmp
-
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_f3848 
-[1/2] Building C object CMakeFiles\cmTC_f3848.dir\CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_f3848.exe
-
-
-
-
-Detecting C [] compiler features compiled with the following output:
-Change Dir: E:/implicit/.git-rewrite/t/Eigen/out/build/x64-Debug/CMakeFiles/CMakeTmp
-
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_9d260 
-[1/2] Building C object CMakeFiles\cmTC_9d260.dir\feature_tests.c.obj
-[2/2] Linking C executable cmTC_9d260.exe
-
-
-    Feature record: C_FEATURE:1c_function_prototypes
-    Feature record: C_FEATURE:1c_variadic_macros
