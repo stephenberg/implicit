@@ -1,8 +1,8 @@
 #ifndef __INVERSION__
 #define __INVERSION__
+
+
 #include <iostream>
-
-
 #include <Rcpp.h>
 #include <RcppEigen.h>
 #include "fftPlan.h"

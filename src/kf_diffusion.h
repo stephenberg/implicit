@@ -570,15 +570,15 @@ public:
   double dl_du(MatrixXd& du_dTheta){
     double derivative=0;
 
-    // std::cout<<"positives: "<<positive.size()<<"\n";
-    // std::cout<<"min "<<positive.minCoeff()<<"\n";
-    // std::cout<<"max "<<positive.maxCoeff()<<"\n";
-    // std::cout<<"cell: "<<cell.size()<<"\n";
-    // std::cout<<"min "<<cell.minCoeff()<<"\n";
-    // std::cout<<"max "<<cell.maxCoeff()<<"\n";
-    // std::cout<<"time: "<<time.size()<<"\n";
-    // std::cout<<"min "<<time.minCoeff()<<"\n";
-    // std::cout<<"max "<<time.maxCoeff()<<"\n";
+    // Rcout<<"positives: "<<positive.size()<<"\n";
+    // Rcout<<"min "<<positive.minCoeff()<<"\n";
+    // Rcout<<"max "<<positive.maxCoeff()<<"\n";
+    // Rcout<<"cell: "<<cell.size()<<"\n";
+    // Rcout<<"min "<<cell.minCoeff()<<"\n";
+    // Rcout<<"max "<<cell.maxCoeff()<<"\n";
+    // Rcout<<"time: "<<time.size()<<"\n";
+    // Rcout<<"min "<<time.minCoeff()<<"\n";
+    // Rcout<<"max "<<time.maxCoeff()<<"\n";
     // Rcout<<"positives: "<<positive.size()<<"\n";
     // Rcout<<"min "<<positive.minCoeff()<<"\n";
     // Rcout<<"max "<<positive.maxCoeff()<<"\n";

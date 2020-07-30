@@ -1,5 +1,0 @@
-﻿  dst1.cpp
-  modelFitting.cpp
-E:\implicit\src\fftPlan.h(5,10): error C1083:  Cannot open include file: 'fftw3.h': No such file or directory
-  Generating Code...
-E:\implicit\src\kf_diffusion.h(1,10): error C1083:  Cannot open include file: 'RcppEigen.h': No such file or directory
