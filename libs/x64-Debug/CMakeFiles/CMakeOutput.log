@@ -1,0 +1,459 @@
+The system is: Windows - 10.0.19041 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.22.27905/bin/HostX64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft (R) C/C++ Optimizing Compiler Version 19.22.27905 for x64
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+CMakeCCompilerId.c
+Microsoft (R) Incremental Linker Version 14.22.27905.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCCompilerId.exe 
+CMakeCCompilerId.obj 
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
+
+The C compiler identification is MSVC, found in "E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/3.14.19060802-MSVC_2/CompilerIdC/CMakeCCompilerId.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.22.27905/bin/HostX64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft (R) C/C++ Optimizing Compiler Version 19.22.27905 for x64
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+CMakeCXXCompilerId.cpp
+Microsoft (R) Incremental Linker Version 14.22.27905.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCXXCompilerId.exe 
+CMakeCXXCompilerId.obj 
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+
+The CXX compiler identification is MSVC, found in "E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/3.14.19060802-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_a84d8 
+[1/2] Building C object CMakeFiles\cmTC_a84d8.dir\testCCompiler.c.obj
+[2/2] Linking C executable cmTC_a84d8.exe
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_ad31d 
+[1/2] Building C object CMakeFiles\cmTC_ad31d.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_ad31d.exe
+
+
+
+
+Detecting C [] compiler features compiled with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_3ca22 
+[1/2] Building C object CMakeFiles\cmTC_3ca22.dir\feature_tests.c.obj
+[2/2] Linking C executable cmTC_3ca22.exe
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_variadic_macros
+Determining if the CXX compiler works passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_3fac6 
+[1/2] Building CXX object CMakeFiles\cmTC_3fac6.dir\testCXXCompiler.cxx.obj
+[2/2] Linking CXX executable cmTC_3fac6.exe
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_ba7b2 
+[1/2] Building CXX object CMakeFiles\cmTC_ba7b2.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_ba7b2.exe
+
+
+
+
+Detecting CXX [] compiler features compiled with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_52503 
+[1/2] Building CXX object CMakeFiles\cmTC_52503.dir\feature_tests.cxx.obj
+[2/2] Linking CXX executable cmTC_52503.exe
+
+
+    Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:1cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:1cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:1cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:1cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:1cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+Determining if the include file inttypes.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_c4e99 
+[1/2] Building C object CMakeFiles\cmTC_c4e99.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_c4e99.exe
+
+
+Determining if the include file limits.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_7613f 
+[1/2] Building C object CMakeFiles\cmTC_7613f.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_7613f.exe
+
+
+Determining if the include file malloc.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_a56f2 
+[1/2] Building C object CMakeFiles\cmTC_a56f2.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_a56f2.exe
+
+
+Determining if the include file memory.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_00101 
+[1/2] Building C object CMakeFiles\cmTC_00101.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_00101.exe
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_d7e04 
+[1/2] Building C object CMakeFiles\cmTC_d7e04.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_d7e04.exe
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_5989c 
+[1/2] Building C object CMakeFiles\cmTC_5989c.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_5989c.exe
+
+
+Determining if the include file stdlib.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_1caed 
+[1/2] Building C object CMakeFiles\cmTC_1caed.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_1caed.exe
+
+
+Determining if the include file string.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_1ef6e 
+[1/2] Building C object CMakeFiles\cmTC_1ef6e.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_1ef6e.exe
+
+
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_e55f7 
+[1/2] Building C object CMakeFiles\cmTC_e55f7.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_e55f7.exe
+
+
+Determining if the include file sys/stat.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_b62c6 
+[1/2] Building C object CMakeFiles\cmTC_b62c6.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_b62c6.exe
+
+
+Determining if the include file time.h exists passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_961b4 
+[1/2] Building C object CMakeFiles\cmTC_961b4.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_961b4.exe
+
+
+Determining if the alloca exist passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_1fafd 
+[1/2] Building C object CMakeFiles\cmTC_1fafd.dir\CheckSymbolExists.c.obj
+[2/2] Linking C executable cmTC_1fafd.exe
+
+File E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <malloc.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef alloca
+  return ((int*)(&alloca))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the isnan exist passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_8e39e 
+[1/2] Building C object CMakeFiles\cmTC_8e39e.dir\CheckSymbolExists.c.obj
+[2/2] Linking C executable cmTC_8e39e.exe
+
+File E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef isnan
+  return ((int*)(&isnan))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the snprintf exist passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_83979 
+[1/2] Building C object CMakeFiles\cmTC_83979.dir\CheckSymbolExists.c.obj
+[2/2] Linking C executable cmTC_83979.exe
+
+File E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdio.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef snprintf
+  return ((int*)(&snprintf))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the strchr exist passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_f3a32 
+[1/2] Building C object CMakeFiles\cmTC_f3a32.dir\CheckSymbolExists.c.obj
+[2/2] Linking C executable cmTC_f3a32.exe
+
+File E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <string.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef strchr
+  return ((int*)(&strchr))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the cosl exist passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_8c558 
+[1/2] Building C object CMakeFiles\cmTC_8c558.dir\CheckSymbolExists.c.obj
+[2/2] Linking C executable cmTC_8c558.exe
+
+File E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef cosl
+  return ((int*)(&cosl))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the sinl exist passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_6b2a3 
+[1/2] Building C object CMakeFiles\cmTC_6b2a3.dir\CheckSymbolExists.c.obj
+[2/2] Linking C executable cmTC_6b2a3.exe
+
+File E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef sinl
+  return ((int*)(&sinl))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining size of float passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_d1266 
+[1/2] Building C object CMakeFiles\cmTC_d1266.dir\SIZEOF_FLOAT.c.obj
+[2/2] Linking C executable cmTC_d1266.exe
+
+
+Determining size of double passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_62f58 
+[1/2] Building C object CMakeFiles\cmTC_62f58.dir\SIZEOF_DOUBLE.c.obj
+[2/2] Linking C executable cmTC_62f58.exe
+
+
+Determining size of int passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_75d5e 
+[1/2] Building C object CMakeFiles\cmTC_75d5e.dir\SIZEOF_INT.c.obj
+[2/2] Linking C executable cmTC_75d5e.exe
+
+
+Determining size of long passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_d82b9 
+[1/2] Building C object CMakeFiles\cmTC_d82b9.dir\SIZEOF_LONG.c.obj
+[2/2] Linking C executable cmTC_d82b9.exe
+
+
+Determining size of long long passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_67474 
+[1/2] Building C object CMakeFiles\cmTC_67474.dir\SIZEOF_LONG_LONG.c.obj
+[2/2] Linking C executable cmTC_67474.exe
+
+
+Determining size of unsigned int passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_71f51 
+[1/2] Building C object CMakeFiles\cmTC_71f51.dir\SIZEOF_UNSIGNED_INT.c.obj
+[2/2] Linking C executable cmTC_71f51.exe
+
+
+Determining size of unsigned long passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_b92d9 
+[1/2] Building C object CMakeFiles\cmTC_b92d9.dir\SIZEOF_UNSIGNED_LONG.c.obj
+[2/2] Linking C executable cmTC_b92d9.exe
+
+
+Determining size of unsigned long long passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_143ef 
+[1/2] Building C object CMakeFiles\cmTC_143ef.dir\SIZEOF_UNSIGNED_LONG_LONG.c.obj
+[2/2] Linking C executable cmTC_143ef.exe
+
+
+Determining size of size_t passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_b31d5 
+[1/2] Building C object CMakeFiles\cmTC_b31d5.dir\SIZEOF_SIZE_T.c.obj
+[2/2] Linking C executable cmTC_b31d5.exe
+
+
+Determining size of ptrdiff_t passed with the following output:
+Change Dir: E:/fftwBuild/fftw-3.3.8/fftw-3.3.8/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_991a8 
+[1/2] Building C object CMakeFiles\cmTC_991a8.dir\SIZEOF_PTRDIFF_T.c.obj
+[2/2] Linking C executable cmTC_991a8.exe
+
+

@@ -1,10 +1,11 @@
 #ifndef __FFTPLAN__
 #define __FFTPLAN__
-
-#include <Rcpp.h>
+#define _USE_MATH_DEFINES
+#include <Eigen>
+#include <math.h>
 #include <fftw3.h>
-#include <RcppEigen.h>
-using namespace Rcpp;
+
+
 using namespace Eigen;
 
 class fftPlan
@@ -117,7 +118,6 @@ public:
     lambda_ij=lambda_i+lambda_j;
     return lambda_ij;
   }
-  
 };
 
 #endif

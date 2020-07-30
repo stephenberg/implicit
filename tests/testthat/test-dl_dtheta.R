@@ -1,9 +1,8 @@
 
 
 test_that("dl_dtheta works", {
-  source("../../misc/diffusion.R")
   load("../../misc/setup.RData")
-  
+  diffusionType=0
   unwrap<-function(params,X_reaction,X_individual){
     mu_0=params[1]
     p0=ncol(X_reaction)
@@ -100,8 +99,13 @@ test_that("dl_dtheta works", {
                          TRUE)
     return(dl_dtheta0)
   }
-  
-  H=numDeriv::jacobian(derivwrapper,params,method="Richardson")
+  longLat=c(450000,245000)/100000
+  coords=coords/100000
+  sigma=sigma/100000
+  params=c(mu_0,gamma,longLat,sigma,kappa,eta)
+  t1=derivwrapper(params)
+  #t2=numDeriv::grad(llwrapper,params)
+  #H=numDeriv::jacobian(derivwrapper,params,method="Richardson")
   
   scales=diag(abs(H))
   res=optim(par=params,
@@ -110,16 +114,21 @@ test_that("dl_dtheta works", {
             method="BFGS",
             control=list(fnscale=-1,
                          trace=2,
-                         maxit=500,
-                         REPORT=1,
+                         maxit=1000,
+                         REPORT=5,
                          reltol=1e-12))
 
 
   dl_dtheta0=derivWrapper(res$par)/nrow(X_individual)
   dl_dtheta1=numDeriv::grad(llwrapper,res$par)/nrow(X_individual)
-  H=numDeriv::jacobian(derivwrapper,res$par,method="Richardson")/nrow(X_individual)
+  H1=numDeriv::jacobian(derivwrapper,res$par,method="Richardson",method.args=list(eps=10^-6))
+  H2=numDeriv::hessian(llwrapper,res$par)
+  u_init=diffusionwrapper(params,X_reaction,X_individual)
   u=diffusionwrapper(res$par,X_reaction,X_individual)
-  
+  sds1=sqrt(diag(solve(abs(H1))))
+  sds2=sqrt(diag(solve(abs(H2))))
+  sf_init=data.frame(u_init,geom=grid)%>%st_as_sf()
   sf1=data.frame(u,geom=grid)%>%st_as_sf()
+  plot(sf_init,max.plot=20,border=NA)
   plot(sf1,max.plot=20,border=NA)
 })

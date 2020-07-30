@@ -1,5 +1,4 @@
-#include <Rcpp.h>
-#include <RcppEigen.h>
+#include <Eigen>
 #include "fftPlan.h"
 
 //discrete sine transformation implementation

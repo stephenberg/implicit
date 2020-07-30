@@ -1,10 +1,10 @@
 #ifndef __INVERSION__
 #define __INVERSION__
-
-#include <Rcpp.h>
-#include <RcppEigen.h>
+#include <iostream>
+#include <Eigen>
 #include "fftPlan.h"
 #include "multiplyByLaplacian.h"
+
 
 
 Eigen::VectorXd fixBoundary(Eigen::VectorXd x,
@@ -45,7 +45,7 @@ Eigen::VectorXd invert(int rows,
   Eigen::MatrixXd internalMuMatrix(muMatrix.block(1,1,rows,cols).array().pow(-1.0));
   Eigen::Map<VectorXd> internalMu_inverse(internalMuMatrix.data(),rows*cols);
   double delta=std::pow(internalMu_inverse.array().sum()/(rows*cols),-1);
-  if (debug) Rcout<<"delta="<<delta<<"\n";
+  if (debug) std::cout<<"delta="<<delta<<"\n";
   
   fftPlan plan(rows,
                cols,
@@ -67,11 +67,11 @@ Eigen::VectorXd invert(int rows,
   
   
   if (preconditionerType==0){
-    if (debug) Rcout<<"Preconditioning by L^{-1}"<<"\n";
+    if (debug) std::cout<<"Preconditioning by L^{-1}"<<"\n";
     plan.multiplyBy_pow_neg_A(-1.0,lengthX,lengthY);
   }
   else{
-    if (debug) Rcout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
+    if (debug) std::cout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
     plan.multiplyBy_I_A_inverse(lengthX,lengthY,delta);
   }
   
@@ -97,11 +97,11 @@ Eigen::VectorXd invert(int rows,
     r=r+alpha*Ap;
     
     if (preconditionerType==0){
-      if (debug) Rcout<<"Preconditioning by L^{-1}"<<"\n";
+      if (debug) std::cout<<"Preconditioning by L^{-1}"<<"\n";
       plan.multiplyBy_pow_neg_A(-1.0,lengthX,lengthY);
     }
     else{
-      if (debug) Rcout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
+      if (debug) std::cout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
       plan.multiplyBy_I_A_inverse(lengthX,lengthY,delta);
     }
     
@@ -112,8 +112,8 @@ Eigen::VectorXd invert(int rows,
     count+=1;
     
     if (debug){
-      Rcout<<"iter "<<count<<"\n";
-      Rcout<<"norm "<<r_norm<<"\n\n";
+      std::cout<<"iter "<<count<<"\n";
+      std::cout<<"norm "<<r_norm<<"\n\n";
     }
   }
   if (diffusionType==1){
@@ -157,7 +157,7 @@ Eigen::VectorXd invert_Irregular(int rows,
   //the remaining operations will not affect the zero padding?
   internalMu_inverse = fixBoundary(internalMu_inverse,internalPoints);
   double delta=std::pow(internalMu_inverse.array().sum()/(internalPoints.array().sum()),-1);
-  if (debug) Rcout<<"delta="<<delta<<"\n";
+  if (debug) std::cout<<"delta="<<delta<<"\n";
   
   x = fixBoundary(x,internalPoints);
   b = fixBoundary(b,internalPoints);
@@ -182,11 +182,11 @@ Eigen::VectorXd invert_Irregular(int rows,
   
   
   if (preconditionerType==0){
-    if (debug) Rcout<<"Preconditioning by L^{-1}"<<"\n";
+    if (debug) std::cout<<"Preconditioning by L^{-1}"<<"\n";
     plan.multiplyBy_pow_neg_A(-1.0,lengthX,lengthY);
   }
   else{
-    if (debug) Rcout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
+    if (debug) std::cout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
     plan.multiplyBy_I_A_inverse(lengthX,lengthY,delta);
   }
   
@@ -212,11 +212,11 @@ Eigen::VectorXd invert_Irregular(int rows,
     r=r+alpha*Ap;
     
     if (preconditionerType==0){
-      if (debug) Rcout<<"Preconditioning by L^{-1}"<<"\n";
+      if (debug) std::cout<<"Preconditioning by L^{-1}"<<"\n";
       plan.multiplyBy_pow_neg_A(-1.0,lengthX,lengthY);
     }
     else{
-      if (debug) Rcout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
+      if (debug) std::cout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
       plan.multiplyBy_I_A_inverse(lengthX,lengthY,delta);
     }
     
@@ -228,8 +228,8 @@ Eigen::VectorXd invert_Irregular(int rows,
     count+=1;
     
     if (debug){
-      Rcout<<"iter "<<count<<"\n";
-      Rcout<<"norm "<<r_norm<<"\n\n";
+      std::cout<<"iter "<<count<<"\n";
+      std::cout<<"norm "<<r_norm<<"\n\n";
     }
   }
   

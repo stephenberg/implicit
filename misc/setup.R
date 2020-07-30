@@ -1,4 +1,5 @@
 library(sf)
+setwd("E:/implicit")
 source("misc/makeDesignMatrix.R")
 
 load("misc/covariates_withHarvest.RData")
@@ -41,8 +42,8 @@ kappa=-2.5
 eta=rep(0,ncol(X_individual))
 
 #st_make_grid does rows and columns weirdly
-rows=40
-cols=40
+rows=33
+cols=33
 grid=st_make_grid(grid,n=c(cols,rows))
 nTime=20
 
