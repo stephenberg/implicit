@@ -49,7 +49,7 @@ Eigen::VectorXd invert(int rows,
   double delta=std::pow(internalMu_inverse.array().sum()/(rows*cols),-1);
 
   if (debug) Rcout<<"delta="<<delta<<"\n";
-  
+  int temp=0;
   fftPlan plan(rows,
                cols,
                r.data(),
