@@ -1,17 +1,11 @@
-<<<<<<< HEAD
-#include <Eigen>
-=======
 #include <Rcpp.h>
 #include <RcppEigen.h>
->>>>>>> 263e79fd2f86d4863e510a160792143bb747d30a
 #include "fftPlan.h"
 #include "convenienceFunctions.h"
 #include "inversionFunctions.h"
 
-<<<<<<< HEAD
-=======
+
 using namespace Rcpp;
->>>>>>> 263e79fd2f86d4863e510a160792143bb747d30a
 using namespace Eigen;
 
 class KF_diffusion
@@ -575,7 +569,7 @@ public:
   
   double dl_du(MatrixXd& du_dTheta){
     double derivative=0;
-<<<<<<< HEAD
+
     // std::cout<<"positives: "<<positive.size()<<"\n";
     // std::cout<<"min "<<positive.minCoeff()<<"\n";
     // std::cout<<"max "<<positive.maxCoeff()<<"\n";
@@ -585,7 +579,6 @@ public:
     // std::cout<<"time: "<<time.size()<<"\n";
     // std::cout<<"min "<<time.minCoeff()<<"\n";
     // std::cout<<"max "<<time.maxCoeff()<<"\n";
-=======
     // Rcout<<"positives: "<<positive.size()<<"\n";
     // Rcout<<"min "<<positive.minCoeff()<<"\n";
     // Rcout<<"max "<<positive.maxCoeff()<<"\n";
@@ -595,7 +588,7 @@ public:
     // Rcout<<"time: "<<time.size()<<"\n";
     // Rcout<<"min "<<time.minCoeff()<<"\n";
     // Rcout<<"max "<<time.maxCoeff()<<"\n";
->>>>>>> 263e79fd2f86d4863e510a160792143bb747d30a
+
     // 
     VectorXd shifts;
     if (individualCovariates) shifts=X_individual*eta;

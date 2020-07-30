@@ -1,12 +1,12 @@
 [
     {
         "file": "E:/implicit/inst/include/fftw3.h",
-        "file_last_write": 1596075025.0,
+        "file_last_write": 1596133841.0,
         "definitions": []
     },
     {
         "file": "E:/implicit/src/convenienceFunctions.h",
-        "file_last_write": 1596122247.0,
+        "file_last_write": 1596138989.0,
         "definitions": [
             {
                 "usr": "c:@F@logit#d#",
@@ -30,7 +30,7 @@
     },
     {
         "file": "E:/implicit/src/dst1.cpp",
-        "file_last_write": 1596122247.0,
+        "file_last_write": 1596138353.0,
         "definitions": [
             {
                 "usr": "c:@F@dst1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
@@ -38,14 +38,14 @@
                 "parent_name": "",
                 "name": "dst1(Eigen::MatrixXd)",
                 "file": "E:/implicit/src/dst1.cpp",
-                "line": 7,
+                "line": 8,
                 "column": 17
             }
         ]
     },
     {
         "file": "E:/implicit/src/fftPlan.h",
-        "file_last_write": 1596122322.0,
+        "file_last_write": 1596138943.0,
         "definitions": [
             {
                 "usr": "c:@S@fftPlan",
@@ -53,7 +53,7 @@
                 "parent_name": "",
                 "name": "fftPlan",
                 "file": "E:/implicit/src/fftPlan.h",
-                "line": 10,
+                "line": 14,
                 "column": 7
             },
             {
@@ -62,7 +62,7 @@
                 "parent_name": "fftPlan",
                 "name": "dst_1",
                 "file": "E:/implicit/src/fftPlan.h",
-                "line": 51,
+                "line": 55,
                 "column": 8
             },
             {
@@ -71,7 +71,7 @@
                 "parent_name": "fftPlan",
                 "name": "dst_1_reverse",
                 "file": "E:/implicit/src/fftPlan.h",
-                "line": 57,
+                "line": 61,
                 "column": 8
             },
             {
@@ -80,7 +80,7 @@
                 "parent_name": "fftPlan",
                 "name": "multiplyBy_I_A_inverse(double, double, double)",
                 "file": "E:/implicit/src/fftPlan.h",
-                "line": 63,
+                "line": 67,
                 "column": 8
             },
             {
@@ -89,7 +89,7 @@
                 "parent_name": "fftPlan",
                 "name": "multiplyBy_pow_neg_A(double, double, double)",
                 "file": "E:/implicit/src/fftPlan.h",
-                "line": 84,
+                "line": 88,
                 "column": 8
             },
             {
@@ -98,14 +98,14 @@
                 "parent_name": "fftPlan",
                 "name": "laplacianEigenvalue(int, int, int, int, double, double)",
                 "file": "E:/implicit/src/fftPlan.h",
-                "line": 105,
+                "line": 109,
                 "column": 17
             }
         ]
     },
     {
         "file": "E:/implicit/src/inversionFunctions.h",
-        "file_last_write": 1596122594.0,
+        "file_last_write": 1596139326.0,
         "definitions": [
             {
                 "usr": "c:@F@fixBoundary#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#&$@N@Eigen@S@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#",
@@ -113,7 +113,7 @@
                 "parent_name": "",
                 "name": "fixBoundary(Eigen::VectorXd, Eigen::VectorXi &)",
                 "file": "E:/implicit/src/inversionFunctions.h",
-                "line": 10,
+                "line": 12,
                 "column": 17
             },
             {
@@ -122,7 +122,7 @@
                 "parent_name": "",
                 "name": "invert(int, int, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::VectorXd &, int, int, double, double, double, int, bool, bool)",
                 "file": "E:/implicit/src/inversionFunctions.h",
-                "line": 24,
+                "line": 26,
                 "column": 17
             },
             {
@@ -131,14 +131,14 @@
                 "parent_name": "",
                 "name": "invert_Irregular(int, int, Eigen::VectorXd &, Eigen::VectorXd &, Eigen::VectorXd &, int, double, int, Eigen::VectorXi &, bool, double, double, int, bool)",
                 "file": "E:/implicit/src/inversionFunctions.h",
-                "line": 132,
+                "line": 135,
                 "column": 17
             }
         ]
     },
     {
         "file": "E:/implicit/src/kf_diffusion.h",
-        "file_last_write": 1596122247.0,
+        "file_last_write": 1596138487.0,
         "definitions": [
             {
                 "usr": "c:@S@KF_diffusion",
@@ -146,7 +146,7 @@
                 "parent_name": "",
                 "name": "KF_diffusion",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 8,
+                "line": 11,
                 "column": 7
             },
             {
@@ -155,7 +155,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "setInitialConditions",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 230,
+                "line": 233,
                 "column": 8
             },
             {
@@ -164,7 +164,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "computeDiffusion(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 247,
+                "line": 250,
                 "column": 8
             },
             {
@@ -173,7 +173,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "logLikelihood",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 271,
+                "line": 274,
                 "column": 10
             },
             {
@@ -182,7 +182,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dmu(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 296,
+                "line": 299,
                 "column": 12
             },
             {
@@ -191,7 +191,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dgamma(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 343,
+                "line": 346,
                 "column": 25
             },
             {
@@ -200,7 +200,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dlongLat(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 385,
+                "line": 388,
                 "column": 25
             },
             {
@@ -209,7 +209,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dsigma(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 441,
+                "line": 444,
                 "column": 12
             },
             {
@@ -218,7 +218,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dkappa(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 491,
+                "line": 494,
                 "column": 12
             },
             {
@@ -227,7 +227,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "dl_dEta",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 542,
+                "line": 545,
                 "column": 12
             },
             {
@@ -236,7 +236,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "dl_du(Eigen::MatrixXd &)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 567,
+                "line": 570,
                 "column": 10
             },
             {
@@ -245,7 +245,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "padDiffusion(Eigen::MatrixXd &)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 604,
+                "line": 618,
                 "column": 12
             },
             {
@@ -254,7 +254,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "differentiateLogLikelihood",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 627,
+                "line": 641,
                 "column": 12
             },
             {
@@ -263,7 +263,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "get_u",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 678,
+                "line": 692,
                 "column": 12
             },
             {
@@ -272,7 +272,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "time_i_covariate(Eigen::MatrixXd &, int, int)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 682,
+                "line": 696,
                 "column": 17
             },
             {
@@ -281,14 +281,14 @@
                 "parent_name": "KF_diffusion",
                 "name": "solver(Eigen::VectorXd &, Eigen::VectorXd &, Eigen::VectorXd &, int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 688,
+                "line": 702,
                 "column": 12
             }
         ]
     },
     {
         "file": "E:/implicit/src/modelFitting.cpp",
-        "file_last_write": 1595911802.0,
+        "file_last_write": 1596139364.0,
         "definitions": [
             {
                 "usr": "c:@F@computeDiffusion#d#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#d#d#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#I#I#I#I#b#d#d#b#",
@@ -366,7 +366,7 @@
     },
     {
         "file": "E:/implicit/src/multiplyByLaplacian.h",
-        "file_last_write": 1596122247.0,
+        "file_last_write": 1596139255.0,
         "definitions": [
             {
                 "usr": "c:@F@fick_L_f#&$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#I#I#b#d#d#",
@@ -374,7 +374,7 @@
                 "parent_name": "",
                 "name": "fick_L_f(Eigen::VectorXd &, Eigen::VectorXd &, int, int, bool, double, double)",
                 "file": "E:/implicit/src/multiplyByLaplacian.h",
-                "line": 23,
+                "line": 24,
                 "column": 17
             },
             {
@@ -383,7 +383,7 @@
                 "parent_name": "",
                 "name": "homogeneous_L_f(Eigen::VectorXd &, int, int, bool, double, double)",
                 "file": "E:/implicit/src/multiplyByLaplacian.h",
-                "line": 110,
+                "line": 111,
                 "column": 17
             },
             {
@@ -392,7 +392,7 @@
                 "parent_name": "",
                 "name": "general_Homogeneous_Lf(Eigen::VectorXd &, int, int, Eigen::VectorXi &, bool, double, double)",
                 "file": "E:/implicit/src/multiplyByLaplacian.h",
-                "line": 171,
+                "line": 172,
                 "column": 17
             },
             {
@@ -401,7 +401,7 @@
                 "parent_name": "",
                 "name": "general_Fick_Lf(Eigen::VectorXd &, Eigen::VectorXd &, int, int, Eigen::VectorXi &, bool, double, double)",
                 "file": "E:/implicit/src/multiplyByLaplacian.h",
-                "line": 268,
+                "line": 269,
                 "column": 17
             }
         ]
