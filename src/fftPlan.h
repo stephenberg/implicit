@@ -4,11 +4,11 @@
 
 
 #include <math.h>
-//#include <Rcpp.h>
+#include <Rcpp.h>
 #include <fftw3.h>
-#include <Eigen>
+#include <RcppEigen.h>
 
-//using namespace Rcpp;
+using namespace Rcpp;
 using namespace Eigen;
 
 class fftPlan
