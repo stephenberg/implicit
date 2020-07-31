@@ -1,5 +1,5 @@
-#include <Rcpp.h>
-#include <RcppEigen.h>
+//#include <Rcpp.h>
+#include <Eigen>
 #include <math.h>
 
 //this file contains:

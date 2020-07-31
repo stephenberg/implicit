@@ -1,5 +1,5 @@
-#include <Rcpp.h>
-#include <RcppEigen.h>
+//#include <Rcpp.h>
+#include <Eigen>
 #include "fftPlan.h"
 
 //discrete sine transformation implementation
@@ -16,5 +16,9 @@ Eigen::MatrixXd dst1(Eigen::MatrixXd U){
             U.data());
   p.dst_1();
   return(V);
+}
+
+int main() {
+
 }
 
