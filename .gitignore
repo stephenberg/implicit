@@ -7,3 +7,5 @@ src/*.so
 src/*.dll
 .vs/
 Eigen/
+x64/
+Debug/
