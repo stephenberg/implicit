@@ -20,15 +20,14 @@
 
 //implicit matrix vector multiplication with inhomogeneous diffusion coefficients
 //diffusion coefficient in middle of Laplacian (Fickian diffusion)
-//[[Rcpp::export]]
-Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_,
+Eigen::VectorXd fick_L_f(const Eigen::Ref<const Eigen::VectorXd>& mu_,
                          Eigen::VectorXd& f_,
                          int rows,
                          int cols,
                          bool dirichlet=true,
                          double lengthX=1,
                          double lengthY=1){
-  Eigen::VectorXd b_;
+  VectorXd b_;
   b_.setZero(rows*cols);
   
   double h_y,h_x;
@@ -36,11 +35,11 @@ Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_,
   h_x=lengthX/(cols+1);
   
   //use value of diffusion coefficient for boundary cells
-  Map<Eigen::MatrixXd> mu(mu_.data(),rows+2,cols+2);
+  const Map<const MatrixXd> mu(mu_.data(),rows+2,cols+2);
   
   //f and b implicitly defined as 0 on boundary points
-  Map<Eigen::MatrixXd> f(f_.data(),rows,cols);
-  Map<Eigen::MatrixXd> b(b_.data(),rows,cols);
+  Map<MatrixXd> f(f_.data(),rows,cols);
+  Map<MatrixXd> b(b_.data(),rows,cols);
   
   //Fickian diffusion
   
@@ -107,8 +106,7 @@ Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_,
 
 
 //implicit multiplication by the Laplacian with homogeneous diffusion
-//[[Rcpp::export]]
-Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_,
+Eigen::VectorXd homogeneous_L_f(const Ref<const Eigen::VectorXd>& f_,
                                 int rows,
                                 int cols,
                                 bool dirichlet=true,
@@ -123,7 +121,7 @@ Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_,
     boundaryMultiplier=1.0;
   }
   
-  Eigen::VectorXd b_;
+  VectorXd b_;
   b_.setZero(rows*cols);
   
   double h_y,h_x;
@@ -132,8 +130,8 @@ Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_,
   
   
   //f and b implicitly defined as 0 on boundary points
-  Map<Eigen::MatrixXd> f(f_.data(),rows,cols);
-  Map<Eigen::MatrixXd> b(b_.data(),rows,cols);
+  const Map<const MatrixXd> f(f_.data(),rows,cols);
+  Map<MatrixXd> b(b_.data(),rows,cols);
   
   //d2dx2
   for (int j=0;j<cols;j++){
@@ -176,10 +174,10 @@ Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
                                        bool dirichlet=true,
                                        double lengthX=1,
                                        double lengthY=1){
-  Eigen::VectorXd b_;
+  VectorXd b_;
   b_.setZero(rows*cols);
   
-  Eigen::Map<MatrixXi> internal(internalPoints_.data(),rows,cols);
+  Map<MatrixXi> internal(internalPoints_.data(),rows,cols);
   
   double h_y,h_x;
   h_y=lengthY/(rows+1);
@@ -187,8 +185,8 @@ Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
   
   
   //f and b implicitly defined as 0 on boundary points (Dirichlet) or with normal derivative 0 (Neumann)
-  Map<Eigen::MatrixXd> f(f_.data(),rows,cols);
-  Map<Eigen::MatrixXd> b(b_.data(),rows,cols);
+  Map<MatrixXd> f(f_.data(),rows,cols);
+  Map<MatrixXd> b(b_.data(),rows,cols);
   
   //d2dx2
   for (int j=0;j<cols;j++){
@@ -274,22 +272,22 @@ Eigen::VectorXd general_Fick_Lf(Eigen::VectorXd& mu_,
                                 bool dirichlet=true,
                                 double lengthX=1,
                                 double lengthY=1){
-  Eigen::VectorXd b_;
+  VectorXd b_;
   b_.setZero(rows*cols);
   
   
-  Eigen::Map<MatrixXi> internal(internalPoints_.data(),rows,cols);
+  Map<MatrixXi> internal(internalPoints_.data(),rows,cols);
   
   double h_y,h_x;
   h_y=lengthY/(rows+1);
   h_x=lengthX/(cols+1);
   
   //use value of diffusion coefficient for boundary cells
-  Map<Eigen::MatrixXd> mu(mu_.data(),rows+2,cols+2);
+  Map<MatrixXd> mu(mu_.data(),rows+2,cols+2);
   
   //f and b implicitly defined as 0 on boundary points
-  Map<Eigen::MatrixXd> f(f_.data(),rows,cols);
-  Map<Eigen::MatrixXd> b(b_.data(),rows,cols);
+  Map<MatrixXd> f(f_.data(),rows,cols);
+  Map<MatrixXd> b(b_.data(),rows,cols);
   
   //Fickian diffusion
   

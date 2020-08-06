@@ -1,5 +1,6 @@
 diffusion<-function(params,
-         X,
+                    X_diffusion,
+         X_reaction,
          rows,
          cols,
          geom,
@@ -7,9 +8,10 @@ diffusion<-function(params,
          lengthY=1,
          nTime){
   
-  p=dim(X)[2]
-  mu=params[1]
-  gamma=params[(2):(p+1)]
+  p=dim(X_reaction)[2]
+  mu0=params[1]
+  alpha=params[2:(1+ncol(X_diffusion))]
+  gamma=params[(2+ncol(X_diffusion)):(ncol(X_diffusion)+ncol(X_reaction)+1)]
   
   coords=sf::st_coordinates(sf::st_centroid(geom))
   initParams=params[(p+2):length(params)]

@@ -17,29 +17,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// invert
-Eigen::VectorXd invert(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, int nIter, double tol, double lengthX, double lengthY, int preconditionerType, bool dirichlet, bool debug);
-RcppExport SEXP _implicit_invert(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP nIterSEXP, SEXP tolSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP dirichletSEXP, SEXP debugSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type b(bSEXP);
-    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
-    Rcpp::traits::input_parameter< int >::type nIter(nIterSEXP);
-    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    Rcpp::traits::input_parameter< int >::type preconditionerType(preconditionerTypeSEXP);
-    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
-    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
-    rcpp_result_gen = Rcpp::wrap(invert(rows, cols, mu, x, b, diffusionType, nIter, tol, lengthX, lengthY, preconditionerType, dirichlet, debug));
-    return rcpp_result_gen;
-END_RCPP
-}
 // invert_Irregular
 Eigen::VectorXd invert_Irregular(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, double tol, int nIter, Eigen::VectorXi& internalPoints, bool dirichlet, double lengthX, double lengthY, int preconditionerType, bool debug);
 RcppExport SEXP _implicit_invert_Irregular(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP internalPointsSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP debugSEXP) {
@@ -65,17 +42,19 @@ BEGIN_RCPP
 END_RCPP
 }
 // computeDiffusion
-Eigen::MatrixXd computeDiffusion(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
-RcppExport SEXP _implicit_computeDiffusion(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+Eigen::MatrixXd computeDiffusion(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_computeDiffusion(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha_(alpha_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
     Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
     Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_diffusion_(X_diffusion_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
     Rcpp::traits::input_parameter< int >::type rows_(rows_SEXP);
     Rcpp::traits::input_parameter< int >::type cols_(cols_SEXP);
@@ -85,22 +64,24 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
     Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
     Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(computeDiffusion(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    rcpp_result_gen = Rcpp::wrap(computeDiffusion(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
     return rcpp_result_gen;
 END_RCPP
 }
 // du_dmu
-Eigen::MatrixXd du_dmu(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
-RcppExport SEXP _implicit_du_dmu(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+std::vector<Eigen::MatrixXd> du_dmu(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_du_dmu(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha_(alpha_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
     Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
     Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_diffusion_(X_diffusion_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
     Rcpp::traits::input_parameter< int >::type rows_(rows_SEXP);
     Rcpp::traits::input_parameter< int >::type cols_(cols_SEXP);
@@ -110,22 +91,24 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
     Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
     Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(du_dmu(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    rcpp_result_gen = Rcpp::wrap(du_dmu(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
     return rcpp_result_gen;
 END_RCPP
 }
 // du_dkappa
-Eigen::MatrixXd du_dkappa(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
-RcppExport SEXP _implicit_du_dkappa(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+Eigen::MatrixXd du_dkappa(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_du_dkappa(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha_(alpha_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
     Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
     Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_diffusion_(X_diffusion_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
     Rcpp::traits::input_parameter< int >::type rows_(rows_SEXP);
     Rcpp::traits::input_parameter< int >::type cols_(cols_SEXP);
@@ -135,22 +118,24 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
     Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
     Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(du_dkappa(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    rcpp_result_gen = Rcpp::wrap(du_dkappa(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
     return rcpp_result_gen;
 END_RCPP
 }
 // du_dsigma
-Eigen::MatrixXd du_dsigma(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
-RcppExport SEXP _implicit_du_dsigma(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+Eigen::MatrixXd du_dsigma(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_du_dsigma(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha_(alpha_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
     Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
     Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_diffusion_(X_diffusion_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
     Rcpp::traits::input_parameter< int >::type rows_(rows_SEXP);
     Rcpp::traits::input_parameter< int >::type cols_(cols_SEXP);
@@ -160,22 +145,24 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
     Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
     Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(du_dsigma(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    rcpp_result_gen = Rcpp::wrap(du_dsigma(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
     return rcpp_result_gen;
 END_RCPP
 }
 // du_dgamma
-std::vector<Eigen::MatrixXd> du_dgamma(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
-RcppExport SEXP _implicit_du_dgamma(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+std::vector<Eigen::MatrixXd> du_dgamma(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_du_dgamma(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha_(alpha_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
     Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
     Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_diffusion_(X_diffusion_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
     Rcpp::traits::input_parameter< int >::type rows_(rows_SEXP);
     Rcpp::traits::input_parameter< int >::type cols_(cols_SEXP);
@@ -185,22 +172,24 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
     Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
     Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(du_dgamma(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    rcpp_result_gen = Rcpp::wrap(du_dgamma(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
     return rcpp_result_gen;
 END_RCPP
 }
 // du_dlongLat
-std::vector<Eigen::MatrixXd> du_dlongLat(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
-RcppExport SEXP _implicit_du_dlongLat(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+std::vector<Eigen::MatrixXd> du_dlongLat(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_du_dlongLat(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha_(alpha_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
     Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
     Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_diffusion_(X_diffusion_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
     Rcpp::traits::input_parameter< int >::type rows_(rows_SEXP);
     Rcpp::traits::input_parameter< int >::type cols_(cols_SEXP);
@@ -210,23 +199,25 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
     Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
     Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(du_dlongLat(mu_0_, gamma_, longLat_, sigma_, kappa_, coords_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    rcpp_result_gen = Rcpp::wrap(du_dlongLat(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
     return rcpp_result_gen;
 END_RCPP
 }
 // dl_dtheta
-Eigen::VectorXd dl_dtheta(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::VectorXd eta_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, Eigen::MatrixXd X_individual_, Eigen::VectorXi cell_, Eigen::VectorXi positive_, Eigen::VectorXi time_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
-RcppExport SEXP _implicit_dl_dtheta(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP eta_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP X_individual_SEXP, SEXP cell_SEXP, SEXP positive_SEXP, SEXP time_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+Eigen::VectorXd dl_dtheta(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::VectorXd eta_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, Eigen::MatrixXd X_individual_, Eigen::VectorXi cell_, Eigen::VectorXi positive_, Eigen::VectorXi time_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_dl_dtheta(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP eta_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP X_individual_SEXP, SEXP cell_SEXP, SEXP positive_SEXP, SEXP time_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha_(alpha_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
     Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
     Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type eta_(eta_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_diffusion_(X_diffusion_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_individual_(X_individual_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXi >::type cell_(cell_SEXP);
@@ -240,23 +231,25 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
     Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
     Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(dl_dtheta(mu_0_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
+    rcpp_result_gen = Rcpp::wrap(dl_dtheta(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_diffusion_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
     return rcpp_result_gen;
 END_RCPP
 }
 // loglikelihood
-double loglikelihood(double mu_0_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::VectorXd eta_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_reaction_, Eigen::MatrixXd X_individual_, Eigen::VectorXi cell_, Eigen::VectorXi positive_, Eigen::VectorXi time_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
-RcppExport SEXP _implicit_loglikelihood(SEXP mu_0_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP eta_SEXP, SEXP coords_SEXP, SEXP X_reaction_SEXP, SEXP X_individual_SEXP, SEXP cell_SEXP, SEXP positive_SEXP, SEXP time_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
+double loglikelihood(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::VectorXd eta_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, Eigen::MatrixXd X_individual_, Eigen::VectorXi cell_, Eigen::VectorXi positive_, Eigen::VectorXi time_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
+RcppExport SEXP _implicit_loglikelihood(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP eta_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP X_individual_SEXP, SEXP cell_SEXP, SEXP positive_SEXP, SEXP time_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu_0_(mu_0_SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type alpha_(alpha_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type gamma_(gamma_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type longLat_(longLat_SEXP);
     Rcpp::traits::input_parameter< double >::type sigma_(sigma_SEXP);
     Rcpp::traits::input_parameter< double >::type kappa_(kappa_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type eta_(eta_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type coords_(coords_SEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_diffusion_(X_diffusion_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_reaction_(X_reaction_SEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X_individual_(X_individual_SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXi >::type cell_(cell_SEXP);
@@ -270,40 +263,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lengthX_(lengthX_SEXP);
     Rcpp::traits::input_parameter< double >::type lengthY_(lengthY_SEXP);
     Rcpp::traits::input_parameter< bool >::type pad(padSEXP);
-    rcpp_result_gen = Rcpp::wrap(loglikelihood(mu_0_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
-    return rcpp_result_gen;
-END_RCPP
-}
-// fick_L_f
-Eigen::VectorXd fick_L_f(Eigen::VectorXd& mu_, Eigen::VectorXd& f_, int rows, int cols, bool dirichlet, double lengthX, double lengthY);
-RcppExport SEXP _implicit_fick_L_f(SEXP mu_SEXP, SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu_(mu_SEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(fick_L_f(mu_, f_, rows, cols, dirichlet, lengthX, lengthY));
-    return rcpp_result_gen;
-END_RCPP
-}
-// homogeneous_L_f
-Eigen::VectorXd homogeneous_L_f(Eigen::VectorXd& f_, int rows, int cols, bool dirichlet, double lengthX, double lengthY);
-RcppExport SEXP _implicit_homogeneous_L_f(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(homogeneous_L_f(f_, rows, cols, dirichlet, lengthX, lengthY));
+    rcpp_result_gen = Rcpp::wrap(loglikelihood(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_diffusion_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -345,18 +305,15 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_implicit_dst1", (DL_FUNC) &_implicit_dst1, 1},
-    {"_implicit_invert", (DL_FUNC) &_implicit_invert, 13},
     {"_implicit_invert_Irregular", (DL_FUNC) &_implicit_invert_Irregular, 14},
-    {"_implicit_computeDiffusion", (DL_FUNC) &_implicit_computeDiffusion, 15},
-    {"_implicit_du_dmu", (DL_FUNC) &_implicit_du_dmu, 15},
-    {"_implicit_du_dkappa", (DL_FUNC) &_implicit_du_dkappa, 15},
-    {"_implicit_du_dsigma", (DL_FUNC) &_implicit_du_dsigma, 15},
-    {"_implicit_du_dgamma", (DL_FUNC) &_implicit_du_dgamma, 15},
-    {"_implicit_du_dlongLat", (DL_FUNC) &_implicit_du_dlongLat, 15},
-    {"_implicit_dl_dtheta", (DL_FUNC) &_implicit_dl_dtheta, 20},
-    {"_implicit_loglikelihood", (DL_FUNC) &_implicit_loglikelihood, 20},
-    {"_implicit_fick_L_f", (DL_FUNC) &_implicit_fick_L_f, 7},
-    {"_implicit_homogeneous_L_f", (DL_FUNC) &_implicit_homogeneous_L_f, 6},
+    {"_implicit_computeDiffusion", (DL_FUNC) &_implicit_computeDiffusion, 17},
+    {"_implicit_du_dmu", (DL_FUNC) &_implicit_du_dmu, 17},
+    {"_implicit_du_dkappa", (DL_FUNC) &_implicit_du_dkappa, 17},
+    {"_implicit_du_dsigma", (DL_FUNC) &_implicit_du_dsigma, 17},
+    {"_implicit_du_dgamma", (DL_FUNC) &_implicit_du_dgamma, 17},
+    {"_implicit_du_dlongLat", (DL_FUNC) &_implicit_du_dlongLat, 17},
+    {"_implicit_dl_dtheta", (DL_FUNC) &_implicit_dl_dtheta, 22},
+    {"_implicit_loglikelihood", (DL_FUNC) &_implicit_loglikelihood, 22},
     {"_implicit_general_Homogeneous_Lf", (DL_FUNC) &_implicit_general_Homogeneous_Lf, 7},
     {"_implicit_general_Fick_Lf", (DL_FUNC) &_implicit_general_Fick_Lf, 8},
     {NULL, NULL, 0}

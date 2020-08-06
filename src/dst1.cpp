@@ -2,6 +2,7 @@
 #include <RcppEigen.h>
 #include "fftPlan.h"
 
+
 //discrete sine transformation implementation
 //primarily for testing purposes
 //[[Rcpp::export]]

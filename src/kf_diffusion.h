@@ -4,7 +4,6 @@
 #include "convenienceFunctions.h"
 #include "inversionFunctions.h"
 
-
 using namespace Rcpp;
 using namespace Eigen;
 
@@ -32,6 +31,7 @@ private:
   //data and model properties
   VectorXi positive,cell,time; //cwd status, location, and time sampled for each deer
   bool individualCovariates; //include individual level covariates
+  bool diffusionCovariates; //include covariates with the diffusion parameter
   
   //properties of the grid
   bool rectangular; //indicator for whether the grid is rectangular
@@ -80,6 +80,7 @@ public:
 		lengthX = lengthX_;
 		lengthY = lengthY_;
 		rectangular = true;
+		diffusionCovariates = false;
 		individualCovariates = false;
 		computed = false;
 
@@ -105,13 +106,14 @@ public:
 	}
 
   KF_diffusion(double mu_0_,
+	           VectorXd alpha_,
                VectorXd gamma_,
                VectorXd longLat_,
                double sigma_,
                double kappa_,
                MatrixXd coords_,
-               MatrixXd X_reaction_,
 	           MatrixXd X_diffusion_,
+               MatrixXd X_reaction_,
                int rows_,
                int cols_,
                int nTime_,
@@ -122,11 +124,13 @@ public:
     
     //assignments
     mu_0=mu_0_;
+	alpha = alpha_;
     gamma=gamma_;
     longLat=longLat_;
     sigma=sigma_;
     kappa=kappa_;
     coords=coords_;
+	X_diffusion = X_diffusion_;
     X_reaction=X_reaction_;
     rows=rows_;
     cols=cols_;
@@ -136,6 +140,7 @@ public:
     lengthX=lengthX_;
     lengthY=lengthY_;
     rectangular=true;
+	diffusionCovariates = true;
     individualCovariates=false;
     computed=false;
     
@@ -148,7 +153,7 @@ public:
     //initialize mu and lambda
     VectorXd muVec, lambdaVec;
     muVec.setZero(X_reaction.rows());
-	muVec = (X_diffusion * alpha) * mu_0;
+	muVec = (X_diffusion * alpha).array().exp().array() * mu_0;
     
     lambdaVec.setZero(X_reaction.rows());
     lambdaVec = (X_reaction*gamma).array().exp();
@@ -194,6 +199,7 @@ public:
     lengthX=lengthX_;
     lengthY=lengthY_;
     rectangular=true;
+	diffusionCovariates = false;
     individualCovariates=false;
     computed=false;
     cell=cell_;
@@ -222,12 +228,14 @@ public:
   }
   
   KF_diffusion(double mu_0_,
+	           VectorXd alpha_,
                VectorXd gamma_,
                VectorXd longLat_,
                double sigma_,
                double kappa_,
                VectorXd eta_,
                MatrixXd coords_,
+	           MatrixXd X_diffusion_,
                MatrixXd X_reaction_,
                MatrixXd X_individual_,
                VectorXi cell_,
@@ -243,12 +251,14 @@ public:
     
     //assignments
     mu_0=mu_0_;
+	alpha = alpha_;
     gamma=gamma_;
     longLat=longLat_;
     sigma=sigma_;
     kappa=kappa_;
     eta=eta_;
     coords=coords_;
+	X_diffusion = X_diffusion_;
     X_reaction=X_reaction_;
     X_individual=X_individual_;
     rows=rows_;
@@ -259,6 +269,7 @@ public:
     lengthX=lengthX_;
     lengthY=lengthY_;
     rectangular=true;
+	diffusionCovariates = true;
     individualCovariates=true;
     computed=false;
     cell=cell_;
@@ -275,6 +286,7 @@ public:
     VectorXd muVec, lambdaVec;
     muVec.setZero(X_reaction.rows());
     muVec=muVec.array()+mu_0;
+	muVec = muVec.array() * (X_diffusion * alpha).array().exp().array();
     
     lambdaVec.setZero(X_reaction.rows());
     lambdaVec = (X_reaction*gamma).array().exp();
@@ -305,7 +317,7 @@ public:
   }
   
   void computeDiffusion(int nIter=100,
-                        double tol=1.0e-10){
+                        double tol=1.0e-16){
     if (computed) return;
     
     VectorXd rhs(nInternal);
@@ -322,8 +334,8 @@ public:
       //(I-H)U2=U1+Lambda*U1(1-U1)
       rhs=u.col(i-1).array()+lambda_i_1.array()*u.col(i-1).array()*(1-u.col(i-1).array());
       VectorXd guess(u.col(i-1));
-      VectorXd mu_i(mu.col(i-1));
-      u.col(i)=solver(mu_i,guess,rhs,nIter,tol);
+
+      u.col(i)=solver(mu.col(i-1),guess,rhs,nIter,tol);
     }
     computed=true;
   }
@@ -355,7 +367,7 @@ public:
   //derivative of diffusion wrt mu_0/alpha
   MatrixXd du_dmu(int covariateIndex = -1,
 	              int nIter=100,
-                  double tol=1.0e-10){
+                  double tol=1.0e-16){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -376,7 +388,7 @@ public:
         VectorXd guess,temp;
         guess.setZero(nInternal);
         temp.setZero(nInternal);
-        VectorXd mu_i(mu.col(i-1));
+        Ref<VectorXd> mu_i=mu.col(i-1);
         du_dTheta.col(i)=solver(mu_i,guess,rhs,nIter,tol);
         
         temp=du_dTheta.col(i);
@@ -389,8 +401,7 @@ public:
 		else {
 			//get covariate values for previous time point
 			Map<MatrixXd> XpMap = time_i_covariate(X_diffusion, i - 1, covariateIndex);
-			MatrixXd Xp(XpMap);
-			Map<VectorXd> Xp_i_1(Xp.data(), nFull);
+			Map<VectorXd> Xp_i_1(XpMap.data(), nFull);
 			dmu_i_dalpha = Xp_i_1.array() * mu_i.array();
 		}
 		du_dTheta.col(i) = laplacianMultiply(dmu_i_dalpha, temp);
@@ -407,17 +418,13 @@ public:
   }
   
   //derivative of diffusion with respect to gamma
-  std::vector<MatrixXd> du_dgamma(int nIter=100,
-                                  double tol=1.0e-10){
+  MatrixXd du_dgamma(int covariateIndex=-1,int nIter=100,double tol=1.0e-16){
     computeDiffusion();
-    std::vector<MatrixXd> du_dTheta_list;
     MatrixXd du_dTheta;
     du_dTheta.setZero(nInternal,nTime);
     
     int p=X_reaction.cols();
     
-    for (int pInd=0;pInd<p;pInd++){
-      du_dTheta.setZero(nInternal,nTime);
       for (int i=0;i<nTime;i++){
         //(du_0/dTheta)=0
         if (i>0){
@@ -428,9 +435,9 @@ public:
           Map<VectorXd> lambda_i_1(internalLambdaMatrix.data(),rows*cols);
           
           //get covariate values for previous time point
-          Map<MatrixXd> XpMatrix=time_i_covariate(X_reaction,i-1,pInd);
-          MatrixXd internalXpMatrix(XpMatrix.block(1,1,rows,cols));
-          Map<VectorXd> Xp_i_1(internalXpMatrix.data(),rows*cols);
+          Map<MatrixXd> XpMatrix=time_i_covariate(X_reaction,i-1,covariateIndex);
+		  MatrixXd internalXpMatrix(XpMatrix.block(1, 1, rows, cols));
+          Map<VectorXd,0,OuterStride<> > Xp_i_1(internalXpMatrix.data(),rows*cols, OuterStride<>(internalXpMatrix.outerStride()));
           
           VectorXd rhs2,guess;
           guess.setZero(nInternal);
@@ -438,17 +445,14 @@ public:
           rhs2.setZero(nInternal);
 		  rhs2=drhs_dut_1(du_dTheta, lambda_i_1, i);
 		  rhs2 = rhs2.array() + Xp_i_1.array() * lambda_i_1.array() * u.col(i - 1).array() * (1 - u.col(i - 1).array()).array();
-          VectorXd mu_i(mu.col(i-1));
-          du_dTheta.col(i)=solver(mu_i,guess,rhs2,nIter,tol);
+          du_dTheta.col(i)=solver(mu.col(i-1),guess,rhs2,nIter,tol);
         }
       }
-      du_dTheta_list.push_back(du_dTheta);
-    }
-    return du_dTheta_list;
+    return du_dTheta;
   }
   
   std::vector<MatrixXd> du_dlongLat(int nIter=100,
-                                    double tol=1.0e-10){
+                                    double tol=1.0e-16){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -492,8 +496,7 @@ public:
           
           rhs2.setZero(nInternal);
           rhs2=drhs_dut_1(du_dTheta, lambda_i_1, i);
-          VectorXd mu_i(mu.col(i-1));
-          du_dTheta.col(i)=solver(mu_i,guess,rhs2,nIter,tol);
+          du_dTheta.col(i)=solver(mu.col(i-1),guess,rhs2,nIter,tol);
         }
       }
       
@@ -503,7 +506,7 @@ public:
   }
   
   MatrixXd du_dsigma(int nIter=100,
-                            double tol=1.0e-10){
+                            double tol=1.0e-16){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -543,15 +546,15 @@ public:
         
         rhs2.setZero(nInternal);
         rhs2= drhs_dut_1(du_dTheta, lambda_i_1, i);
-        VectorXd mu_i(mu.col(i-1));
-        du_dTheta.col(i)=solver(mu_i,guess,rhs2,nIter,tol);
+        du_dTheta.col(i)=solver(mu.col(i-1),guess,rhs2,nIter,tol);
       }
     }
     
     return du_dTheta;
   }
+
   MatrixXd du_dkappa(int nIter=100,
-                            double tol=1.0e-10){
+                            double tol=1.0e-16){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -590,8 +593,7 @@ public:
 		rhs2.setZero(nInternal);
 		rhs2 = drhs_dut_1(du_dTheta, lambda_i_1, i);
         
-        VectorXd mu_i(mu.col(i-1));
-        du_dTheta.col(i)=solver(mu_i,guess,rhs2,nIter,tol);
+        du_dTheta.col(i)=solver(mu.col(i-1),guess,rhs2,nIter,tol);
       }
     }
     
@@ -676,10 +678,10 @@ public:
   
   VectorXd differentiateLogLikelihood(){
     VectorXd x;
-    if (individualCovariates){
+    if (individualCovariates & diffusionCovariates){
       //1 diffusion coefficient, p1 reaction coefficients, p2 individual coefficients
       //2 long lat coefficients, sigma, kappa
-      x.setZero(1+X_reaction.cols()+X_individual.cols()+4);
+		x.setZero(1 + X_diffusion.cols() + X_reaction.cols() + X_individual.cols() + 4);
     }
     else{
       x.setZero(1+X_reaction.cols()+4);
@@ -691,22 +693,30 @@ public:
     du_dTheta=du_dmu();
     x(count)=dl_du(du_dTheta);
     count+=1;
-    // 
-    //gamma
-    std::vector<MatrixXd> du_dTheta_list;
-    du_dTheta_list=du_dgamma();
-    for (int i=0;i<du_dTheta_list.size();i++){
-      x(count)=dl_du(du_dTheta_list[i]);
-      count+=1;
+
+	for (int i = 0; i < X_diffusion.cols(); i++) {
+		Eigen::MatrixXd du_dTheta(nInternal, nTime);
+		du_dTheta = du_dmu(i);
+		x(count) = dl_du(du_dTheta);
+		count += 1;
+	}
+
+    //growth 
+    for (int i=0;i<X_reaction.cols();i++){
+		Eigen::MatrixXd du_dTheta(nInternal, nTime);
+		du_dTheta = du_dgamma(i);
+		x(count) = dl_du(du_dTheta);
+		count += 1;
     }
-    // 
+
     //longLat
+	std::vector<MatrixXd> du_dTheta_list;
     du_dTheta_list=du_dlongLat();
     for (int i=0;i<du_dTheta_list.size();i++){
       x(count)=dl_du(du_dTheta_list[i]);
       count+=1;
     }
-    //
+
     // //sigma
     du_dTheta=du_dsigma();
     x(count)=dl_du(du_dTheta);
@@ -744,22 +754,24 @@ public:
 	  return drhs;
   }
 
-  VectorXd laplacianMultiply(Eigen::VectorXd& mu,Eigen::VectorXd& rhs) {
+  VectorXd laplacianMultiply(const Ref<const Eigen::VectorXd>& mu,Eigen::VectorXd& rhs) {
+
+	  const Map<const MatrixXd> muMatrix(mu.data(), rows + 2, cols + 2);
+	  MatrixXd muInternal(muMatrix.block(1, 1, rows, cols));
+	  Map<VectorXd> muVec(muInternal.data(), rows * cols);
+
 	  if (diffusionType == 1) {
-		  return homogeneous_L_f(rhs,rows,cols,dirichlet,lengthX,lengthY)*mu;
+		  return homogeneous_L_f(muVec.asDiagonal()*rhs,rows,cols,dirichlet,lengthX,lengthY);
 	  }
 	  if (diffusionType == -1) {
-		  return mu.array() * homogeneous_L_f(rhs, rows, cols, dirichlet, lengthX, lengthY).array();
+		  return muVec.asDiagonal() * homogeneous_L_f(rhs, rows, cols, dirichlet, lengthX, lengthY);
 	  }
 	  return fick_L_f(mu, rhs, rows, cols, dirichlet, lengthX, lengthY);
   }
   
-  VectorXd solver(VectorXd& mu_i, VectorXd& guess, VectorXd& rhs, int nIter, double tol){
+  VectorXd solver(const Ref<const VectorXd>& mu_i, VectorXd& guess, VectorXd& rhs, int nIter, double tol){
     return invert(rows, cols, mu_i, guess, rhs, diffusionType, nIter, tol, lengthX, lengthY, 1,dirichlet,false);
   }
 };
-
-
-
 
 
