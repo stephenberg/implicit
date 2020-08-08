@@ -5,10 +5,6 @@ dst1 <- function(U) {
     .Call('_implicit_dst1', PACKAGE = 'implicit', U)
 }
 
-invert_Irregular <- function(rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet = TRUE, lengthX = 1, lengthY = 1, preconditionerType = 1L, debug = FALSE) {
-    .Call('_implicit_invert_Irregular', PACKAGE = 'implicit', rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, preconditionerType, debug)
-}
-
 computeDiffusion <- function(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
     .Call('_implicit_computeDiffusion', PACKAGE = 'implicit', mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
 }

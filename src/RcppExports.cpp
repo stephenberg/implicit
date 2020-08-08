@@ -17,30 +17,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// invert_Irregular
-Eigen::VectorXd invert_Irregular(int rows, int cols, Eigen::VectorXd& mu, Eigen::VectorXd& x, Eigen::VectorXd& b, int diffusionType, double tol, int nIter, Eigen::VectorXi& internalPoints, bool dirichlet, double lengthX, double lengthY, int preconditionerType, bool debug);
-RcppExport SEXP _implicit_invert_Irregular(SEXP rowsSEXP, SEXP colsSEXP, SEXP muSEXP, SEXP xSEXP, SEXP bSEXP, SEXP diffusionTypeSEXP, SEXP tolSEXP, SEXP nIterSEXP, SEXP internalPointsSEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP, SEXP preconditionerTypeSEXP, SEXP debugSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type b(bSEXP);
-    Rcpp::traits::input_parameter< int >::type diffusionType(diffusionTypeSEXP);
-    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    Rcpp::traits::input_parameter< int >::type nIter(nIterSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type internalPoints(internalPointsSEXP);
-    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    Rcpp::traits::input_parameter< int >::type preconditionerType(preconditionerTypeSEXP);
-    Rcpp::traits::input_parameter< bool >::type debug(debugSEXP);
-    rcpp_result_gen = Rcpp::wrap(invert_Irregular(rows, cols, mu, x, b, diffusionType, tol, nIter, internalPoints, dirichlet, lengthX, lengthY, preconditionerType, debug));
-    return rcpp_result_gen;
-END_RCPP
-}
 // computeDiffusion
 Eigen::MatrixXd computeDiffusion(double mu_0_, Eigen::VectorXd alpha_, Eigen::VectorXd gamma_, Eigen::VectorXd longLat_, double sigma_, double kappa_, Eigen::MatrixXd coords_, Eigen::MatrixXd X_diffusion_, Eigen::MatrixXd X_reaction_, int rows_, int cols_, int nTime_, int diffusionType_, bool dirichlet_, double lengthX_, double lengthY_, bool pad);
 RcppExport SEXP _implicit_computeDiffusion(SEXP mu_0_SEXP, SEXP alpha_SEXP, SEXP gamma_SEXP, SEXP longLat_SEXP, SEXP sigma_SEXP, SEXP kappa_SEXP, SEXP coords_SEXP, SEXP X_diffusion_SEXP, SEXP X_reaction_SEXP, SEXP rows_SEXP, SEXP cols_SEXP, SEXP nTime_SEXP, SEXP diffusionType_SEXP, SEXP dirichlet_SEXP, SEXP lengthX_SEXP, SEXP lengthY_SEXP, SEXP padSEXP) {
@@ -305,7 +281,6 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_implicit_dst1", (DL_FUNC) &_implicit_dst1, 1},
-    {"_implicit_invert_Irregular", (DL_FUNC) &_implicit_invert_Irregular, 14},
     {"_implicit_computeDiffusion", (DL_FUNC) &_implicit_computeDiffusion, 17},
     {"_implicit_du_dmu", (DL_FUNC) &_implicit_du_dmu, 17},
     {"_implicit_du_dkappa", (DL_FUNC) &_implicit_du_dkappa, 17},

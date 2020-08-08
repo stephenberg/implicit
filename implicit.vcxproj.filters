@@ -38,5 +38,8 @@
     <ClInclude Include="src\multiplyByLaplacian.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

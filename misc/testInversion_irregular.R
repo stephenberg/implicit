@@ -27,7 +27,7 @@ for (i in 1:4){
   notSampled=which(!((1:((rows-2)*(cols-2)))%in%internalSampled))
   internalMatrix=matrix(0,rows-2,cols-2)
   internalMatrix[internalSampled]=1
-  #image(Matrix(c(internalMatrix),ncol=cols-2))
+  image(Matrix(c(internalMatrix),ncol=cols-2))
   
   
   b=rnorm((rows-2)*(cols-2))

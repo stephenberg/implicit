@@ -10,6 +10,18 @@ coords=grid%>%st_centroid()%>%st_coordinates()
 
 #deal with deer on boundary
 internal=c(matrix(1:(rows*cols),ncol=cols)[2:(rows-1),][,2:(cols-1)])
+
+
+#irregular grid sampling
+indMat=matrix(1:(rows*cols),ncol=cols)
+sampled=unique(c(c(indMat[round(0.3*rows):round(0.7*rows),]),
+               c(indMat[,round(0.3*cols):round(0.7*cols)])))
+internalPoints=rep(0,rows*cols)
+internalPoints[sampled[sampled%in%internal]]=1
+
+
+image(Matrix(internalPoints,ncol=cols))
+
 y_internal=y_sf[y_sf$Cell%in%internal,]
 
 #0 based indexing for internal points
@@ -90,6 +102,7 @@ save(mu_0,
      cell,
      time,
      positive,
+     internalPoints,
      diffusionType,
      lengthX,
      lengthY,

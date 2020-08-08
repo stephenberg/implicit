@@ -110,6 +110,7 @@
   <ItemGroup>
     <ClInclude Include="src\convenienceFunctions.h" />
     <ClInclude Include="src\fftPlan.h" />
+    <ClInclude Include="src\grid.h" />
     <ClInclude Include="src\inversionFunctions.h" />
     <ClInclude Include="src\kf_diffusion.h" />
     <ClInclude Include="src\multiplyByLaplacian.h" />
