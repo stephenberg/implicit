@@ -1,0 +1,137 @@
+setwd("E:/implicit/")
+source("misc/diffusion.R")
+load("misc/setup.RData")
+library(sf)
+
+#intercept only model
+#X_diffusion=X_diffusion[,1,drop=FALSE]
+#alpha=alpha[1]
+
+diffusionType=1
+unwrap<-function(params){
+  mu_0=params[1]
+  p_d=ncol(X_diffusion)
+  p0=ncol(X_reaction)
+  p1=ncol(X_individual)
+  alpha=params[2:(p_d+1)]
+  gamma=params[(p_d+2):(p_d+p0+1)]
+  longLat=params[(p_d+p0+2):(p_d+p0+3)]
+  sigma=params[(p_d+p0+4)]
+  kappa=params[p_d+p0+5]
+  individual=params[(p0+p_d+6):length(params)]
+  names(alpha)=names(X_diffusion)
+  names(gamma)=names(X_reaction)
+  names(individual)=names(X_individual)
+  return(list(mu_0=mu_0,
+              alpha=alpha,
+              gamma=gamma,
+              longLat=longLat,
+              sigma=sigma,
+              kappa=kappa,
+              individual=individual))
+}
+llwrapper<-function(params){
+  par=unwrap(params)
+  return(loglikelihood(par$mu_0,
+                       par$alpha,
+                       par$gamma,
+                       par$longLat,
+                       par$sigma,
+                       par$kappa,
+                       par$individual,
+                       coords,
+                       X_diffusion,
+                       X_reaction,
+                       X_individual,
+                       cell,
+                       positive,
+                       time,
+                       rows,
+                       cols,
+                       nTime,
+                       diffusionType,
+                       TRUE,
+                       lengthX,
+                       lengthY,
+                       TRUE))
+}
+diffusionwrapper<-function(params){
+  par=unwrap(params)
+  computeDiffusion(par$mu_0,
+                   par$alpha,
+                   par$gamma,
+                   par$longLat,
+                   par$sigma,
+                   par$kappa,
+                   coords,
+                   X_diffusion,
+                   X_reaction,
+                   rows,
+                   cols,
+                   nTime,
+                   diffusionType,
+                   TRUE,
+                   lengthX,
+                   lengthY,
+                   TRUE)
+}
+derivwrapper<-function(params){
+  par=unwrap(params)
+  return(dl_dtheta(par$mu_0,
+                   par$alpha,
+                   par$gamma,
+                   par$longLat,
+                   par$sigma,
+                   par$kappa,
+                   par$individual,
+                   coords,
+                   X_diffusion,
+                   X_reaction,
+                   X_individual,
+                   cell,
+                   positive,
+                   time,
+                   rows,
+                   cols,
+                   nTime,
+                   diffusionType,
+                   TRUE,
+                   lengthX,
+                   lengthY,
+                   TRUE))
+}
+
+longLat=c(450000,245000)/100000
+coords=coords/100000
+sigma=sigma/100000
+params=c(mu_0,alpha,gamma,longLat,sigma,kappa,eta)
+t1=derivwrapper(params)
+
+res=optim(par=params,
+          fn=llwrapper,
+          gr=derivwrapper,
+          method="BFGS",
+          control=list(fnscale=-1,
+                       trace=2,
+                       maxit=1000,
+                       REPORT=5,
+                       maxit=500,
+                       REPORT=1,
+                       reltol=1e-12))
+
+
+dl_dtheta0=derivwrapper(res$par)/nrow(X_individual)
+dl_dtheta1=numDeriv::grad(llwrapper,res$par)/nrow(X_individual)
+#H1=numDeriv::jacobian(derivwrapper,res$par,method="Richardson",method.args=list(eps=10^-6))
+#H2=numDeriv::hessian(llwrapper,res$par)
+u_init=diffusionwrapper(params)
+u=diffusionwrapper(res$par)
+#sds1=sqrt(diag(solve(abs(H1))))
+#sds2=sqrt(diag(solve(abs(H2))))
+sf_init=data.frame(u_init,geom=grid)%>%st_as_sf()
+sf1=data.frame(u,geom=grid)%>%st_as_sf()
+plot(sf_init,max.plot=20,border=NA)
+#H=numDeriv::jacobian(derivwrapper,res$par,method="Richardson")/nrow(X_individual)
+
+sf1=data.frame(u,geom=grid)%>%st_as_sf()
+plot(sf1,max.plot=20,border=NA)

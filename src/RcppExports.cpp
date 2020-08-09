@@ -243,41 +243,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// general_Homogeneous_Lf
-Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_, int rows, int cols, Eigen::VectorXi& internalPoints_, bool dirichlet, double lengthX, double lengthY);
-RcppExport SEXP _implicit_general_Homogeneous_Lf(SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP internalPoints_SEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type internalPoints_(internalPoints_SEXP);
-    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(general_Homogeneous_Lf(f_, rows, cols, internalPoints_, dirichlet, lengthX, lengthY));
-    return rcpp_result_gen;
-END_RCPP
-}
-// general_Fick_Lf
-Eigen::VectorXd general_Fick_Lf(Eigen::VectorXd& mu_, Eigen::VectorXd& f_, int rows, int cols, Eigen::VectorXi& internalPoints_, bool dirichlet, double lengthX, double lengthY);
-RcppExport SEXP _implicit_general_Fick_Lf(SEXP mu_SEXP, SEXP f_SEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP internalPoints_SEXP, SEXP dirichletSEXP, SEXP lengthXSEXP, SEXP lengthYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type mu_(mu_SEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXd& >::type f_(f_SEXP);
-    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< Eigen::VectorXi& >::type internalPoints_(internalPoints_SEXP);
-    Rcpp::traits::input_parameter< bool >::type dirichlet(dirichletSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthX(lengthXSEXP);
-    Rcpp::traits::input_parameter< double >::type lengthY(lengthYSEXP);
-    rcpp_result_gen = Rcpp::wrap(general_Fick_Lf(mu_, f_, rows, cols, internalPoints_, dirichlet, lengthX, lengthY));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_implicit_dst1", (DL_FUNC) &_implicit_dst1, 1},
@@ -289,8 +254,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_implicit_du_dlongLat", (DL_FUNC) &_implicit_du_dlongLat, 17},
     {"_implicit_dl_dtheta", (DL_FUNC) &_implicit_dl_dtheta, 22},
     {"_implicit_loglikelihood", (DL_FUNC) &_implicit_loglikelihood, 22},
-    {"_implicit_general_Homogeneous_Lf", (DL_FUNC) &_implicit_general_Homogeneous_Lf, 7},
-    {"_implicit_general_Fick_Lf", (DL_FUNC) &_implicit_general_Fick_Lf, 8},
     {NULL, NULL, 0}
 };
 

@@ -37,11 +37,3 @@ loglikelihood <- function(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, eta_,
     .Call('_implicit_loglikelihood', PACKAGE = 'implicit', mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_diffusion_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
 }
 
-general_Homogeneous_Lf <- function(f_, rows, cols, internalPoints_, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
-    .Call('_implicit_general_Homogeneous_Lf', PACKAGE = 'implicit', f_, rows, cols, internalPoints_, dirichlet, lengthX, lengthY)
-}
-
-general_Fick_Lf <- function(mu_, f_, rows, cols, internalPoints_, dirichlet = TRUE, lengthX = 1, lengthY = 1) {
-    .Call('_implicit_general_Fick_Lf', PACKAGE = 'implicit', mu_, f_, rows, cols, internalPoints_, dirichlet, lengthX, lengthY)
-}
-

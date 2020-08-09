@@ -1,5 +1,5 @@
-//#include <Rcpp.h>
-#include <Eigen>
+#include <Rcpp.h>
+#include <RcppEigen.h>
 #include <math.h>
 #include "grid.h"
 
@@ -162,31 +162,27 @@ Eigen::VectorXd homogeneous_Lf(const Ref<const Eigen::VectorXd>& f_,
 }
 
 //implicit multiplication by the Laplacian with homogeneous diffusion
-//[[Rcpp::export]]
-Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
-	int rows,
-	int cols,
-	Eigen::VectorXi& internalPoints_,
-	bool dirichlet = true,
-	double lengthX = 1,
-	double lengthY = 1) {
+Eigen::VectorXd general_Homogeneous_Lf(VectorXd& f_,
+	Grid& grid,
+	bool dirichlet = true) {
 	VectorXd b_;
-	b_.setZero(rows * cols);
+	b_.setZero(grid.nInternal);
 
-	Map<MatrixXi> internal(internalPoints_.data(), rows, cols);
+	Map<MatrixXi> internalMatrix(grid.internalPoints.data(), grid.rows, grid.cols);
+	Ref<MatrixXi> internal = internalMatrix.block(1, 1, grid.rows_internal, grid.cols_internal);
 
 	double h_y, h_x;
-	h_y = lengthY / (rows + 1);
-	h_x = lengthX / (cols + 1);
+	h_y = grid.lengthY / (grid.rows_internal + 1);
+	h_x = grid.lengthX / (grid.cols_internal + 1);
 
 
 	//f and b implicitly defined as 0 on boundary points (Dirichlet) or with normal derivative 0 (Neumann)
-	Map<MatrixXd> f(f_.data(), rows, cols);
-	Map<MatrixXd> b(b_.data(), rows, cols);
+	Map<MatrixXd> f(f_.data(), grid.rows_internal, grid.cols_internal);
+	Map<MatrixXd> b(b_.data(), grid.rows_internal, grid.cols_internal);
 
 	//d2dx2
-	for (int j = 0; j < cols; j++) {
-		for (int i = 0; i < rows; i++) {
+	for (int j = 0; j < grid.cols_internal; j++) {
+		for (int i = 0; i < grid.rows_internal; i++) {
 			if (j == 0) {
 				//Dirichlet
 				if (dirichlet) {
@@ -197,7 +193,7 @@ Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
 					b(i, j) += internal(i, j) * (internal(i, j + 1) * (f(i, j + 1) - f(i, j))) / std::pow(h_x, 2);
 				}
 			}
-			if (j == (cols - 1)) {
+			if (j == (grid.cols_internal - 1)) {
 				//Dirichlet
 				if (dirichlet) {
 					b(i, j) += internal(i, j) * (internal(i, j - 1) * f(i, j - 1) - 2 * f(i, j)) / std::pow(h_x, 2);
@@ -207,7 +203,7 @@ Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
 					b(i, j) += internal(i, j) * (internal(i, j - 1) * (f(i, j - 1) - f(i, j))) / std::pow(h_x, 2);
 				}
 			}
-			if ((j > 0) & (j < (cols - 1))) {
+			if ((j > 0) & (j < (grid.cols_internal - 1))) {
 				//Dirichlet
 				if (dirichlet) {
 					b(i, j) += internal(i, j) * (internal(i, j + 1) * f(i, j + 1) + internal(i, j - 1) * f(i, j - 1) - 2 * f(i, j)) / std::pow(h_x, 2);
@@ -221,8 +217,8 @@ Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
 	}
 
 	//d2dy2
-	for (int j = 0; j < cols; j++) {
-		for (int i = 0; i < rows; i++) {
+	for (int j = 0; j < grid.cols_internal; j++) {
+		for (int i = 0; i < grid.rows_internal; i++) {
 			if (i == 0) {
 				//Dirichlet
 				if (dirichlet) {
@@ -233,7 +229,7 @@ Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
 					b(i, j) += internal(i, j) * (internal(i + 1, j) * (f(i + 1, j) - f(i, j))) / std::pow(h_y, 2);
 				}
 			}
-			if (i == (rows - 1)) {
+			if (i == (grid.rows_internal - 1)) {
 				//Dirichlet
 				if (dirichlet) {
 					b(i, j) += internal(i, j) * (internal(i - 1, j) * f(i - 1, j) - 2 * f(i, j)) / std::pow(h_y, 2);
@@ -242,7 +238,7 @@ Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
 					b(i, j) += internal(i, j) * (internal(i - 1, j) * (f(i - 1, j) - f(i, j))) / std::pow(h_y, 2);
 				}
 			}
-			if ((i > 0) & (i < (rows - 1))) {
+			if ((i > 0) & (i < (grid.rows_internal - 1))) {
 				//Dirichlet
 				if (dirichlet) {
 					b(i, j) += internal(i, j) * (internal(i + 1, j) * f(i + 1, j) + internal(i - 1, j) * f(i - 1, j) - 2 * f(i, j)) / std::pow(h_y, 2);
@@ -259,37 +255,33 @@ Eigen::VectorXd general_Homogeneous_Lf(Eigen::VectorXd& f_,
 
 
 //implicit multiplication by the Laplacian with homogeneous diffusion
-//[[Rcpp::export]]
-Eigen::VectorXd general_Fick_Lf(Eigen::VectorXd& mu_,
+Eigen::VectorXd general_Fick_Lf(const Ref<const VectorXd>& mu_,
 	Eigen::VectorXd& f_,
-	int rows,
-	int cols,
-	Eigen::VectorXi& internalPoints_,
-	bool dirichlet = true,
-	double lengthX = 1,
-	double lengthY = 1) {
+	Grid& grid,
+	bool dirichlet = true) {
 	VectorXd b_;
-	b_.setZero(rows * cols);
+	b_.setZero(grid.nInternal);
 
 
-	Map<MatrixXi> internal(internalPoints_.data(), rows, cols);
+	Map<MatrixXi> internalMatrix(grid.internalPoints.data(), grid.rows, grid.cols);
+	Ref<MatrixXi> internal = internalMatrix.block(1, 1, grid.rows_internal, grid.cols_internal);
 
 	double h_y, h_x;
-	h_y = lengthY / (rows + 1);
-	h_x = lengthX / (cols + 1);
+	h_y = grid.lengthY / (grid.rows_internal + 1);
+	h_x = grid.lengthX / (grid.cols_internal + 1);
 
 	//use value of diffusion coefficient for boundary cells
-	Map<MatrixXd> mu(mu_.data(), rows + 2, cols + 2);
+	const Map<const MatrixXd> mu(mu_.data(), grid.rows, grid.cols);
 
 	//f and b implicitly defined as 0 on boundary points
-	Map<MatrixXd> f(f_.data(), rows, cols);
-	Map<MatrixXd> b(b_.data(), rows, cols);
+	Map<MatrixXd> f(f_.data(), grid.rows_internal, grid.cols_internal);
+	Map<MatrixXd> b(b_.data(), grid.rows_internal, grid.cols_internal);
 
 	//Fickian diffusion
 
 	//d2dx2
-	for (int j = 0; j < cols; j++) {
-		for (int i = 0; i < rows; i++) {
+	for (int j = 0; j < grid.cols_internal; j++) {
+		for (int i = 0; i < grid.rows_internal; i++) {
 			double leftMu, rightMu;
 
 			//note: mu contains the boundary points, in particular
@@ -307,7 +299,7 @@ Eigen::VectorXd general_Fick_Lf(Eigen::VectorXd& mu_,
 					b(i, j) += internal(i, j) * (internal(i, j + 1) * rightMu * (f(i, j + 1) - f(i, j))) / std::pow(h_x, 2);
 				}
 			}
-			if (j == (cols - 1)) {
+			if (j == (grid.cols_internal - 1)) {
 				//Dirichlet
 				if (dirichlet) {
 					b(i, j) += internal(i, j) * (internal(i, j - 1) * leftMu * f(i, j - 1) - (leftMu + rightMu) * f(i, j)) / std::pow(h_x, 2);
@@ -317,7 +309,7 @@ Eigen::VectorXd general_Fick_Lf(Eigen::VectorXd& mu_,
 					b(i, j) += internal(i, j) * (internal(i, j - 1) * leftMu * (f(i, j - 1) - f(i, j))) / std::pow(h_x, 2);
 				}
 			}
-			if ((j > 0) & (j < (cols - 1))) {
+			if ((j > 0) & (j < (grid.cols_internal - 1))) {
 				//Dirichlet
 				if (dirichlet) {
 					b(i, j) += internal(i, j) * (internal(i, j + 1) * rightMu * f(i, j + 1) + internal(i, j - 1) * leftMu * f(i, j - 1) - (leftMu + rightMu) * f(i, j)) / std::pow(h_x, 2);
@@ -331,8 +323,8 @@ Eigen::VectorXd general_Fick_Lf(Eigen::VectorXd& mu_,
 	}
 
 	//d2dy2
-	for (int j = 0; j < cols; j++) {
-		for (int i = 0; i < rows; i++) {
+	for (int j = 0; j < grid.cols_internal; j++) {
+		for (int i = 0; i < grid.rows_internal; i++) {
 
 			double upperMu, lowerMu;
 			upperMu = (mu(i, j + 1) + mu(i + 1, j + 1)) / 2;
@@ -348,7 +340,7 @@ Eigen::VectorXd general_Fick_Lf(Eigen::VectorXd& mu_,
 					b(i, j) += internal(i, j) * (internal(i + 1, j) * lowerMu * (f(i + 1, j) - f(i, j))) / std::pow(h_y, 2);
 				}
 			}
-			if (i == (rows - 1)) {
+			if (i == (grid.rows_internal - 1)) {
 				//Dirichlet
 				if (dirichlet) {
 					b(i, j) += internal(i, j) * (internal(i - 1, j) * upperMu * f(i - 1, j) - (lowerMu + upperMu) * f(i, j)) / std::pow(h_y, 2);
@@ -357,7 +349,7 @@ Eigen::VectorXd general_Fick_Lf(Eigen::VectorXd& mu_,
 					b(i, j) += internal(i, j) * (internal(i - 1, j) * upperMu * (f(i - 1, j) - f(i, j))) / std::pow(h_y, 2);
 				}
 			}
-			if ((i > 0) & (i < (rows - 1))) {
+			if ((i > 0) & (i < (grid.rows_internal - 1))) {
 				//Dirichlet
 				if (dirichlet) {
 					b(i, j) += internal(i, j) * (internal(i + 1, j) * lowerMu * f(i + 1, j) + internal(i - 1, j) * upperMu * f(i - 1, j) - (lowerMu + upperMu) * f(i, j)) / std::pow(h_y, 2);

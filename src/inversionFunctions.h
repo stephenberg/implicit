@@ -25,6 +25,8 @@ Eigen::VectorXd invert(Grid& grid,
                        bool debug=false){
   
   int N = grid.nInternal;
+
+  bool regularGrid=false;
   
   Eigen::VectorXd r(N),p(N),y(N),Ap(N);
   
@@ -43,16 +45,34 @@ Eigen::VectorXd invert(Grid& grid,
                Ap.data(),
                y.data());
   if (diffusionType==1){
-    r=internalMu_inverse.asDiagonal()*x
-    -homogeneous_Lf(x,grid,dirichlet)-b;
+	  if (regularGrid) {
+		  r = internalMu_inverse.asDiagonal() * x
+			  - homogeneous_Lf(x, grid, dirichlet) - b;
+	  }
+	  else {
+		  r = internalMu_inverse.asDiagonal() * x
+			  - general_Homogeneous_Lf(x, grid, dirichlet) - b;
+	  }
   }
   if (diffusionType==0){
-    r=x-fick_Lf(mu,x,grid,dirichlet)-b;
+	  if (regularGrid) {
+		  r = x - fick_Lf(mu, x, grid, dirichlet) - b;
+	  }
+	  else {
+		  r = x - general_Fick_Lf(mu, x, grid, dirichlet) - b;
+	  }
   }
   if (diffusionType==-1){
-    r=internalMu_inverse.asDiagonal()*x-
-      homogeneous_Lf(x,grid,dirichlet)-
-      internalMu_inverse.asDiagonal()*b;
+	  if (regularGrid){
+		  r = internalMu_inverse.asDiagonal() * x -
+			  homogeneous_Lf(x, grid, dirichlet) -
+			  internalMu_inverse.asDiagonal() * b;
+	  }
+	  else {
+		  r = internalMu_inverse.asDiagonal() * x -
+			  general_Homogeneous_Lf(x, grid, dirichlet) -
+			  internalMu_inverse.asDiagonal() * b;
+	  }
   }
   
   
@@ -72,15 +92,32 @@ Eigen::VectorXd invert(Grid& grid,
   int count=0;
   while ((r_norm>tol)& (count<nIter)){
     if (diffusionType==1){
-      Ap=internalMu_inverse.asDiagonal()*p
-      -homogeneous_Lf(p,grid,dirichlet);
+		if (regularGrid) {
+			Ap = internalMu_inverse.asDiagonal() * p
+				- homogeneous_Lf(p, grid, dirichlet);
+		}
+		else {
+			Ap = internalMu_inverse.asDiagonal() * p
+				- general_Homogeneous_Lf(p, grid, dirichlet);
+		}
     }
     if (diffusionType==0){
-      Ap=p-fick_Lf(mu,p,grid,dirichlet);
+		if (regularGrid) {
+			Ap = p - fick_Lf(mu, p, grid, dirichlet);
+		}
+		else {
+			Ap = p - general_Fick_Lf(mu, p, grid, dirichlet);
+		}
     }
     if (diffusionType==-1){
-      Ap=internalMu_inverse.asDiagonal()*p
-      -homogeneous_Lf(p,grid,dirichlet);
+		if (regularGrid) {
+			Ap = internalMu_inverse.asDiagonal() * p
+				- homogeneous_Lf(p, grid, dirichlet);
+		}
+		else {
+			Ap = internalMu_inverse.asDiagonal() * p
+				- general_Homogeneous_Lf(p, grid, dirichlet);
+		}
     }
     double alpha=alphaNum/((p.adjoint()*Ap)(0));
     x=x+alpha*p;
