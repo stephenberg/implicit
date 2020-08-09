@@ -46,6 +46,55 @@ Eigen::MatrixXd computeDiffusion(double mu_0_,
   return diffusion.get_u();
 }
 
+//[[Rcpp::export]]
+Eigen::MatrixXd computeDiffusion_NR(double mu_0_,
+	Eigen::VectorXd alpha_,
+	Eigen::VectorXd gamma_,
+	Eigen::VectorXd longLat_,
+	double sigma_,
+	double kappa_,
+	Eigen::MatrixXd coords_,
+	Eigen::MatrixXd X_diffusion_,
+	Eigen::MatrixXd X_reaction_,
+	int rows_,
+	int cols_,
+	Eigen::VectorXi internalPoints_,
+	int nTime_,
+	int diffusionType_,
+	bool dirichlet_ = true,
+	double lengthX_ = 1,
+	double lengthY_ = 1,
+	bool pad = true) {
+
+	KF_diffusion diffusion(mu_0_,
+		alpha_,
+		gamma_,
+		longLat_,
+		sigma_,
+		kappa_,
+		coords_,
+		X_diffusion_,
+		X_reaction_,
+		rows_,
+		cols_,
+		internalPoints_,
+		nTime_,
+		diffusionType_,
+		dirichlet_,
+		lengthX_,
+		lengthY_);
+	diffusion.computeDiffusion();
+	if (pad) {
+		Eigen::MatrixXd u((rows_) * (cols_), nTime_);
+		u = diffusion.get_u();
+
+		Eigen::MatrixXd u_padded((rows_ + 2) * (cols_ + 2), nTime_);
+		u_padded = diffusion.padDiffusion(u);
+		return u_padded;
+	}
+	return diffusion.get_u();
+}
+
 
 //[[Rcpp::export]]
 std::vector<Eigen::MatrixXd> du_dmu(double mu_0_,

@@ -1,5 +1,5 @@
 setwd("E:/implicit/")
-source("misc/diffusion.R")
+rm(list=ls())
 load("misc/setup.RData")
 library(sf)
 

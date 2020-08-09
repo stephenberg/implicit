@@ -3,8 +3,8 @@
 
 
 #include <iostream>
-#include <Rcpp.h>
-#include <RcppEigen.h>
+//#include <Rcpp.h>
+#include <Eigen>
 #include "fftPlan.h"
 #include "multiplyByLaplacian.h"
 #include "grid.h"
@@ -25,8 +25,6 @@ Eigen::VectorXd invert(Grid& grid,
                        bool debug=false){
   
   int N = grid.nInternal;
-
-  bool regularGrid=false;
   
   Eigen::VectorXd r(N),p(N),y(N),Ap(N);
   
@@ -35,9 +33,9 @@ Eigen::VectorXd invert(Grid& grid,
   const Map<const MatrixXd> muMatrix(mu.data(),grid.rows,grid.cols);
   MatrixXd internalMuMatrix(muMatrix.block(1,1,grid.rows_internal,grid.cols_internal).array().pow(-1.0));
   Map<VectorXd> internalMu_inverse(internalMuMatrix.data(),grid.nInternal);
-  double delta = std::pow(internalMu_inverse.array().sum() / (grid.nInternal), -1);
+  double delta = std::pow(internalMu_inverse.array().sum() / (grid.internalPoints.array().sum()), -1);
 
-  if (debug) Rcout<<"delta="<<delta<<"\n";
+  if (debug) std::cout<<"delta="<<delta<<"\n";
   int temp=0;
   fftPlan plan(grid.rows_internal,
                grid.cols_internal,
@@ -45,7 +43,7 @@ Eigen::VectorXd invert(Grid& grid,
                Ap.data(),
                y.data());
   if (diffusionType==1){
-	  if (regularGrid) {
+	  if (grid.regularGrid) {
 		  r = internalMu_inverse.asDiagonal() * x
 			  - homogeneous_Lf(x, grid, dirichlet) - b;
 	  }
@@ -55,7 +53,7 @@ Eigen::VectorXd invert(Grid& grid,
 	  }
   }
   if (diffusionType==0){
-	  if (regularGrid) {
+	  if (grid.regularGrid) {
 		  r = x - fick_Lf(mu, x, grid, dirichlet) - b;
 	  }
 	  else {
@@ -63,7 +61,7 @@ Eigen::VectorXd invert(Grid& grid,
 	  }
   }
   if (diffusionType==-1){
-	  if (regularGrid){
+	  if (grid.regularGrid){
 		  r = internalMu_inverse.asDiagonal() * x -
 			  homogeneous_Lf(x, grid, dirichlet) -
 			  internalMu_inverse.asDiagonal() * b;
@@ -77,11 +75,11 @@ Eigen::VectorXd invert(Grid& grid,
   
   
   if (preconditionerType==0){
-    if (debug) Rcout<<"Preconditioning by L^{-1}"<<"\n";
+    if (debug) std::cout<<"Preconditioning by L^{-1}"<<"\n";
     plan.multiplyBy_pow_neg_A(-1.0,grid.lengthX,grid.lengthY);
   }
   else{
-    if (debug) Rcout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
+    if (debug) std::cout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
     plan.multiplyBy_I_A_inverse(grid.lengthX,grid.lengthY,delta);
   }
   
@@ -92,7 +90,7 @@ Eigen::VectorXd invert(Grid& grid,
   int count=0;
   while ((r_norm>tol)& (count<nIter)){
     if (diffusionType==1){
-		if (regularGrid) {
+		if (grid.regularGrid) {
 			Ap = internalMu_inverse.asDiagonal() * p
 				- homogeneous_Lf(p, grid, dirichlet);
 		}
@@ -102,7 +100,7 @@ Eigen::VectorXd invert(Grid& grid,
 		}
     }
     if (diffusionType==0){
-		if (regularGrid) {
+		if (grid.regularGrid) {
 			Ap = p - fick_Lf(mu, p, grid, dirichlet);
 		}
 		else {
@@ -110,7 +108,7 @@ Eigen::VectorXd invert(Grid& grid,
 		}
     }
     if (diffusionType==-1){
-		if (regularGrid) {
+		if (grid.regularGrid) {
 			Ap = internalMu_inverse.asDiagonal() * p
 				- homogeneous_Lf(p, grid, dirichlet);
 		}
@@ -124,11 +122,11 @@ Eigen::VectorXd invert(Grid& grid,
     r=r+alpha*Ap;
     
     if (preconditionerType==0){
-      if (debug) Rcout<<"Preconditioning by L^{-1}"<<"\n";
+      if (debug) std::cout<<"Preconditioning by L^{-1}"<<"\n";
       plan.multiplyBy_pow_neg_A(-1.0,grid.lengthX,grid.lengthY);
     }
     else{
-      if (debug) Rcout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
+      if (debug) std::cout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
       plan.multiplyBy_I_A_inverse(grid.lengthX,grid.lengthY,delta);
     }
     
@@ -139,8 +137,8 @@ Eigen::VectorXd invert(Grid& grid,
     count+=1;
     
     if (debug){
-      Rcout<<"iter "<<count<<"\n";
-      Rcout<<"norm "<<r_norm<<"\n\n";
+      std::cout<<"iter "<<count<<"\n";
+      std::cout<<"norm "<<r_norm<<"\n\n";
     }
   }
   if (diffusionType==1){

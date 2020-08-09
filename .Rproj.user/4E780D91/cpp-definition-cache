@@ -6,7 +6,7 @@
     },
     {
         "file": "E:/implicit/src/convenienceFunctions.h",
-        "file_last_write": 1596935321.0,
+        "file_last_write": 1596944836.0,
         "definitions": [
             {
                 "usr": "c:@F@logit#d#",
@@ -30,7 +30,7 @@
     },
     {
         "file": "E:/implicit/src/dst1.cpp",
-        "file_last_write": 1596935322.0,
+        "file_last_write": 1596944837.0,
         "definitions": [
             {
                 "usr": "c:@F@dst1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
@@ -54,7 +54,7 @@
     },
     {
         "file": "E:/implicit/src/fftPlan.h",
-        "file_last_write": 1596935322.0,
+        "file_last_write": 1596944837.0,
         "definitions": [
             {
                 "usr": "c:@S@fftPlan",
@@ -114,7 +114,7 @@
     },
     {
         "file": "E:/implicit/src/grid.h",
-        "file_last_write": 1596935322.0,
+        "file_last_write": 1596944837.0,
         "definitions": [
             {
                 "usr": "c:@S@Grid",
@@ -129,7 +129,7 @@
     },
     {
         "file": "E:/implicit/src/inversionFunctions.h",
-        "file_last_write": 1596935412.0,
+        "file_last_write": 1596944837.0,
         "definitions": [
             {
                 "usr": "c:@F@invert#&$@S@Grid#&1$@N@Eigen@S@Ref>#1$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI0#$@N@Eigen@S@InnerStride>#VI1#&S4_#S6_#I#I#d#I#b#b#",
@@ -144,7 +144,7 @@
     },
     {
         "file": "E:/implicit/src/kf_diffusion.h",
-        "file_last_write": 1596935322.0,
+        "file_last_write": 1596944837.0,
         "definitions": [
             {
                 "usr": "c:@S@KF_diffusion",
@@ -170,7 +170,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "computeDiffusion(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 301,
+                "line": 303,
                 "column": 8
             },
             {
@@ -179,7 +179,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "logLikelihood",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 329,
+                "line": 332,
                 "column": 10
             },
             {
@@ -188,7 +188,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dmu(int, int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 354,
+                "line": 357,
                 "column": 12
             },
             {
@@ -197,7 +197,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dgamma(int, int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 407,
+                "line": 408,
                 "column": 12
             },
             {
@@ -206,7 +206,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dlongLat(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 440,
+                "line": 441,
                 "column": 25
             },
             {
@@ -224,7 +224,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "du_dkappa(int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 542,
+                "line": 541,
                 "column": 12
             },
             {
@@ -233,7 +233,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "dl_dEta",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 589,
+                "line": 587,
                 "column": 12
             },
             {
@@ -242,7 +242,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "dl_du(Eigen::MatrixXd &)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 614,
+                "line": 612,
                 "column": 10
             },
             {
@@ -251,7 +251,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "padDiffusion(Eigen::MatrixXd &)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 642,
+                "line": 640,
                 "column": 12
             },
             {
@@ -260,7 +260,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "differentiateLogLikelihood",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 665,
+                "line": 663,
                 "column": 12
             },
             {
@@ -269,7 +269,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "get_u",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 724,
+                "line": 722,
                 "column": 12
             },
             {
@@ -278,7 +278,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "time_i_covariate(Eigen::MatrixXd &, int, int)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 728,
+                "line": 726,
                 "column": 17
             },
             {
@@ -287,7 +287,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "drhs_dut_1(Eigen::MatrixXd &, Map<Eigen::VectorXd>, int)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 734,
+                "line": 732,
                 "column": 12
             },
             {
@@ -296,7 +296,7 @@
                 "parent_name": "KF_diffusion",
                 "name": "laplacianMultiply(const Ref<const Eigen::VectorXd> &, Eigen::VectorXd &)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 743,
+                "line": 741,
                 "column": 12
             },
             {
@@ -305,14 +305,14 @@
                 "parent_name": "KF_diffusion",
                 "name": "solver(const Ref<const Eigen::VectorXd> &, Eigen::VectorXd &, Eigen::VectorXd &, int, double)",
                 "file": "E:/implicit/src/kf_diffusion.h",
-                "line": 758,
+                "line": 756,
                 "column": 12
             }
         ]
     },
     {
         "file": "E:/implicit/src/modelFitting.cpp",
-        "file_last_write": 1596912172.0,
+        "file_last_write": 1596937826.0,
         "definitions": [
             {
                 "usr": "c:@F@computeDiffusion#d#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#d#d#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#S1_#I#I#I#I#b#d#d#b#",
@@ -324,12 +324,21 @@
                 "column": 17
             },
             {
+                "usr": "c:@F@computeDiffusion_NR#d#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#d#d#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#S1_#I#I#$@N@Eigen@S@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "computeDiffusion_NR(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, int, int, Eigen::VectorXi, int, int, bool, double, double, bool)",
+                "file": "E:/implicit/src/modelFitting.cpp",
+                "line": 50,
+                "column": 17
+            },
+            {
                 "usr": "c:@F@du_dmu#d#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#d#d#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#S1_#I#I#I#I#b#d#d#b#",
                 "kind": 6,
                 "parent_name": "",
                 "name": "du_dmu(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
                 "file": "E:/implicit/src/modelFitting.cpp",
-                "line": 51,
+                "line": 100,
                 "column": 30
             },
             {
@@ -338,7 +347,7 @@
                 "parent_name": "",
                 "name": "du_dkappa(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
                 "file": "E:/implicit/src/modelFitting.cpp",
-                "line": 113,
+                "line": 162,
                 "column": 17
             },
             {
@@ -347,7 +356,7 @@
                 "parent_name": "",
                 "name": "du_dsigma(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
                 "file": "E:/implicit/src/modelFitting.cpp",
-                "line": 160,
+                "line": 209,
                 "column": 17
             },
             {
@@ -356,7 +365,7 @@
                 "parent_name": "",
                 "name": "du_dgamma(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
                 "file": "E:/implicit/src/modelFitting.cpp",
-                "line": 207,
+                "line": 256,
                 "column": 30
             },
             {
@@ -365,7 +374,7 @@
                 "parent_name": "",
                 "name": "du_dlongLat(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, int, int, int, int, bool, double, double, bool)",
                 "file": "E:/implicit/src/modelFitting.cpp",
-                "line": 259,
+                "line": 308,
                 "column": 30
             },
             {
@@ -374,7 +383,7 @@
                 "parent_name": "",
                 "name": "dl_dtheta(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::VectorXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, bool, double, double, bool)",
                 "file": "E:/implicit/src/modelFitting.cpp",
-                "line": 307,
+                "line": 356,
                 "column": 17
             },
             {
@@ -383,14 +392,14 @@
                 "parent_name": "",
                 "name": "loglikelihood(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::VectorXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, bool, double, double, bool)",
                 "file": "E:/implicit/src/modelFitting.cpp",
-                "line": 354,
+                "line": 403,
                 "column": 8
             }
         ]
     },
     {
         "file": "E:/implicit/src/multiplyByLaplacian.h",
-        "file_last_write": 1596935322.0,
+        "file_last_write": 1596944837.0,
         "definitions": [
             {
                 "usr": "c:@F@fick_Lf#&1$@N@Eigen@S@Ref>#1$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI0#$@N@Eigen@S@InnerStride>#VI1#&S2_#&$@S@Grid#b#",

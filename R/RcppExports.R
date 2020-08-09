@@ -9,6 +9,10 @@ computeDiffusion <- function(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, co
     .Call('_implicit_computeDiffusion', PACKAGE = 'implicit', mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
 }
 
+computeDiffusion_NR <- function(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, internalPoints_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_computeDiffusion_NR', PACKAGE = 'implicit', mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, internalPoints_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+
 du_dmu <- function(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
     .Call('_implicit_du_dmu', PACKAGE = 'implicit', mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, coords_, X_diffusion_, X_reaction_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
 }
