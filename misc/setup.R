@@ -1,4 +1,5 @@
 library(sf)
+library(Matrix)
 setwd("E:/implicit")
 source("misc/makeDesignMatrix.R")
 
@@ -106,4 +107,5 @@ save(mu_0,
      diffusionType,
      lengthX,
      lengthY,
+     y_internal,
      file="misc/setup.RData")

@@ -6,7 +6,7 @@
     },
     {
         "file": "E:/implicit/src/convenienceFunctions.h",
-        "file_last_write": 1596944836.0,
+        "file_last_write": 1596991054.0,
         "definitions": [
             {
                 "usr": "c:@F@logit#d#",
@@ -30,7 +30,7 @@
     },
     {
         "file": "E:/implicit/src/dst1.cpp",
-        "file_last_write": 1596944837.0,
+        "file_last_write": 1596991055.0,
         "definitions": [
             {
                 "usr": "c:@F@dst1#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#",
@@ -54,7 +54,7 @@
     },
     {
         "file": "E:/implicit/src/fftPlan.h",
-        "file_last_write": 1596944837.0,
+        "file_last_write": 1596991055.0,
         "definitions": [
             {
                 "usr": "c:@S@fftPlan",
@@ -114,7 +114,7 @@
     },
     {
         "file": "E:/implicit/src/grid.h",
-        "file_last_write": 1596944837.0,
+        "file_last_write": 1596991054.0,
         "definitions": [
             {
                 "usr": "c:@S@Grid",
@@ -129,7 +129,7 @@
     },
     {
         "file": "E:/implicit/src/inversionFunctions.h",
-        "file_last_write": 1596944837.0,
+        "file_last_write": 1596991055.0,
         "definitions": [
             {
                 "usr": "c:@F@invert#&$@S@Grid#&1$@N@Eigen@S@Ref>#1$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI0#$@N@Eigen@S@InnerStride>#VI1#&S4_#S6_#I#I#d#I#b#b#",
@@ -144,7 +144,7 @@
     },
     {
         "file": "E:/implicit/src/kf_diffusion.h",
-        "file_last_write": 1596944837.0,
+        "file_last_write": 1596991055.0,
         "definitions": [
             {
                 "usr": "c:@S@KF_diffusion",
@@ -312,7 +312,7 @@
     },
     {
         "file": "E:/implicit/src/modelFitting.cpp",
-        "file_last_write": 1596937826.0,
+        "file_last_write": 1596998190.0,
         "definitions": [
             {
                 "usr": "c:@F@computeDiffusion#d#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#d#d#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#S1_#I#I#I#I#b#d#d#b#",
@@ -394,12 +394,21 @@
                 "file": "E:/implicit/src/modelFitting.cpp",
                 "line": 403,
                 "column": 8
+            },
+            {
+                "usr": "c:@F@getPredictions#d#$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S0_#S0_#d#d#S0_#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S1_#S1_#S1_#$@N@Eigen@S@Matrix>#I#VI-1#VI1#VI0#VI-1#VI1#S2_#S2_#I#I#I#I#b#d#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "getPredictions(double, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, double, double, Eigen::VectorXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXi, Eigen::VectorXi, Eigen::VectorXi, int, int, int, int, bool, double, double, bool)",
+                "file": "E:/implicit/src/modelFitting.cpp",
+                "line": 452,
+                "column": 12
             }
         ]
     },
     {
         "file": "E:/implicit/src/multiplyByLaplacian.h",
-        "file_last_write": 1596944837.0,
+        "file_last_write": 1596991055.0,
         "definitions": [
             {
                 "usr": "c:@F@fick_Lf#&1$@N@Eigen@S@Ref>#1$@N@Eigen@S@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#VI0#$@N@Eigen@S@InnerStride>#VI1#&S2_#&$@S@Grid#b#",

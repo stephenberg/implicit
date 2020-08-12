@@ -4,7 +4,7 @@
 #define __GRID__
 
 
-#include <Eigen>
+#include <RcppEigen.h>
 
 //container class for quantities relating to a 2d spatial grid
 class Grid {

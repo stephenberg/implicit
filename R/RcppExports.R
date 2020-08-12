@@ -41,3 +41,7 @@ loglikelihood <- function(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, eta_,
     .Call('_implicit_loglikelihood', PACKAGE = 'implicit', mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_diffusion_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
 }
 
+getPredictions <- function(mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_diffusion_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_ = TRUE, lengthX_ = 1, lengthY_ = 1, pad = TRUE) {
+    .Call('_implicit_getPredictions', PACKAGE = 'implicit', mu_0_, alpha_, gamma_, longLat_, sigma_, kappa_, eta_, coords_, X_diffusion_, X_reaction_, X_individual_, cell_, positive_, time_, rows_, cols_, nTime_, diffusionType_, dirichlet_, lengthX_, lengthY_, pad)
+}
+

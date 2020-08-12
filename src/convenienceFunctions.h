@@ -1,4 +1,4 @@
-#include <Eigen>
+#include <RcppEigen.h>
 #include <math.h>
 #ifndef __CONVENIENCE__
 #define __CONVENIENCE__

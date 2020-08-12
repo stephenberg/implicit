@@ -3,8 +3,8 @@
 
 
 #include <iostream>
-//#include <Rcpp.h>
-#include <Eigen>
+#include <Rcpp.h>
+#include <RcppEigen.h>
 #include "fftPlan.h"
 #include "multiplyByLaplacian.h"
 #include "grid.h"
@@ -35,7 +35,7 @@ Eigen::VectorXd invert(Grid& grid,
   Map<VectorXd> internalMu_inverse(internalMuMatrix.data(),grid.nInternal);
   double delta = std::pow(internalMu_inverse.array().sum() / (grid.internalPoints.array().sum()), -1);
 
-  if (debug) std::cout<<"delta="<<delta<<"\n";
+  if (debug) Rcout<<"delta="<<delta<<"\n";
   int temp=0;
   fftPlan plan(grid.rows_internal,
                grid.cols_internal,
@@ -75,11 +75,11 @@ Eigen::VectorXd invert(Grid& grid,
   
   
   if (preconditionerType==0){
-    if (debug) std::cout<<"Preconditioning by L^{-1}"<<"\n";
+    if (debug) Rcout<<"Preconditioning by L^{-1}"<<"\n";
     plan.multiplyBy_pow_neg_A(-1.0,grid.lengthX,grid.lengthY);
   }
   else{
-    if (debug) std::cout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
+    if (debug) Rcout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
     plan.multiplyBy_I_A_inverse(grid.lengthX,grid.lengthY,delta);
   }
   
@@ -122,11 +122,11 @@ Eigen::VectorXd invert(Grid& grid,
     r=r+alpha*Ap;
     
     if (preconditionerType==0){
-      if (debug) std::cout<<"Preconditioning by L^{-1}"<<"\n";
+      if (debug) Rcout<<"Preconditioning by L^{-1}"<<"\n";
       plan.multiplyBy_pow_neg_A(-1.0,grid.lengthX,grid.lengthY);
     }
     else{
-      if (debug) std::cout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
+      if (debug) Rcout<<"Preconditioning by (I-delta\\cdot L)^{-1}"<<"\n";
       plan.multiplyBy_I_A_inverse(grid.lengthX,grid.lengthY,delta);
     }
     
@@ -137,8 +137,8 @@ Eigen::VectorXd invert(Grid& grid,
     count+=1;
     
     if (debug){
-      std::cout<<"iter "<<count<<"\n";
-      std::cout<<"norm "<<r_norm<<"\n\n";
+      Rcout<<"iter "<<count<<"\n";
+      Rcout<<"norm "<<r_norm<<"\n\n";
     }
   }
   if (diffusionType==1){

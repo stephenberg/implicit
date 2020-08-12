@@ -4,7 +4,7 @@ Title: Estimate PDE coefficients
 Version: 1.0
 Date: 2019-07-22
 Author: Stephen Berg
-Maintainer: Stephen Berg <saberg2@wisc.edu>
+Maintainer: Stephen Berg <sqb6128@psu.edu>
 Description: Fits diffusion PDE model for binary response data.
 License: GPL-3
 Imports: Rcpp (>= 1.0.1), RcppEigen (>= 0.3.3.5.0)

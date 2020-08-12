@@ -447,3 +447,65 @@ double loglikelihood(double mu_0_,
   
   return diffusion.logLikelihood();
 }
+
+//[[Rcpp::export]]
+Rcpp::List getPredictions(double mu_0_,
+	Eigen::VectorXd alpha_,
+	Eigen::VectorXd gamma_,
+	Eigen::VectorXd longLat_,
+	double sigma_,
+	double kappa_,
+	Eigen::VectorXd eta_,
+	Eigen::MatrixXd coords_,
+	Eigen::MatrixXd X_diffusion_,
+	Eigen::MatrixXd X_reaction_,
+	Eigen::MatrixXd X_individual_,
+	Eigen::VectorXi cell_,
+	Eigen::VectorXi positive_,
+	Eigen::VectorXi time_,
+	int rows_,
+	int cols_,
+	int nTime_,
+	int diffusionType_,
+	bool dirichlet_ = true,
+	double lengthX_ = 1,
+	double lengthY_ = 1,
+	bool pad = true) {
+	KF_diffusion diffusion(mu_0_,
+		alpha_,
+		gamma_,
+		longLat_,
+		sigma_,
+		kappa_,
+		eta_,
+		coords_,
+		X_diffusion_,
+		X_reaction_,
+		X_individual_,
+		cell_,
+		positive_,
+		time_,
+		rows_,
+		cols_,
+		nTime_,
+		diffusionType_,
+		dirichlet_,
+		lengthX_,
+		lengthY_);
+
+
+	diffusion.computeDiffusion();
+	VectorXd rawProbabilities(cell_.size());
+	VectorXd adjustedProbabilities(cell_.size());
+	MatrixXd u(diffusion.get_u());
+	VectorXd shifts(X_individual_ * eta_);
+	for (int i = 0; i < cell_.size(); i++) {
+		double rawProbability_i = u(cell_(i), time_(i));
+		double logit_i = logit(rawProbability_i);
+		double logitAdjusted_i = logit_i + shifts(i);
+		rawProbabilities(i) = rawProbability_i;
+		adjustedProbabilities(i) = expit(logitAdjusted_i);
+	}
+	return Rcpp::List::create(Rcpp::Named("rawProbabilities")=rawProbabilities,
+		                      Rcpp::Named("adjustedProbabilities")=adjustedProbabilities);
+}

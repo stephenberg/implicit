@@ -1,5 +1,5 @@
-//#include <Rcpp.h>
-#include <Eigen>
+#include <Rcpp.h>
+#include <RcppEigen.h>
 #include <math.h>
 #include "grid.h"
 

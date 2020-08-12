@@ -1,11 +1,11 @@
-//#include <Rcpp.h>
-#include <Eigen>
+#include <Rcpp.h>
+#include <RcppEigen.h>
 #include "fftPlan.h"
 #include "convenienceFunctions.h"
 #include "inversionFunctions.h"
 #include "grid.h"
 
-//using namespace Rcpp;
+using namespace Rcpp;
 using namespace Eigen;
 
 class KF_diffusion
@@ -300,7 +300,7 @@ public:
     u0_map=init.block(1,1,grid.rows_internal,grid.cols_internal);
   }
   
-  void computeDiffusion(int nIter=200,double tol=1.0e-16){
+  void computeDiffusion(int nIter=400,double tol=1.0e-12){
     if (computed) return;
     
     VectorXd rhs(grid.nInternal);
@@ -354,7 +354,7 @@ public:
   
   
   //derivative of diffusion wrt mu_0/alpha
-  MatrixXd du_dmu(int covariateIndex = -1,int nIter=200,double tol=1.0e-16){
+  MatrixXd du_dmu(int covariateIndex = -1,int nIter=400,double tol=1.0e-12){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -405,7 +405,7 @@ public:
   }
   
   //derivative of diffusion with respect to gamma
-  MatrixXd du_dgamma(int covariateIndex=-1,int nIter=200,double tol=1.0e-16){
+  MatrixXd du_dgamma(int covariateIndex=-1,int nIter=400,double tol=1.0e-12){
     computeDiffusion();
     MatrixXd du_dTheta;
     du_dTheta.setZero(grid.nInternal,nTime);
@@ -438,7 +438,7 @@ public:
     return du_dTheta;
   }
   
-  std::vector<MatrixXd> du_dlongLat(int nIter=200,double tol=1.0e-16){
+  std::vector<MatrixXd> du_dlongLat(int nIter=400,double tol=1.0e-12){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -491,7 +491,7 @@ public:
     return du_dTheta_list;
   }
   
-  MatrixXd du_dsigma(int nIter=200,double tol=1.0e-16){
+  MatrixXd du_dsigma(int nIter=400,double tol=1.0e-12){
     computeDiffusion();
     
     MatrixXd du_dTheta;
@@ -538,7 +538,7 @@ public:
     return du_dTheta;
   }
 
-  MatrixXd du_dkappa(int nIter=200,double tol=1.0e-16){
+  MatrixXd du_dkappa(int nIter=400,double tol=1.0e-12){
     computeDiffusion();
     
     MatrixXd du_dTheta;
